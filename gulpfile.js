@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var pump = require('pump');
 var sass = require('gulp-sass');
-var connect = require('gulp-connect');
 var exec = require('child_process').exec;
 
 function runCommand(command) {
