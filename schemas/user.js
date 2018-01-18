@@ -5,7 +5,7 @@ var userSchema = new mongoose.Schema({
     email: {type: String, required: true},
     hometown: {type: String, required: true},
     pixels: {type: Number, required: true},
-    last_pixel_at: {type: Number}
+    last_pixel_at: {type: Number},
     boards: [String]
 });
 
