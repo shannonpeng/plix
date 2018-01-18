@@ -10,9 +10,18 @@ var users = require('./routes/users');
 
 var app = express();
 
+// database setup
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/plix');
+var connection = mongoose.connection;
+connection.on('error', console.error.bind(console, 'connection error:'));
+connection.on('connected', function() {
+  console.log('database connected!');
+});
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+var exphbs = require('express-handlebars');
+app.engine('.hbs', exphbs({extname: '.hbs'}));
+app.set('view engine', '.hbs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
