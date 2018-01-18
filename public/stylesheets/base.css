@@ -1,0 +1,23 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	font-family: 'Karla', sans-serif;
+	color: #404040;
+	overflow-x: hidden;
+}
+
+*, *:hover {
+  -webkit-transition: all 0.1s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out; }
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.title {
+	font-family: 'Fredoka One';
+	font-size: 3em;
+}

@@ -1,0 +1,29 @@
+body {
+	background: #8adefd;
+	color: white;
+}
+
+.container {
+	width: 80%;
+	height: 100%;
+	margin: auto;
+	display: flex;
+}
+
+.content {
+	width: 100%;
+	margin: auto;
+}
+
+.title {
+	text-align: center;
+}
+
+.button {
+	padding: 1em;
+	text-align: center;
+	margin: 0.5em auto;
+	background: #303030;
+	max-width: 180px;
+	border-radius: 0.5em;
+}
