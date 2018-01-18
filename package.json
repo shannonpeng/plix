@@ -11,8 +11,17 @@
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "express-handlebars": "^3.0.0",
+    "mongodb": "^3.0.1",
     "mongoose": "^5.0.0",
     "morgan": "~1.9.0",
     "serve-favicon": "~2.4.5"
+  },
+  "devDependencies": {
+    "child_process": "^1.0.2",
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.2.0",
+    "gulp-sass": "^3.1.0",
+    "mongod": "^2.0.0",
+    "pump": "^2.0.0"
   }
 }
