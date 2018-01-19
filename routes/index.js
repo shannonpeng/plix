@@ -1,19 +1,19 @@
-/* Imports */
+// Imports
 var express = require('express');
 var router = express.Router();
 
-/* Schemas */
+// Schemas
 var User = require('../schemas/user');
 var Board = require('../schemas/board');
 var Pixel = require('../schemas/pixel');
 
-/* GET home page. */
+// GET home page
 router.get('/', function(req, res, next) {
 	if (req.user) { res.redirect('/dashboard'); } // user logged in
 	else { res.render('index'); } // render landing page
 });
 
-/* GET dashboard. */
+// GET dashboard
 router.get('/dashboard', function(req, res, next) {
 	//if (req.user) { // user logged in
 		//var username = req.user.username;
