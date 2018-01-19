@@ -21,3 +21,14 @@ a {
 	font-family: 'Fredoka One';
 	font-size: 3em;
 }
+
+nav {
+	background: #8adefd;
+	text-align: center;
+	padding: 1em;
+	color: white;
+}
+
+nav h3 {
+	margin: 0 auto;
+}
