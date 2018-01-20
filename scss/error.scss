@@ -10,4 +10,9 @@
 .content {
 	width: 80%;
 	margin: auto;
+	text-transform: lowercase;
+}
+
+.title {
+	color: $red;
 }

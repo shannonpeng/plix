@@ -14,6 +14,7 @@ html, body {
 
 a {
 	color: inherit;
+	font-weight: bold;
 	text-decoration: none;
 }
 
@@ -23,7 +24,7 @@ a {
 }
 
 nav {
-	background: #8adefd;
+	background: #4dbcf8;
 	text-align: center;
 	padding: 1em;
 	color: white;

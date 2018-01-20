@@ -1,0 +1,29 @@
+$(document).ready(function () {
+
+    // Clouds
+    function randomSign() {
+        if (Math.random() < 0.5) { return -1; }
+        return 1;
+    }
+
+    const NUM_CLOUDS = 24;
+    const MAX_BOTTOM = 50;
+    const MAX_DELAY = 48; // seconds
+    const CLOUD_IMG_SRC = ["/images/cloud.png", "/images/doge.png", "/images/nyan.gif"];
+    const SPEEDS = ["slow-scroll", "medium-scroll", "fast-scroll"];
+    const SCALES = [0.4, 0.6, 0.8];
+
+    for (var i = 0; i < NUM_CLOUDS; i++) {
+        var bottom = 50 + randomSign()*(25+Math.floor(Math.random()*MAX_BOTTOM));
+        var delay = -1*Math.floor(Math.random()*MAX_DELAY*2*1000);
+        var speed = SPEEDS[i % 3];
+        var scale = SCALES[i % 3];
+        if (Math.random() < 0.95) {
+            $(".clouds").append("<img class='cloud " + speed + "' src='" + CLOUD_IMG_SRC[0] + "' style='bottom:" + bottom + "%;animation-delay:" + delay + "ms; transform: scale(" + scale + "); z-index: " + scale*10 + ";'/>");
+        }
+        else {
+            $(".clouds").append("<img class='cloud " + SPEEDS[1] + "' src='" + CLOUD_IMG_SRC[1 + (i % (CLOUD_IMG_SRC.length - 1))] + "' style='bottom:" + bottom + "%;animation-delay:" + delay + "ms; z-index: " + SCALES[1]*10 + ";'/>");
+        }
+        
+    }
+});

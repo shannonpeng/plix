@@ -1,7 +1,7 @@
 @import 'base';
 
 body {
-	background: #8adefd;
+	background: $blue;
 	color: white;
 }
 
@@ -10,11 +10,14 @@ body {
 	height: 100%;
 	margin: auto;
 	display: flex;
+	position: static;
+	z-index: 999;
 }
 
 .content {
 	width: 80%;
 	margin: auto;
+	text-align: center;
 }
 
 .title {
@@ -26,7 +29,29 @@ body {
 	padding: 1em;
 	text-align: center;
 	margin: 0.5em auto;
-	background: #bbbbbb;
+	background: $gray;
 	max-width: 180px;
 	border-radius: 0.5em;
+}
+
+.cloud {
+	position: absolute;
+	opacity: 0;
+}
+
+.slow-scroll {
+	animation: scroll 120000ms linear infinite;
+}
+
+.medium-scroll {
+	animation: scroll 80000ms linear infinite;
+}
+
+.fast-scroll {
+	animation: scroll 40000ms linear infinite;
+}
+
+@keyframes scroll {
+  0%{left: -100%; opacity: 1;}
+100%{left: 100%; opacity: 1;}
 }
