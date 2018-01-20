@@ -1,11 +1,11 @@
 // Imports
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 // Schemas
-var User = require('../schemas/user');
-var Board = require('../schemas/board');
-var Pixel = require('../schemas/pixel');
+const User = require('../schemas/user');
+const Board = require('../schemas/board');
+const Pixel = require('../schemas/pixel');
 
 // GET home page
 router.get('/', function(req, res, next) {
@@ -15,10 +15,9 @@ router.get('/', function(req, res, next) {
 
 // GET dashboard
 router.get('/dashboard', function(req, res, next) {
-	//if (req.user) { // user logged in
-		//var username = req.user.username;
-		var username = 'pengs'; // fake username, for testing
-		User.findOne({ username: username }, function(err, user) {
+	if (req.session.userId) { // user logged in
+		var userId = req.session.userId;
+		User.findOne({ _id: userId }, function(err, user) {
 			if (err) { console.log(err); }
 			else if (user) { // user found
 				var boards_contributed = [];
@@ -46,13 +45,13 @@ router.get('/dashboard', function(req, res, next) {
 				});
 			}
 			else { // no user found with given username
-				console.log('no user found with username: ' + username);
+				console.log('no user found with Id' + userId);
 			}
 		});
-	//}
-	/*else { // user not logged in
-		res.redirect('/');
-	}*/
+	}
+    else { // user not logged in
+		res.redirect('/login');
+	}
 });
 
 module.exports = router;

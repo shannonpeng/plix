@@ -1,3 +1,4 @@
+// Imports
 const express = require('express');
 const session = require('express-session')
 const User = require('../schemas/user.js');
@@ -28,7 +29,7 @@ router.post('/register', function(req, res, next) {
                 return next(error);
             } else {
                 req.session.userId = user._id;
-                return res.redirect('/');
+                return res.redirect('/dashboard');
             }
         });
     } else {
@@ -53,7 +54,7 @@ router.post('/login', function(req, res, next) {
                 return next(error);
             } else {
                 req.session.userId = user._id;
-                return res.redirect('/')
+                return res.redirect('/dashboard')
             }
         });
     } else {
