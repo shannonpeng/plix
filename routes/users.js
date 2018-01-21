@@ -6,10 +6,9 @@ const User = require('../schemas/user.js');
 const MongoStore = require('connect-mongo')(session);
 const router = express.Router();
 
-// Register routes
+// GET register
 router.get('/register', function(req, res, next) {
   res.render('register', { title: 'Register' });
-  // res.send('respond with a resource');
 });
 
 // POST create new user
@@ -40,11 +39,12 @@ router.post('/register', function(req, res, next) {
     }
 });
 
-// Login routes
+// GET login
 router.get('/login', function(req, res, next){
     res.render('login', { title: 'Login' });
 });
 
+// POST login
 router.post('/login', function(req, res, next) {
     if (req.body.username && req.body.password) {
         User.authenticate(req.body.username, req.body.password, function(err, user) {
@@ -65,7 +65,7 @@ router.post('/login', function(req, res, next) {
     }
 });
 
-// Logout routes
+// GET logout
 router.get('/logout', function(req, res, next){
     if (req.session) {
         req.session.destroy(function(err){

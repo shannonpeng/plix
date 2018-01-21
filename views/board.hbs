@@ -1,0 +1,28 @@
+{{>head stylesheet="board" title="board"}}
+
+    <body>
+
+    {{>navbar}}
+
+    <div id="dashboard">
+        <div class="container">
+            <div class="content">
+                {{ board.name }}
+                <div class="board">
+                    {{#each blocks}}
+                        <div class="row">
+                        {{#each y}}
+                            <div class="block" id="{{x}}, {{y}}" style="background-color: {{hex}}">
+                                <!-- {{x}}, {{y}} -->
+                            </div>
+                        {{/each}}
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </body>
+
+</html>
