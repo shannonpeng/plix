@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
 router.get('/dashboard', function(req, res, next) {
 	if (req.session.userId) { // user logged in
 		var userId = req.session.userId;
-		User.findOne({ _id: userId }, function(err, user) {
+		User.findOne({ _id: userId }).exec(function(err, user) {
 			if (err) { console.log(err); }
 			else if (user) { // user found
 				var boards_contributed = [];
@@ -30,13 +30,11 @@ router.get('/dashboard', function(req, res, next) {
 						};
 					});
 				}
-
-				Board.find({}, function(err, boards) { // retrieve all boards in database
-                    console.log(boards);
+				Board.find({}).sort({ name: 1 }).exec(function(err, boards) { // retrieve all boards in database
 					if (err) { console.log(err); }
 					else if (boards) {
+						console.log(boards);
 						return res.render('dashboard', {
-							//account: req.user,
 							user: user,
 							boards: boards,
 							boards_contributed: boards_contributed
