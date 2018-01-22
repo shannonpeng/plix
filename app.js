@@ -17,7 +17,8 @@ const config = require('./config.js');
 const app = express();
 
 // database setup
-mongoose.connect(process.env.MONGOLAB_URI || config.MONGOLAB_URI || 'mongodb://localhost/plix');
+//mongoose.connect(process.env.MONGOLAB_URI || config.MONGOLAB_URI || 'mongodb://localhost/plix');
+mongoose.connect(process.env.MONGOLAB_URI || config.MONGOLAB_URI);
 var connection = mongoose.connection;
 connection.on('error', console.error.bind(console, 'connection error:'));
 connection.on('connected', function() {
