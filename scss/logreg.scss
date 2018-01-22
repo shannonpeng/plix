@@ -16,6 +16,7 @@ input{
         background-color: $yellow;
         box-shadow: 0 2px 0 0 #FFBB2B;
         cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
 
         &:hover{background-color: #FFE77C;}
 
