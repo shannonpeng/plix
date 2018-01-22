@@ -57,7 +57,7 @@ router.get('/dashboard', function(req, res, next) {
 
 // GET a board
 router.get('/board', function(req, res, next) {
-    var blocks = [];
+    var blocks = {};
     var width = [];
     var height = [];
     for (var i = 0; i < 64; i ++) {
@@ -67,26 +67,24 @@ router.get('/board', function(req, res, next) {
         width.push(j);
     }
     for (x of height){ // basic blocks
-        var coords = [];
+        var coords = {};
         for (y of width) {
-            coords.push({'x': x, 'y': y, 'hex': '#F5F5F5'})
+            coords[y] = {'x': x, 'y': y, 'hex': '#F5F5F5'};
         }
-        blocks.push({'x': x, 'y': coords});
+        blocks[x] = coords;
     }
 
-    var boardId = req.originalUrl.substring(req.originalUrl.indexOf('?') + 1, req.originalUrl.length); // testing board
+    var boardId = req.originalUrl.substring(req.originalUrl.indexOf('?') + 1, req.originalUrl.length);
 
     Board.findOne({ _id: mongo.ObjectId(boardId) }, function(err, board) {
         if (err) { console.log(err); }
         else if (board) { // found board
             Pixel.find({ board: mongo.ObjectId(boardId) }, function(err, pixels){
-                console.log(pixels);
                 if (err) { console.log(err); }
                 else if (pixels) {
                     // populate with last pixels
                     for (pixel of pixels) {
-                        console.log(blocks[x]);
-                        blocks[63 - x]['y'][95 - y]['hex'] = pixel.hex;
+                        blocks[pixel.x][pixel.y]['hex'] = pixel.hex;
                     }
                 }
 
@@ -128,21 +126,118 @@ router.get('/board', function(req, res, next) {
     });
 });
 
-// cheap way to create fake data do not advise
-router.get('/create-board/:name/:lat/:long/:radius', function(req, res, next) {
-	var b = new Board({
-		name: req.params.name,
-		latitude: req.params.lat,
-		longitude: req.params.long,
-		radius: req.params.radius,
-		unique_contributors: 0
-	});
-	b.save(function(err, b) {
-		if (err) { console.log(err); }
-		else {res.redirect('/dashboard'); }
-	});
+// POST a board
+router.post('/board', function(req, res, next) {
+    var back = req.header('Referer') || '/';
+    var boardId = req.originalUrl.substring(req.originalUrl.indexOf('?') + 1, req.originalUrl.length);
+
+    // Render default blank board
+    var blocks = {};
+    var width = [];
+    var height = [];
+    for (var i = 0; i < 64; i ++) {
+        height.push(i);
+    }
+    for (var j = 0; j < 96; j ++) {
+        width.push(j);
+    }
+    for (x of height){
+        var coords = {};
+        for (y of width) {
+            coords[y] = {'x': x, 'y': y, 'hex': '#F5F5F5'};
+        }
+        blocks[x] = coords;
+    }
+
+    // Check if user is logged in
+    if (req.session.userId){
+        //find User
+        var userId = req.session.userId;
+		User.findOne({ _id: userId }, function(err, user) {
+			if (err) { console.log(err); }
+
+            // found User
+			else if (user) {
+                // find Board
+                Board.findOne({ _id: mongo.ObjectId(boardId) }, function(err, board) {
+                    if (err) { console.log(err); }
+
+                    // found Board
+                    else if (board) {
+
+                        // get POST data
+                        if (req.body.x && req.body.y && req.body.hex) {
+                            // find Pixel
+                            Pixel.findOne({ x: req.body.x, y: req.body.y }, function(err, pixel){
+                                if (err) { console.log(err); }
+
+                                // if a pixel exists, update
+                                else if (pixel) {
+                                    pixel.hex = req.body.hex;
+                                    pixel.creator = mongo.ObjectId(userId);
+                                    pixel.created_at = 00000; //NOTE: NOT IMPLEMENTED
+
+                                    // save changes
+                                    pixel.save(function(err, data){
+                                        if (err) { console.log(err) }
+                                        else if (data) {
+                                            return res.redirect(back);
+                                        }
+                                        else { console.log('wtf happened'); }
+                                    })
+                                }
+
+                                // if no pixel, create one
+                                else {
+                                    console.log('new pixel');
+                                    console.log(boardId);
+                                    console.log(req.body.hex);
+                                    var newPixel = {
+                                        board: mongo.ObjectId(boardId),
+                                        hex: req.body.hex,
+                                        creator: mongo.ObjectId(userId),
+                                        created_at: 0000000,
+                                        x: req.body.x,
+                                        y: req.body.y
+                                    }
+                                    Pixel.create(newPixel, function(error, pixel) {
+                                        if (error) {
+                                            console.log(error);
+                                            return next(error);
+                                        }
+                                        else {
+                                            return res.redirect(back);
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                        // Form is incomplete
+                        else {
+                            console.log('missing information for pixel paint');
+                        }
+                    }
+                    // No board found
+                    else {
+                        console.log('no board found with Id ' + boardId)
+                    }
+                });
+            }
+            // No user found
+            else {
+                console.log('no user found with Id ' + userId);
+            }
+        });
+    }
+    // No user logged in
+    else {
+        var error = new Error('No user not logged in');
+        error.status = 401;
+        return next(error);
+    }
 });
 
+// FAKE NEWS
 router.get('/test', function(req, res, next) {
     // var newPixel = {
     //     board: mongo.ObjectId('5a637d7c1696af3f873c9cce'),
@@ -160,5 +255,20 @@ router.get('/test', function(req, res, next) {
     //     }
     // });
 })
+
+// cheap way to create fake data do not advise
+router.get('/create-board/:name/:lat/:long/:radius', function(req, res, next) {
+	var b = new Board({
+		name: req.params.name,
+		latitude: req.params.lat,
+		longitude: req.params.long,
+		radius: req.params.radius,
+		unique_contributors: 0
+	});
+	b.save(function(err, b) {
+		if (err) { console.log(err); }
+		else {res.redirect('/dashboard'); }
+	});
+});
 
 module.exports = router;
