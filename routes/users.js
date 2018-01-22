@@ -70,7 +70,7 @@ router.get('/logout', function(req, res, next){
     if (req.session) {
         req.session.destroy(function(err){
             if (err) {
-                console.log('probably not logged in to begin with');
+                console.log(err);
                 return res.redirect('/');
             } else {
                 return res.redirect('/');

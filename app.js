@@ -27,9 +27,9 @@ connection.on('connected', function() {
 // creating sessions
 app.use(session({
     secret: config.SECRET,
-    resave: true,
-    saveUninitialized: false,
-    store: new MongoStore({mongooseConnection: connection})
+    resave: false,
+    saveUninitialized: true,
+    // store: new MongoStore({mongooseConnection: connection}),
 }));
 
 // view engine setup
