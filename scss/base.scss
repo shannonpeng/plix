@@ -37,7 +37,7 @@ a {
 	text-align: center;
 	background: $yellow;
 	border-radius: 0.5em;
-    box-shadow: 0 4px 0 0 #FFBB2B;
+    box-shadow: 0 4px 0 0 darken($yellow, 18%);
     transition: transform 0.1s, box-shadow 0.1s;
     color: $font-color-body;
 
@@ -63,15 +63,25 @@ nav {
 		> * {
 			margin-left: 0.5em;
 		}
-		.fa {
-			width: 15px;
-			height: 15px;
-			text-align: center;
-			border-radius: 50% 50%;
-			padding: 1em;
-			vertical-align: middle;
-			&:hover {
-				cursor: pointer;
+		.account-options {
+			padding-left: 0;
+			li {
+				display: inline-block;
+			}
+			.settings, .logout {
+				width: 15px;
+				height: 15px;
+				text-align: center;
+				border-radius: 50% 50%;
+				padding: 1em;
+				vertical-align: middle;
+				&:hover {
+					cursor: pointer;
+				}
+			}
+			.logout {
+				background: lighten($red, 18%);
+				box-shadow: 0 4px 0 0 $red;
 			}
 		}
 	}

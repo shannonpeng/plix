@@ -24,7 +24,7 @@ a {
   text-align: center;
   background: #FFDD4A;
   border-radius: 0.5em;
-  box-shadow: 0 4px 0 0 #FFBB2B;
+  box-shadow: 0 4px 0 0 #edc100;
   transition: transform 0.1s, box-shadow 0.1s;
   color: #404040; }
   .button:active {
@@ -44,15 +44,22 @@ nav {
     vertical-align: middle; }
     nav .account > * {
       margin-left: 0.5em; }
-    nav .account .fa {
-      width: 15px;
-      height: 15px;
-      text-align: center;
-      border-radius: 50% 50%;
-      padding: 1em;
-      vertical-align: middle; }
-      nav .account .fa:hover {
-        cursor: pointer; }
+    nav .account .account-options {
+      padding-left: 0; }
+      nav .account .account-options li {
+        display: inline-block; }
+      nav .account .account-options .settings, nav .account .account-options .logout {
+        width: 15px;
+        height: 15px;
+        text-align: center;
+        border-radius: 50% 50%;
+        padding: 1em;
+        vertical-align: middle; }
+        nav .account .account-options .settings:hover, nav .account .account-options .logout:hover {
+          cursor: pointer; }
+      nav .account .account-options .logout {
+        background: #e88da4;
+        box-shadow: 0 4px 0 0 #d94067; }
 
 .container {
   width: 100%;

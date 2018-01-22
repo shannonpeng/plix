@@ -7,7 +7,10 @@
     {{#if user}}
     <div class="account">
     	<h3>{{ user.username }}</h3>
-    	<i class="fa fa-user button"></i>
+    	<ul class="account-options">
+    		<li><a href="/settings"><i class="fa fa-user settings button"></i></a></li>
+    		<li><a href="/logout"><i class="fa fa-sign-out logout button"></i></a></li>
+    	</ul>
     </div>
     {{else}}
     {{/if}}
