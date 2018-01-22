@@ -1,0 +1,28 @@
+@import 'base';
+@import 'index';
+
+input{
+    border: none;
+    padding: 1em;
+    border-radius: 0.5em;
+    font-family: $font-family-body;
+    box-shadow: 0 2px 0 0 $gray;
+
+    &:focus{
+        outline: none;
+    }
+
+    &.submit{
+        background-color: $yellow;
+        box-shadow: 0 2px 0 0 #FFBB2B;
+        cursor: pointer;
+
+        &:hover{background-color: #FFE77C;}
+
+        &:active{
+            transform: translateY(2px);
+            background-color: #FFBB2B;
+            box-shadow: none;
+        }
+    }
+}

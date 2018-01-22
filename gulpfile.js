@@ -30,8 +30,8 @@ gulp.task('sass', function(){
 
 gulp.task('build', ['sass'], function (cb) {});
 
-gulp.task('watch', ['build'], function (cb) {
-	gulp.watch('scss/**/*.scss', ['build']);
+gulp.task('watch', ['sass'], function () {
+	gulp.watch('scss/**/*.scss', ['sass']);
 });
 gulp.task('stream', ['db', 'build', 'run'], function (cb) {
 	gulp.watch('scss/**/*.scss', ['build']);
