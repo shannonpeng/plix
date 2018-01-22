@@ -6,7 +6,7 @@ input{
     padding: 1em;
     border-radius: 0.5em;
     font-family: $font-family-body;
-    box-shadow: 0 2px 0 0 $gray;
+    box-shadow: 0 4px 0 0 $gray;
 
     &:focus{
         outline: none;
@@ -14,15 +14,12 @@ input{
 
     &.submit{
         background-color: $yellow;
-        box-shadow: 0 2px 0 0 #FFBB2B;
+        box-shadow: 0 4px 0 0 #FFBB2B;
         cursor: pointer;
-        transition: transform 0.2s, box-shadow 0.2s;
-
-        &:hover{background-color: #FFE77C;}
+        transition: transform 0.1s, box-shadow 0.1s;
 
         &:active{
-            transform: translateY(2px);
-            background-color: #FFBB2B;
+            transform: translateY(4px);
             box-shadow: none;
         }
     }

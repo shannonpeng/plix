@@ -32,6 +32,13 @@ body {
 	background: $gray;
 	max-width: 180px;
 	border-radius: 0.5em;
+    box-shadow: 0 4px 0 0 #A5A5A5;
+    transition: transform 0.1s, box-shadow 0.1s;
+
+    &:active{
+        transform: translateY(4px);
+        box-shadow: none;
+    }
 }
 
 .cloud {
