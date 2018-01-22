@@ -10,14 +10,14 @@ body {
 	height: 100%;
 	margin: auto;
 	display: flex;
-	position: static;
-	z-index: 999;
 }
 
 .content {
 	width: 80%;
 	margin: auto;
 	text-align: center;
+	position: static;
+	z-index: 999;
 }
 
 .title {
