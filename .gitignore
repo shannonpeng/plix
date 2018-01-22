@@ -4,7 +4,7 @@ node_modules/
 */.DS_Store
 npm-debug.log
 package-lock.json
-public/
+public/stylesheets/
 config.js
 .sass-cache
 *.map
