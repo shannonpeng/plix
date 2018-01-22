@@ -1,0 +1,210 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-family: "Karla", sans-serif;
+  color: #404040;
+  overflow-x: hidden; }
+
+*, *:hover {
+  -webkit-transition: all 0.1s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out; }
+
+a {
+  color: inherit;
+  font-weight: bold;
+  text-decoration: none; }
+
+.title {
+  font-family: "Fredoka One", sans-serif;
+  font-size: 3em; }
+
+.button {
+  text-align: center;
+  background: #FFDD4A;
+  border-radius: 0.5em;
+  box-shadow: 0 4px 0 0 #edc100;
+  transition: transform 0.1s, box-shadow 0.1s;
+  color: #404040; }
+  .button:active {
+    transform: translateY(4px);
+    box-shadow: none; }
+
+nav {
+  padding: 1em 2em; }
+  nav * {
+    display: inline-block;
+    margin: 0; }
+  nav .logo h3 {
+    font-size: 2em;
+    color: #4dbcf8; }
+  nav .account {
+    float: right;
+    vertical-align: middle; }
+    nav .account > * {
+      margin-left: 0.5em; }
+    nav .account .account-options {
+      padding-left: 0; }
+      nav .account .account-options li {
+        display: inline-block; }
+      nav .account .account-options .settings, nav .account .account-options .logout {
+        width: 15px;
+        height: 15px;
+        text-align: center;
+        border-radius: 50% 50%;
+        padding: 1em;
+        vertical-align: middle; }
+        nav .account .account-options .settings:hover, nav .account .account-options .logout:hover {
+          cursor: pointer; }
+      nav .account .account-options .logout {
+        background: #e88da4;
+        box-shadow: 0 4px 0 0 #d94067; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-family: "Karla", sans-serif;
+  color: #404040;
+  overflow-x: hidden; }
+
+*, *:hover {
+  -webkit-transition: all 0.1s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out; }
+
+a {
+  color: inherit;
+  font-weight: bold;
+  text-decoration: none; }
+
+.title {
+  font-family: "Fredoka One", sans-serif;
+  font-size: 3em; }
+
+.button {
+  text-align: center;
+  background: #FFDD4A;
+  border-radius: 0.5em;
+  box-shadow: 0 4px 0 0 #edc100;
+  transition: transform 0.1s, box-shadow 0.1s;
+  color: #404040; }
+  .button:active {
+    transform: translateY(4px);
+    box-shadow: none; }
+
+nav {
+  padding: 1em 2em; }
+  nav * {
+    display: inline-block;
+    margin: 0; }
+  nav .logo h3 {
+    font-size: 2em;
+    color: #4dbcf8; }
+  nav .account {
+    float: right;
+    vertical-align: middle; }
+    nav .account > * {
+      margin-left: 0.5em; }
+    nav .account .account-options {
+      padding-left: 0; }
+      nav .account .account-options li {
+        display: inline-block; }
+      nav .account .account-options .settings, nav .account .account-options .logout {
+        width: 15px;
+        height: 15px;
+        text-align: center;
+        border-radius: 50% 50%;
+        padding: 1em;
+        vertical-align: middle; }
+        nav .account .account-options .settings:hover, nav .account .account-options .logout:hover {
+          cursor: pointer; }
+      nav .account .account-options .logout {
+        background: #e88da4;
+        box-shadow: 0 4px 0 0 #d94067; }
+
+body {
+  background: #4dbcf8;
+  color: white; }
+
+.container {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  display: flex; }
+
+.content {
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  position: static;
+  z-index: 999; }
+
+.title {
+  text-align: center;
+  margin: 0 auto; }
+
+.button {
+  padding: 1em;
+  text-align: center;
+  margin: 0.5em auto;
+  max-width: 180px; }
+
+.hint {
+  font-size: 0.8em;
+  margin: 1.5em auto; }
+
+.cloud {
+  position: absolute;
+  opacity: 0; }
+
+.slow-scroll {
+  animation: scroll 120000ms linear infinite; }
+
+.medium-scroll {
+  animation: scroll 80000ms linear infinite; }
+
+.fast-scroll {
+  animation: scroll 40000ms linear infinite; }
+
+@keyframes scroll {
+  0% {
+    left: -100%;
+    opacity: 1; }
+  100% {
+    left: 100%;
+    opacity: 1; } }
+
+.title {
+  margin: 0.5em auto; }
+
+.field {
+  display: block;
+  position: relative;
+  left: -1em; }
+  .field .fa {
+    width: 1em;
+    font-size: 1.5em;
+    margin-right: 0.75em;
+    text-align: left; }
+
+input {
+  border: none;
+  width: 200px;
+  padding: 1em;
+  border-radius: 0.5em;
+  margin: 0.75em auto;
+  font-family: "Karla";
+  font-size: 1em;
+  box-shadow: 0 4px 0 0 #bbbbbb; }
+  input:focus {
+    outline: none; }
+  input.submit {
+    background-color: #FFDD4A;
+    box-shadow: 0 4px 0 0 #FFBB2B;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s; }
+    input.submit:active {
+      transform: translateY(4px);
+      box-shadow: none; }

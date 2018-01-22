@@ -1,0 +1,96 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-family: "Karla", sans-serif;
+  color: #404040;
+  overflow-x: hidden; }
+
+*, *:hover {
+  -webkit-transition: all 0.1s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out; }
+
+a {
+  color: inherit;
+  font-weight: bold;
+  text-decoration: none; }
+
+.title {
+  font-family: "Fredoka One", sans-serif;
+  font-size: 3em; }
+
+.button {
+  text-align: center;
+  background: #FFDD4A;
+  border-radius: 0.5em;
+  box-shadow: 0 4px 0 0 #edc100;
+  transition: transform 0.1s, box-shadow 0.1s;
+  color: #404040; }
+  .button:active {
+    transform: translateY(4px);
+    box-shadow: none; }
+
+nav {
+  padding: 1em 2em; }
+  nav * {
+    display: inline-block;
+    margin: 0; }
+  nav .logo h3 {
+    font-size: 2em;
+    color: #4dbcf8; }
+  nav .account {
+    float: right;
+    vertical-align: middle; }
+    nav .account > * {
+      margin-left: 0.5em; }
+    nav .account .account-options {
+      padding-left: 0; }
+      nav .account .account-options li {
+        display: inline-block; }
+      nav .account .account-options .settings, nav .account .account-options .logout {
+        width: 15px;
+        height: 15px;
+        text-align: center;
+        border-radius: 50% 50%;
+        padding: 1em;
+        vertical-align: middle; }
+        nav .account .account-options .settings:hover, nav .account .account-options .logout:hover {
+          cursor: pointer; }
+      nav .account .account-options .logout {
+        background: #e88da4;
+        box-shadow: 0 4px 0 0 #d94067; }
+
+.container {
+  width: 100%;
+  height: 100%;
+  margin: auto; }
+
+.content {
+  width: 80%;
+  margin: auto; }
+
+.row {
+  display: flex; }
+
+.block {
+  width: 8px;
+  height: 8px;
+  transition: opacity 0.1s; }
+  .block .overlay {
+    opacity: 0;
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    background-color: #4dbcf8; }
+  .block:hover .overlay {
+    opacity: 0.5; }
+
+.back-arrow {
+  width: 15px;
+  height: 15px;
+  padding: 1em;
+  position: relative;
+  right: 2em;
+  border-radius: 50% 50%;
+  text-align: center; }
