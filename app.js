@@ -12,7 +12,8 @@ const MongoStore = require('connect-mongo')(session);
 const index = require('./routes/index');
 const users = require('./routes/users');
 
-const config = require('./config.js');
+//comment the next line out for heroku
+//const config = require('./config.js');
 
 const app = express();
 
@@ -26,7 +27,7 @@ connection.on('connected', function() {
 });
 // creating sessions
 app.use(session({
-    secret: config.SECRET,
+    secret: process.env.SECRET || config.SECRET,
     resave: false,
     saveUninitialized: true,
     // store: new MongoStore({mongooseConnection: connection}),
