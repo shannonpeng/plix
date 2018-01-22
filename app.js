@@ -12,6 +12,8 @@ const MongoStore = require('connect-mongo')(session);
 const index = require('./routes/index');
 const users = require('./routes/users');
 
+const config = require('./config.js');
+
 const app = express();
 
 // database setup
@@ -23,7 +25,7 @@ connection.on('connected', function() {
 });
 // creating sessions
 app.use(session({
-    secret: 'thisisasecretmessageweneedtoset',
+    secret: config.SECRET,
     resave: true,
     saveUninitialized: false,
     store: new MongoStore({mongooseConnection: connection})
