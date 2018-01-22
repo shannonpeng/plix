@@ -18,5 +18,17 @@
 .block {
     width: 8px;
     height: 8px;
-    background-color: grey;
+    transition: opacity 0.1s;
+
+    .overlay{
+        opacity: 0;
+        width: 8px;
+        height: 8px;
+        position: absolute;
+        background-color: $blue;
+    }
+
+    &:hover .overlay{
+        opacity: 0.5;
+    }
 }
