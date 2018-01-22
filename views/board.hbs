@@ -7,7 +7,10 @@
     <div id="dashboard">
         <div class="container">
             <div class="content">
-                {{ board.name }}
+                <a href="/dashboard"><div class="back-arrow button"><i class="fa fa-arrow-left"></i></div></a>
+                <h1>{{ board.name }}</h1>
+                <p>{{ board.unique_contributors}} unique contributors</p>
+                <p>{{ board.latitude}}, {{ board.longitude}}</p>
                 <div class="board">
                     {{#each blocks}}
                         <div class="row">

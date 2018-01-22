@@ -29,17 +29,7 @@ body {
 	padding: 1em;
 	text-align: center;
 	margin: 0.5em auto;
-	background: $yellow;
 	max-width: 180px;
-	border-radius: 0.5em;
-    box-shadow: 0 4px 0 0 #FFBB2B;
-    transition: transform 0.1s, box-shadow 0.1s;
-    color: $font-color-body;
-
-    &:active{
-        transform: translateY(4px);
-        box-shadow: none;
-    }
 }
 
 .hint {

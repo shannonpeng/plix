@@ -20,6 +20,17 @@ a {
   font-family: "Fredoka One", sans-serif;
   font-size: 3em; }
 
+.button {
+  text-align: center;
+  background: #FFDD4A;
+  border-radius: 0.5em;
+  box-shadow: 0 4px 0 0 #FFBB2B;
+  transition: transform 0.1s, box-shadow 0.1s;
+  color: #404040; }
+  .button:active {
+    transform: translateY(4px);
+    box-shadow: none; }
+
 nav {
   padding: 1em 2em; }
   nav * {
@@ -37,12 +48,8 @@ nav {
       width: 15px;
       height: 15px;
       text-align: center;
-      vertical-align: middle;
       border-radius: 50% 50%;
       padding: 1em;
-      background: #FFDD4A;
-      box-shadow: 0 4px 0 0 #FFBB2B;
-      transition: transform 0.1s, box-shadow 0.1s; }
-      nav .account .fa:active {
-        transform: translateY(4px);
-        box-shadow: none; }
+      vertical-align: middle; }
+      nav .account .fa:hover {
+        cursor: pointer; }

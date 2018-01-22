@@ -33,6 +33,20 @@ a {
 	font-size: 3em;
 }
 
+.button {
+	text-align: center;
+	background: $yellow;
+	border-radius: 0.5em;
+    box-shadow: 0 4px 0 0 #FFBB2B;
+    transition: transform 0.1s, box-shadow 0.1s;
+    color: $font-color-body;
+
+    &:active{
+        transform: translateY(4px);
+        box-shadow: none;
+    }
+}
+
 nav {
 	padding: 1em 2em;
 	* {
@@ -53,17 +67,12 @@ nav {
 			width: 15px;
 			height: 15px;
 			text-align: center;
-			vertical-align: middle;
 			border-radius: 50% 50%;
 			padding: 1em;
-			background: $yellow;
-			box-shadow: 0 4px 0 0 #FFBB2B;
-			transition: transform 0.1s, box-shadow 0.1s;
-
-		    &:active{
-		        transform: translateY(4px);
-		        box-shadow: none;
-		    }
+			vertical-align: middle;
+			&:hover {
+				cursor: pointer;
+			}
 		}
 	}
 }
