@@ -5,14 +5,20 @@
             <div class="content">
                 <h1 class="title">register</h1>
                 <form method='POST'>
-                    <input type="email" name="email" placeholder="email@plix.io" />
-                    <input type="username" name="username" placeholder="username" />
-                    <input type="password" name="password" placeholder="password" />
+                    <div class="field"><i class="fa fa-envelope-o"></i><input type="email" name="email" placeholder="email@plix.io" /></div>
+                    <div class="field"><i class="fa fa-user"></i><input type="username" name="username" placeholder="username" /></div>
+                    <div class="field"><i class="fa fa-lock"></i><input type="password" name="password" placeholder="password" /></div>
                     <input class="submit" type="submit" value="register" />
                 </form>
-                <p>already have an account? <a href="/login">sign in</a>.</p>
+                <p class="hint">already have an account? <a href="/login">sign in</a>.</p>
             </div>
         </div>
+
+        <!-- Clouds go here-->
+        <div class="clouds"></div>
+
+        <!-- Scripts -->
+        <script src="/scripts/index.js"></script>
     </body>
 
 </html>

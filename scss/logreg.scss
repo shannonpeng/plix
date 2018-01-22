@@ -1,11 +1,26 @@
 @import 'base';
 @import 'index';
 
+.field {
+    display: block;
+    position: relative;
+    left: -1em;
+    .fa {
+        width: 1em;
+        font-size: 1.5em;
+        margin-right: 0.75em;
+        text-align: left;
+    }
+}
+
 input{
     border: none;
+    width: 200px;
     padding: 1em;
     border-radius: 0.5em;
+    margin: 0.75em auto;
     font-family: $font-family-body;
+    font-size: 1em;
     box-shadow: 0 4px 0 0 $gray;
 
     &:focus{

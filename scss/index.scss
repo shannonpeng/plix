@@ -22,7 +22,7 @@ body {
 
 .title {
 	text-align: center;
-	margin: 0 auto;
+	margin: 0.5em auto;
 }
 
 .button {
@@ -40,6 +40,10 @@ body {
         transform: translateY(4px);
         box-shadow: none;
     }
+}
+
+.hint {
+	font-size: 0.8em;
 }
 
 .cloud {

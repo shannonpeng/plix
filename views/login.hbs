@@ -5,13 +5,19 @@
             <div class="content">
                 <h1 class="title">login</h1>
                 <form method='POST'>
-                    <input type="username" name="username" placeholder="username" />
-                    <input type="password" name="password" placeholder="password" />
+                    <div class="field"><i class="fa fa-user"></i><input type="username" name="username" placeholder="username" /></div>
+                    <div class="field"><i class="fa fa-lock"></i><input type="password" name="password" placeholder="password" /></div>
                     <input class="submit" type="submit" value="login" />
                 </form>
-                <p>don't have an account? <a href="/register">register</a>. </p>
+                <p class="hint">don't have an account? <a href="/register">register</a>. </p>
             </div>
         </div>
+
+        <!-- Clouds go here-->
+        <div class="clouds"></div>
+
+        <!-- Scripts -->
+        <script src="/scripts/index.js"></script>
     </body>
 
 </html>
