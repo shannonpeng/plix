@@ -21,13 +21,31 @@ a {
   font-size: 3em; }
 
 nav {
-  background: #4dbcf8;
-  text-align: center;
-  padding: 1em;
-  color: white; }
-
-nav h3 {
-  margin: 0 auto; }
+  padding: 1em 2em; }
+  nav * {
+    display: inline-block;
+    margin: 0; }
+  nav .logo h3 {
+    font-size: 2em;
+    color: #4dbcf8; }
+  nav .account {
+    float: right;
+    vertical-align: middle; }
+    nav .account > * {
+      margin-left: 0.5em; }
+    nav .account .fa {
+      width: 15px;
+      height: 15px;
+      text-align: center;
+      vertical-align: middle;
+      border-radius: 50% 50%;
+      padding: 1em;
+      background: #FFDD4A;
+      box-shadow: 0 4px 0 0 #FFBB2B;
+      transition: transform 0.1s, box-shadow 0.1s; }
+      nav .account .fa:active {
+        transform: translateY(4px);
+        box-shadow: none; }
 
 .container {
   width: 100%;

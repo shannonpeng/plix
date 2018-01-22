@@ -34,12 +34,36 @@ a {
 }
 
 nav {
-	background: $blue;
-	text-align: center;
-	padding: 1em;
-	color: white;
-}
+	padding: 1em 2em;
+	* {
+		display: inline-block;
+		margin: 0;
+	}
+	.logo h3 {
+		font-size: 2em;
+		color: $blue;
+	}
+	.account {
+		float: right;
+		vertical-align: middle;
+		> * {
+			margin-left: 0.5em;
+		}
+		.fa {
+			width: 15px;
+			height: 15px;
+			text-align: center;
+			vertical-align: middle;
+			border-radius: 50% 50%;
+			padding: 1em;
+			background: $yellow;
+			box-shadow: 0 4px 0 0 #FFBB2B;
+			transition: transform 0.1s, box-shadow 0.1s;
 
-nav h3 {
-	margin: 0 auto;
+		    &:active{
+		        transform: translateY(4px);
+		        box-shadow: none;
+		    }
+		}
+	}
 }

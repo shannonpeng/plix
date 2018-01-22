@@ -1,8 +1,14 @@
 <nav> 
-    <div class="logo">
-      <h3 class="title">plix</h3>
+    <a href="/">
+    	<div class="logo">
+      		<h3 class="title">plix</h3>
+    	</div>
+   	</a>
+    {{#if user}}
+    <div class="account">
+    	<h3>{{ user.username }}</h3>
+    	<i class="fa fa-user"></i>
     </div>
-    {{#if account}}
     {{else}}
     {{/if}}
 </nav>

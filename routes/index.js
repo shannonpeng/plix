@@ -10,7 +10,7 @@ const Pixel = require('../schemas/pixel');
 
 // GET home page
 router.get('/', function(req, res, next) {
-	if (req.user) { res.redirect('/dashboard'); } // user logged in
+	if (req.session.userId) { res.redirect('/dashboard'); } // user logged in
 	else { res.render('index'); } // render landing page
 });
 
@@ -126,6 +126,21 @@ router.get('/board', function(req, res, next) {
             console.log('no board found with Id ' + boardId);
         }
     });
+});
+
+// cheap way to create fake data do not advise
+router.get('/create-board/:name/:lat/:long/:radius', function(req, res, next) {
+	var b = new Board({
+		name: req.params.name,
+		latitude: req.params.lat,
+		longitude: req.params.long,
+		radius: req.params.radius,
+		unique_contributors: 0
+	});
+	b.save(function(err, b) {
+		if (err) { console.log(err); }
+		else {res.redirect('/dashboard'); }
+	});
 });
 
 router.get('/test', function(req, res, next) {
