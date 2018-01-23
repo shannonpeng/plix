@@ -15,7 +15,7 @@ const debug = require('debug')('plix:server');
 const index = require('./routes/index');
 const users = require('./routes/users');
 
-//const config = require('./config.js'); // Comment out for heroku
+const config = require('./config.js'); // Comment out for heroku
 
 // Start HTTP Server
 const app = express();
@@ -32,9 +32,7 @@ server.on('listening', onListening);
 const io = require('socket.io').listen(server);
 io.on('connection', function(socket) {
   socket.on('new-pixel', function(data){
-    console.log('new pixel!');
-    console.log(data);
-    socket.emit('new-pixel', data);
+    io.emit('new-pixel', data);
   });
 });
 
