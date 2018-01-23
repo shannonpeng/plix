@@ -27,9 +27,7 @@ function pixPick(x, y){
     y_in.setAttribute("value", y);
     form.appendChild(y_in);
 
-    console.log(form);
-
-    form.submit(); //send post request; but res.render over return redirect (index.js)
+    form.submit();
 
     // Emit new pixel via socket
     var pixel = new Object();
