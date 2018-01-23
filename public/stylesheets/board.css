@@ -3,8 +3,7 @@ html, body {
   height: 100%;
   margin: 0;
   font-family: "Karla", sans-serif;
-  color: #404040;
-  overflow-x: hidden; }
+  color: #404040; }
 
 *, *:hover {
   -webkit-transition: all 0.1s ease-out;
@@ -32,7 +31,10 @@ a {
     box-shadow: none; }
 
 nav {
-  padding: 1em 2em; }
+  padding: 1em 2em;
+  position: sticky;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.9); }
   nav * {
     display: inline-block;
     margin: 0; }
@@ -101,7 +103,23 @@ nav {
   width: 15px;
   height: 15px;
   padding: 1em;
-  position: relative;
+  position: sticky;
   right: 2em;
   border-radius: 50% 50%;
   text-align: center; }
+
+@media only screen and (max-width: 900px) {
+  .board-container {
+    display: block; }
+  .block, .block .overlay {
+    width: calc(100vw / 96);
+    height: calc(100vw / 96); }
+  .board-details {
+    width: 80%;
+    margin: auto; }
+  .back-arrow {
+    position: relative;
+    left: 10px; }
+  .content {
+    width: 100%;
+    margin: auto; } }

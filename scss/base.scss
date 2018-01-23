@@ -14,7 +14,6 @@ html, body {
 	margin: 0;
 	font-family: $font-family-body, sans-serif;
 	color: $font-color-body;
-	overflow-x: hidden;
 }
 
 *, *:hover {
@@ -49,6 +48,9 @@ a {
 
 nav {
 	padding: 1em 2em;
+    position: sticky;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.9);
 	* {
 		display: inline-block;
 		margin: 0;
