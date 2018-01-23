@@ -13,7 +13,8 @@ $(document).ready(function() {
 function pixPick(x, y){
 
     // Post new pixel to database
-    var hex = $("#pixcolor").attr('value');
+    var hex = document.getElementById('pixcolor').value;
+    console.log(hex);
     $.ajax({
         type: "POST",
         url: "board?" + board,
