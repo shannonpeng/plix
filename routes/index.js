@@ -181,7 +181,7 @@ router.post('/board', function(req, res, next) {
                                     pixel.save(function(err, data){
                                         if (err) { console.log(err) }
                                         else if (data) {
-                                            // dont do anything
+                                            res.send(200);
                                         }
                                         else { console.log('wtf happened'); }
                                     })
@@ -203,7 +203,7 @@ router.post('/board', function(req, res, next) {
                                             next(error);
                                         }
                                         else {
-                                            res.redirect(back);
+                                             res.send(200);
                                         }
                                     });
                                 }

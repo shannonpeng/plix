@@ -4,7 +4,7 @@
 
     {{>navbar}}
 
-    <div id="view-board">
+    <div id="view-board" board="{{ board._id }}">
         <div class="container">
             <div class="content">
                 <a href="/dashboard"><div class="back-arrow button"><i class="fa fa-arrow-left"></i></div></a>
@@ -25,7 +25,7 @@
 
                 <div class="board-details">
                     <h1>{{ board.name }}</h1>
-                    <p>{{ board.unique_contributors}} unique contributors</p>
+                    <!--<p>{{ board.unique_contributors}} contributors</p>-->
                     <p>{{ board.latitude}}, {{ board.longitude}}</p>
 
                     {{#if edit}}
