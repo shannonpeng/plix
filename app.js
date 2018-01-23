@@ -11,7 +11,6 @@ const bcrypt = require('bcrypt');
 const MongoStore = require('connect-mongo')(session);
 
 const debug = require('debug')('plix:server');
-const http = require('http');
 
 const index = require('./routes/index');
 const users = require('./routes/users');
@@ -24,18 +23,18 @@ const app = express();
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
-var server = http.createServer(app);
+var server = app.listen(port);
 
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-const io = require('socket.io')(http.Server(app));
+const io = require('socket.io').listen(server);
 io.on('connection', function(socket) {
   socket.on('new-pixel', function(data){
     console.log('new pixel!');
     console.log(data);
-    socket.broadcast.emit('new-pixel', data);
+    socket.emit('new-pixel', data);
   });
 });
 
