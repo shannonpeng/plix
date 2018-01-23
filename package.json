@@ -18,7 +18,8 @@
     "mongoose": "^5.0.0",
     "morgan": "~1.9.0",
     "nodemon": "^1.14.11",
-    "serve-favicon": "~2.4.5"
+    "serve-favicon": "~2.4.5",
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {
     "child_process": "^1.0.2",

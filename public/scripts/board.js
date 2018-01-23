@@ -1,6 +1,17 @@
+// Connect to socket
+var socket = io();
+
+$(document).ready(function() {
+    // Receive new pixel and update board
+    socket.on('new-pixel', function(data){
+        $("#" + data.pixel.x + "-" + data.pixel.y).css("background-color", data.pixel.hex);
+    });
+});
+
 function pixPick(x, y){
     console.log(x, y);
 
+    // Post new pixel to database
     var form = document.getElementById('paint');
     form.setAttribute('method', 'POST');
 
@@ -18,12 +29,18 @@ function pixPick(x, y){
 
     console.log(form);
 
-    form.submit();
+    form.submit(); //send post request; but res.render over return redirect (index.js)
 
-    //send post request; but res.render over return redirect (index.js)
+    // Emit new pixel via socket
+    var pixel = new Object();
+    pixel.x = x;
+    pixel.y = y;
+    pixel.hex = document.getElementById('pixcolor').value;
+    socket.emit('new-pixel', { pixel: pixel });
 }
 
-document.getElementById('pixcolor').addEventListener('input', function (evt) {
+// Color picker
+$('#pixcolor').on('input', function (evt) {
     var color = document.getElementById('pixcolor').value;
     var overlays = document.getElementsByClassName('overlay');
 

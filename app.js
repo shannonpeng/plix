@@ -13,7 +13,7 @@ const index = require('./routes/index');
 const users = require('./routes/users');
 
 //comment the next line out for heroku
-//const config = require('./config.js');
+const config = require('./config.js');
 
 const app = express();
 

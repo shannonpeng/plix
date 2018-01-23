@@ -34,7 +34,7 @@ router.get('/dashboard', function(req, res, next) {
 					if (err) { console.log(err); }
 					else if (boards) {
 						console.log(boards);
-						return res.render('dashboard', {
+						res.render('dashboard', {
 							user: user,
 							boards: boards,
 							boards_contributed: boards_contributed
@@ -51,7 +51,7 @@ router.get('/dashboard', function(req, res, next) {
 		});
 	}
     else { // user not logged in
-		return res.redirect('/');
+		res.redirect('/');
 	}
 });
 
@@ -94,7 +94,7 @@ router.get('/board', function(req, res, next) {
                     User.findOne({ _id: userId }, function(err, user) {
                         if (err) { console.log(err); }
                         else if (user) {
-                            return res.render('board',
+                            res.render('board',
                                 {user: user,
                                 board: board,
                                 blocks: blocks,
@@ -103,7 +103,7 @@ router.get('/board', function(req, res, next) {
                         }
                         else { // cannot find a user
                             console.log('no user found with Id ' + userId);
-                            return res.render('board',
+                            res.render('board',
                                 {user: null,
                                 board: board,
                                 edit: false}
@@ -112,7 +112,7 @@ router.get('/board', function(req, res, next) {
                     });
                 }
                 else { // no user logged in
-                    return res.render('board',
+                    res.render('board',
                         {user: null,
                         board: board,
                         edit: false}
@@ -181,7 +181,7 @@ router.post('/board', function(req, res, next) {
                                     pixel.save(function(err, data){
                                         if (err) { console.log(err) }
                                         else if (data) {
-                                            return res.redirect(back);
+                                            // dont do anything
                                         }
                                         else { console.log('wtf happened'); }
                                     })
@@ -189,9 +189,6 @@ router.post('/board', function(req, res, next) {
 
                                 // if no pixel, create one
                                 else {
-                                    console.log('new pixel');
-                                    console.log(boardId);
-                                    console.log(req.body.hex);
                                     var newPixel = {
                                         board: mongo.ObjectId(boardId),
                                         hex: req.body.hex,
@@ -203,10 +200,10 @@ router.post('/board', function(req, res, next) {
                                     Pixel.create(newPixel, function(error, pixel) {
                                         if (error) {
                                             console.log(error);
-                                            return next(error);
+                                            next(error);
                                         }
                                         else {
-                                            return res.redirect(back);
+                                            res.redirect(back);
                                         }
                                     });
                                 }
@@ -233,42 +230,8 @@ router.post('/board', function(req, res, next) {
     else {
         var error = new Error('No user not logged in');
         error.status = 401;
-        return next(error);
+        next(error);
     }
-});
-
-// FAKE NEWS
-router.get('/test', function(req, res, next) {
-    // var newPixel = {
-    //     board: mongo.ObjectId('5a637d7c1696af3f873c9cce'),
-    //     hex: '#4dbcf8',
-    //     creator: mongo.ObjectId('5a62310c9f3beb14e6ba883c'),
-    //     created_at: 1202018,
-    //     x: 0,
-    //     y: 0
-    // }
-    //
-    // Pixel.create(newPixel, function(error, pixel) {
-    //     if (error) { console.log(error); }
-    //     else {
-    //         return res.redirect('/');
-    //     }
-    // });
-})
-
-// cheap way to create fake data do not advise
-router.get('/create-board/:name/:lat/:long/:radius', function(req, res, next) {
-	var b = new Board({
-		name: req.params.name,
-		latitude: req.params.lat,
-		longitude: req.params.long,
-		radius: req.params.radius,
-		unique_contributors: 0
-	});
-	b.save(function(err, b) {
-		if (err) { console.log(err); }
-		else {res.redirect('/dashboard'); }
-	});
 });
 
 module.exports = router;

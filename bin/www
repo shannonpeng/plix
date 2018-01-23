@@ -30,6 +30,21 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 /**
+ * Start socket server
+ */
+
+var io = require('socket.io')(server);
+
+io.on('connection', function(socket) {
+  console.log('connection!');
+  socket.on('new-pixel', function(data){
+    console.log('new pixel!');
+    console.log(data);
+    socket.broadcast.emit('new-pixel', data);
+  });
+});
+
+/**
  * Normalize a port into a number, string, or false.
  */
 
