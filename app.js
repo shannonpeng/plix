@@ -29,12 +29,15 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-const io = require('socket.io').listen(server);
-io.on('connection', function(socket) {
-  socket.on('new-pixel', function(data){
-    io.emit('new-pixel', data);
+var io = require('socket.io').listen(server);
+io.sockets.on('connection', function(socket) {
+  socket.on('room', function(room) {
+    socket.join(room);
+    socket.on('new-pixel', function(data){
+      io.to(room).emit('new-pixel', data);
+    });
   });
-});
+})
 
 // Database setup
 //mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/plix');

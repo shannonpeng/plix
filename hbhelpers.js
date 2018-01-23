@@ -1,19 +1,24 @@
 function hbsHelpers(hbs) {
     return hbs.create({
         helpers: {
-            // coord: function(from, tox, toy) {
-            //     var coords = '';
-            //     for(var i = 0; i < tox; i ++){
-            //         for(var j = 0; j < toy; j ++){
-            //             coords += block.fn(i);
-            //         }
-            //         coords += block.fn(i);
-            //     }
-            //     console.log(i);
-            //     return coords;
+            substring: function(string, start, end) {
+               var s = string.substring(start, end);
+               return s;
             },
+            boardInitials: function(string) {
+               var subs = string.split(" ");
+               var s = "";
+               for (var i = 0; i < subs.length; i++) {
+                    s += subs[i].substring(0,1);
+               }
+               return s;
+            },
+            randomPaletteColor: function() {
+                var options = ["#ececec"];
+                return options[Math.floor(Math.random()*options.length)];
+            }
+        },
         extname: '.hbs'
     });
 }
-
 module.exports = hbsHelpers;

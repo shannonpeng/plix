@@ -71,3 +71,13 @@ nav {
 .content {
   width: 80%;
   margin: auto; }
+
+.board {
+  display: inline-block;
+  margin: 1em; }
+  .board .board-icon {
+    width: 80px;
+    height: 80px;
+    vertical-align: middle;
+    text-align: center;
+    padding: 1em; }

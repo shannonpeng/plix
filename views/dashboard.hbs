@@ -19,8 +19,11 @@
                     <h2>all boards</h2>
                     {{#each boards}}
                     <div class="board">
-                        <p><a href="/board?{{ _id }}"><b>{{ name }}</b></a> {{ unique_contributors }} contributors</p>
+                        <a href="/board?{{ _id }}"><div class="board-icon button" style="background-color: {{ randomPaletteColor }}; box-shadow: 0 4px 0 0 #cccccc;"><h1>{{ boardInitials name }}</h1></div></a>
+                        <h3>{{ name }}</h3>
+                        <p>{{ unique_contributors }} contributors</p>
                     </div>
+                    
                     {{else}}
                     <p>There are no boards in the database.</p>
                     {{/each}}

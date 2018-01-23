@@ -3,6 +3,10 @@ var socket = io();
 var board = $("#view-board").attr("board");
 
 $(document).ready(function() {
+    // Join board
+    socket.on('connect', function() {
+        socket.emit('room', board);
+    })
     // Receive new pixel and update board
     socket.on('new-pixel', function(data){
         console.log('pixel received!');
@@ -11,9 +15,9 @@ $(document).ready(function() {
 });
 
 function pixPick(x, y){
+
     // Post new pixel to database
     var hex = document.getElementById('pixcolor').value;
-
 
     $.ajax({
         type: "POST",
