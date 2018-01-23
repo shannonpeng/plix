@@ -11,7 +11,6 @@ $(document).ready(function() {
 });
 
 function pixPick(x, y){
-
     // Post new pixel to database
     var hex = document.getElementById('pixcolor').value;
 

@@ -168,7 +168,7 @@ router.post('/board', function(req, res, next) {
                         // get POST data
                         if (req.body.x && req.body.y && req.body.hex) {
                             // find Pixel
-                            Pixel.findOne({ x: req.body.x, y: req.body.y }, function(err, pixel){
+                            Pixel.findOne({ x: req.body.x, y: req.body.y, board: mongo.ObjectId(boardId) }, function(err, pixel){
                                 if (err) { console.log(err); }
 
                                 // if a pixel exists, update
