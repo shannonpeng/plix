@@ -11,7 +11,7 @@
                     <h2>boards you've contributed to</h2>
                     {{#each boards_contributed}}
                     <div class="board">
-                        <p><a href="/board?{{ _id }}"><b>{{ name }}</b></a> {{ unique_contributors }} unique contributors</p>
+                        <p><a href="/board?{{ _id }}"><b>{{ name }}</b></a> {{ unique_contributors }} contributors</p>
                     </div>
                     {{else}}
                     <p>You haven't contributed to any boards.</p>
@@ -19,7 +19,7 @@
                     <h2>all boards</h2>
                     {{#each boards}}
                     <div class="board">
-                        <p><a href="/board?{{ _id }}"><b>{{ name }}</b></a> {{ unique_contributors }} unique contributors</p>
+                        <p><a href="/board?{{ _id }}"><b>{{ name }}</b></a> {{ unique_contributors }} contributors</p>
                     </div>
                     {{else}}
                     <p>There are no boards in the database.</p>
