@@ -3,8 +3,7 @@ html, body {
   height: 100%;
   margin: 0;
   font-family: "Karla", sans-serif;
-  color: #404040;
-  overflow-x: hidden; }
+  color: #404040; }
 
 *, *:hover {
   -webkit-transition: all 0.1s ease-out;
@@ -32,7 +31,10 @@ a {
     box-shadow: none; }
 
 nav {
-  padding: 1em 2em; }
+  padding: 1em 2em;
+  position: sticky;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.9); }
   nav * {
     display: inline-block;
     margin: 0; }

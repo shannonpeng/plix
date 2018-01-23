@@ -51,8 +51,32 @@
     width: 15px;
     height: 15px;
     padding: 1em;
-    position: relative;
+    position: sticky;
     right: 2em;
     border-radius: 50% 50%;
     text-align: center;
+}
+
+@media only screen and (max-width: 900px){
+    .board-container{display: block;}
+
+    .block, .block .overlay{
+        width: calc(100vw / 96);
+        height: calc(100vw / 96);
+    }
+
+    .board-details{
+        width: 80%;
+        margin: auto;
+    }
+
+    .back-arrow{
+        position: relative;
+        left: 10px;
+    }
+
+    .content {
+    	width: 100%;
+    	margin: auto;
+    }
 }
