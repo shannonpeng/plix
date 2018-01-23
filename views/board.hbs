@@ -8,11 +8,10 @@
         <div class="container">
             <div class="content">
                 <a href="/dashboard"><div class="back-arrow button"><i class="fa fa-arrow-left"></i></div></a>
-                <h1>{{ board.name }}</h1>
-                <p>{{ board.unique_contributors}} unique contributors</p>
-                <p>{{ board.latitude}}, {{ board.longitude}}</p>
-                <div class="board">
 
+                <div class="board-container">
+
+                <div class="board">
                     {{#each blocks}}
                         <div class="row">
                         {{#each this}}
@@ -24,11 +23,19 @@
                     {{/each}}
                 </div>
 
-                {{#if edit}}
-                <form id="paint">
-                    <input type="color" id="pixcolor" name="hex" value="#4dbcf8">
-                </form>
-                {{/if}}
+                <div class="board-details">
+                    <h1>{{ board.name }}</h1>
+                    <p>{{ board.unique_contributors}} unique contributors</p>
+                    <p>{{ board.latitude}}, {{ board.longitude}}</p>
+
+                    {{#if edit}}
+                    <form id="paint">
+                        <input type="color" id="pixcolor" name="hex" value="#4dbcf8">
+                    </form>
+                    {{/if}}
+                </div>
+
+                </div>
             </div>
         </div>
     </div>
