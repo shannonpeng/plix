@@ -8,6 +8,22 @@ const User = require('../schemas/user');
 const Board = require('../schemas/board');
 const Pixel = require('../schemas/pixel');
 
+// update unique contributors
+function updateUnique(boardId){
+    var contributors = [];
+    Pixel.find({ board : mongo.ObjectId(boardId) }, function(err, pixels) {
+        if (err) { console.log(err) }
+        else {
+            for (pixel of pixels) {
+                if (contributors.indexOf(pixel.creator) <= -1 ){
+                    contributors.push(pixel.creator);
+                }
+            }
+        }
+        return contributors.length;
+    });
+}
+
 // GET home page
 router.get('/', function(req, res, next) {
 	if (req.session.userId) { res.redirect('/dashboard'); } // user logged in
@@ -33,6 +49,15 @@ router.get('/dashboard', function(req, res, next) {
 				Board.find({}).sort({ name: 1 }).exec(function(err, boards) { // retrieve all boards in database
 					if (err) { console.log(err); }
 					else if (boards) {
+                        // for (board of boards) {
+                        //     board.unique_contributors = updateUnique(board._id);
+                        //     board.save(function(err, data){
+                        //         if (err) { console.log(err) }
+                        //         else if (data) {
+                        //             res.send('board contributors updated');
+                        //         }
+                        //     });
+                        // }
 						console.log(boards);
 						res.render('dashboard', {
 							user: user,
