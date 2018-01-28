@@ -123,77 +123,81 @@ router.get('/dashboard', function(req, res, next) {
 
 // GET a board
 router.get('/board', function(req, res, next) {
-    var blocks = {};
-    var width = [];
-    var height = [];
-    for (var i = 0; i < 64; i ++) {
-        height.push(i);
-    }
-    for (var j = 0; j < 96; j ++) {
-        width.push(j);
-    }
-    for (x of height){ // basic blocks
-        var coords = {};
-        for (y of width) {
-            coords[y] = {'x': x, 'y': y, 'hex': '#F5F5F5'};
+    if (!req.session.userId) { res.redirect('/'); } // user not logged in
+    else {
+        var blocks = {};
+        var width = [];
+        var height = [];
+        for (var i = 0; i < 64; i ++) {
+            height.push(i);
         }
-        blocks[x] = coords;
-    }
+        for (var j = 0; j < 96; j ++) {
+            width.push(j);
+        }
+        for (x of height){ // basic blocks
+            var coords = {};
+            for (y of width) {
+                coords[y] = {'x': x, 'y': y, 'hex': '#F5F5F5'};
+            }
+            blocks[x] = coords;
+        }
 
-    var boardId = req.originalUrl.substring(req.originalUrl.indexOf('?') + 1, req.originalUrl.length);
+        var boardId = req.originalUrl.substring(req.originalUrl.indexOf('?') + 1, req.originalUrl.length);
 
-    Board.findOne({ _id: mongo.ObjectId(boardId) }, function(err, board) {
-        if (err) { console.log(err); }
-        else if (board) { // found board
-            Pixel.find({ board: mongo.ObjectId(boardId) }, function(err, pixels){
-                if (err) { console.log(err); }
-                else if (pixels) {
-                    // populate with last pixels
-                    for (pixel of pixels) {
-                        blocks[pixel.x][pixel.y]['hex'] = pixel.hex;
+        Board.findOne({ _id: mongo.ObjectId(boardId) }, function(err, board) {
+            if (err) { console.log(err); }
+            else if (board) { // found board
+                Pixel.find({ board: mongo.ObjectId(boardId) }, function(err, pixels){
+                    if (err) { console.log(err); }
+                    else if (pixels) {
+                        // populate with last pixels
+                        for (pixel of pixels) {
+                            blocks[pixel.x][pixel.y]['hex'] = pixel.hex;
+                        }
                     }
-                }
 
-                // get user
-                if (req.session.userId) {
-                    var userId = req.session.userId;
-                    User.findOne({ _id: userId }, function(err, user) {
-                        if (err) { console.log(err); }
-                        else if (user) {
-                            res.render('board',
-                                {user: user,
-                                board: board,
-                                blocks: blocks,
-                                edit: true}
-                            );
-                        }
-                        else { // cannot find a user
-                            console.log('no user found with Id ' + userId);
-                            res.render('board',
-                                {user: null,
-                                board: board,
-                                edit: false}
-                            );
-                        }
-                    });
-                }
-                else { // no user logged in
-                    res.render('board',
-                        {user: null,
-                        board: board,
-                        edit: false}
-                    );
-                }
-            });
-        }
-        else { // no board found
-            console.log('no board found with Id ' + boardId);
-        }
-    });
+                    // get user
+                    if (req.session.userId) {
+                        var userId = req.session.userId;
+                        User.findOne({ _id: userId }, function(err, user) {
+                            if (err) { console.log(err); }
+                            else if (user) {
+                                res.render('board',
+                                    {user: user,
+                                    board: board,
+                                    blocks: blocks,
+                                    edit: true}
+                                );
+                            }
+                            else { // cannot find a user
+                                console.log('no user found with Id ' + userId);
+                                res.render('board',
+                                    {user: null,
+                                    board: board,
+                                    edit: false}
+                                );
+                            }
+                        });
+                    }
+                    else { // no user logged in
+                        res.render('board',
+                            {user: null,
+                            board: board,
+                            edit: false}
+                        );
+                    }
+                });
+            }
+            else { // no board found
+                console.log('no board found with Id ' + boardId);
+            }
+        });
+    }
 });
 
 // POST a board
 router.post('/board', function(req, res, next) {
+    
     var back = req.header('Referer') || '/';
     var boardId = req.originalUrl.substring(req.originalUrl.indexOf('?') + 1, req.originalUrl.length);
 
