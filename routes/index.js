@@ -8,6 +8,35 @@ const User = require('../schemas/user');
 const Board = require('../schemas/board');
 const Pixel = require('../schemas/pixel');
 
+// update unique contributors
+function updateUnique(boardId){
+    var contributors = []; // list of unique contributors
+    Pixel.find({ board : mongo.ObjectId(boardId) }, function(err, pixels) { // get contributors
+        if (err) { console.log(err) }
+        else if (pixels) {
+            for (pixel of pixels) {
+                if (contributors.indexOf(pixel.creator) <= -1 ){
+                    contributors.push(pixel.creator); // only add contributor if we haven't counted them
+                }
+            }
+
+            // now update for board
+            Board.findOne({ _id: mongo.ObjectId(boardId) }, function(err, board) {
+                if (err) { console.log(err); }
+                else if (board) {
+                    board.unique_contributors = contributors.length;
+                    board.save(function(err, data){
+                        if (err) { console.log(err) }
+                        else if (data) {
+                            console.log('board saved');
+                        }
+                    });
+                }
+            });
+        }
+    });
+}
+
 // GET home page
 router.get('/', function(req, res, next) {
 	if (req.session.userId) { res.redirect('/dashboard'); } // user logged in
@@ -173,6 +202,8 @@ router.post('/board', function(req, res, next) {
 
                                 // if a pixel exists, update
                                 else if (pixel) {
+                                    updateUnique(boardId, userId);
+
                                     pixel.hex = req.body.hex;
                                     pixel.creator = mongo.ObjectId(userId);
                                     pixel.created_at = 00000; //NOTE: NOT IMPLEMENTED
