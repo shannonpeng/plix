@@ -10,17 +10,30 @@ const Pixel = require('../schemas/pixel');
 
 // update unique contributors
 function updateUnique(boardId){
-    var contributors = [];
-    Pixel.find({ board : mongo.ObjectId(boardId) }, function(err, pixels) {
+    var contributors = []; // list of unique contributors
+    Pixel.find({ board : mongo.ObjectId(boardId) }, function(err, pixels) { // get contributors
         if (err) { console.log(err) }
         else {
             for (pixel of pixels) {
                 if (contributors.indexOf(pixel.creator) <= -1 ){
-                    contributors.push(pixel.creator);
+                    contributors.push(pixel.creator); // only add contributor if we haven't counted them
                 }
             }
+
+            // now update for board
+            Board.findOne({ _id: mongo.ObjectId(boardId) }, function(err, board) {
+                if (err) { console.log(err); }
+                else if (board) {
+                    board.unique_contributors = contributors.length;
+                    board.save(function(err, data){
+                        if (err) { console.log(err) }
+                        else if (data) {
+                            console.log('board saved');
+                        }
+                    });
+                }
+            });
         }
-        return contributors.length;
     });
 }
 
@@ -49,15 +62,6 @@ router.get('/dashboard', function(req, res, next) {
 				Board.find({}).sort({ name: 1 }).exec(function(err, boards) { // retrieve all boards in database
 					if (err) { console.log(err); }
 					else if (boards) {
-                        // for (board of boards) {
-                        //     board.unique_contributors = updateUnique(board._id);
-                        //     board.save(function(err, data){
-                        //         if (err) { console.log(err) }
-                        //         else if (data) {
-                        //             res.send('board contributors updated');
-                        //         }
-                        //     });
-                        // }
 						console.log(boards);
 						res.render('dashboard', {
 							user: user,
@@ -198,6 +202,8 @@ router.post('/board', function(req, res, next) {
 
                                 // if a pixel exists, update
                                 else if (pixel) {
+                                    updateUnique(boardId);
+
                                     pixel.hex = req.body.hex;
                                     pixel.creator = mongo.ObjectId(userId);
                                     pixel.created_at = 00000; //NOTE: NOT IMPLEMENTED
