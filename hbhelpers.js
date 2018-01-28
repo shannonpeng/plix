@@ -25,8 +25,57 @@ function hbsHelpers(hbs) {
                 };
                 var string = date.toLocaleDateString("en-us", options)
                 return string
-            }
-
+            },
+            relativeTime: function(d) {
+                // returns timestamp in natural language
+            	var seconds = (new Date()).getTime() / 1000 - d/1000;
+            	var minutes = seconds / 60;
+            	var hours = seconds / (60*60);
+            	var days = seconds / (24*60*60);
+            	var weeks = seconds / (7*24*60*60);
+            	var months = seconds / (4*7*24*60*60);
+            	var years = seconds / (365*30*7*24*60*60);
+            	if (seconds < 60) {
+            		if (Math.floor(seconds) == 1) {
+            			return Math.floor(seconds) + " second ago";
+            		}
+            		return Math.floor(seconds) + " seconds ago";
+            	}
+            	if (minutes < 60) {
+            		if (Math.floor(minutes) == 1) {
+            			return Math.floor(minutes) + " minute ago";
+            		}
+            		return Math.floor(minutes) + " minutes ago";
+            	}
+            	if (hours < 24) {
+            		if (Math.floor(hours) == 1) {
+            			return Math.floor(hours) + " hour ago";
+            		}
+            		return Math.floor(hours) + " hours ago";
+            	}
+            	if (days < 7) {
+            		if (Math.floor(days) == 1) {
+            			return "Yesterday";
+            		}
+            		return Math.floor(days) + " days ago";
+            	}
+            	if (weeks < 5) {
+            		if (Math.floor(weeks) == 1) {
+            			return Math.floor(weeks) + " week ago";
+            		}
+            		return Math.floor(weeks) + " weeks ago";
+            	}
+            	if (months < 12) {
+            		if (Math.floor(months) == 1) {
+            			return Math.floor(months) + " month ago";
+            		}
+            		return Math.floor(months) + " months ago";
+            	}
+            	if (Math.floor(years) == 1) {
+            		return Math.floor(years) + " year ago";
+            	}
+            	return Math.floor(years) + " years ago";
+            },
         },
         extname: '.hbs'
     });
