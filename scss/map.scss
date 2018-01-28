@@ -1,6 +1,14 @@
 @import 'base';
 
-#map{
+#map {
     width: 100%;
     height: calc(100% - 39px - 2em);
+}
+
+// Markers
+
+// Sketchily, this is the label div
+#markerLayer div div div div {
+	font-family: $font-family-title !important;
+	font-weight: bold;
 }
