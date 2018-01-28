@@ -67,19 +67,10 @@ function updateBoardsContributed(userId){
 
 // update your last pixel
 function updateLastPixel(user){
-    var today = new Date();
-    var month = today.getMonth() + 1;
-    var day = today.getDate();
-    if (month < 10) {
-        month = '0' + month;
-    }
-    if (day < 10){
-        day = '0' + day;
-    }
-    var date = parseInt(today.getFullYear() + month + day);
+    var now = (new Date).getTime(); // epoch milliseconds
 
-    if (user.last_pixel_at != date){
-        user.last_pixel_at = date;
+    if (user.last_pixel_at != now){
+        user.last_pixel_at = now;
 
         user.save(function(err, data){
             if (err) { console.log(err) }
@@ -256,16 +247,8 @@ router.post('/board', function(req, res, next) {
 
                         // get POST data
                         if (req.body.x && req.body.y && req.body.hex) {
-                            var today = new Date();
-                            var month = today.getMonth() + 1;
-                            var day = today.getDate();
-                            if (month < 10) {
-                                month = '0' + month;
-                            }
-                            if (day < 10){
-                                day = '0' + day;
-                            }
-                            var date = parseInt(today.getFullYear() + month + day);
+                            var now = (new Date).getTime(); // epoch milliseconds
+
                             // find Pixel
                             Pixel.findOne({ x: req.body.x, y: req.body.y, board: mongo.ObjectId(boardId) }, function(err, pixel){
                                 if (err) { console.log(err); }
@@ -278,7 +261,7 @@ router.post('/board', function(req, res, next) {
 
                                     pixel.hex = req.body.hex;
                                     pixel.creator = mongo.ObjectId(userId);
-                                    pixel.created_at = date;
+                                    pixel.created_at = now;
 
                                     // save changes
                                     pixel.save(function(err, data){
@@ -300,7 +283,7 @@ router.post('/board', function(req, res, next) {
                                         board: mongo.ObjectId(boardId),
                                         hex: req.body.hex,
                                         creator: mongo.ObjectId(userId),
-                                        created_at: date,
+                                        created_at: now,
                                         x: req.body.x,
                                         y: req.body.y
                                     }

@@ -17,10 +17,14 @@ function hbsHelpers(hbs) {
                 var options = ["#ececec"];
                 return options[Math.floor(Math.random()*options.length)];
             },
-            pixelDate: function(number) {
-                var string = number.toString();
-                var date = string.substring(4, 6) + '/' + string.substring(6, 8) + '/' + string.substring(0,4);
-                return date;
+            pixelDate: function(d) {
+                var date = new Date(0); // first set to epoch
+                date.setUTCMilliseconds(d); // add epoch seconds
+                var options = {
+                    month: "short", day: "numeric", year: "numeric",
+                };
+                var string = date.toLocaleDateString("en-us", options)
+                return string
             }
 
         },
