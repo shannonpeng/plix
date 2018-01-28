@@ -83,9 +83,16 @@ router.get('/dashboard', function(req, res, next) {
 					Board.findOne({ _id: user.boards[i] }, function(err, board) {
 						if (err) { console.log(err); }
 						else if (board) {
-							boards_contributed.push(board);
+                            Pixel.find({ board : board._id, creator : userId }).sort({ created_at: -1 }).exec(function(err, pixels) {
+                                if (err) { console.log(err) }
+                                else if (pixels) {
+                                    boards_contributed.push({ 'board' : board, 'pixel' : pixels[0]});
+                                    console.log(pixels);
+                                }
+                            });
 						};
 					});
+
 				}
 				Board.find({}).sort({ name: 1 }).exec(function(err, boards) { // retrieve all boards in database
 					if (err) { console.log(err); }
@@ -94,7 +101,7 @@ router.get('/dashboard', function(req, res, next) {
 						res.render('dashboard', {
 							user: user,
 							boards: boards,
-							boards_contributed: boards_contributed
+							boards_contributed: boards_contributed,
 						}, function(err, data) {
 							if (err) { console.log(err); }
 							else { res.send(data); }

@@ -16,7 +16,13 @@ function hbsHelpers(hbs) {
             randomPaletteColor: function() {
                 var options = ["#ececec"];
                 return options[Math.floor(Math.random()*options.length)];
+            },
+            pixelDate: function(number) {
+                var string = number.toString();
+                var date = string.substring(4, 6) + '/' + string.substring(6, 8) + '/' + string.substring(0,4);
+                return date;
             }
+
         },
         extname: '.hbs'
     });
