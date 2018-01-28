@@ -15,7 +15,7 @@ const debug = require('debug')('plix:server');
 const index = require('./routes/index');
 const users = require('./routes/users');
 
-//const config = require('./config.js'); // Comment out for heroku
+// const config = require('./config.js'); // Comment out for heroku
 
 // Start HTTP Server
 const app = express();
@@ -63,7 +63,7 @@ const hbs = require('./hbhelpers.js')(exphbs);
 app.engine('hbs', hbs.engine);
 app.set('view engine', '.hbs');
 
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico'))); // Uncomment after placing your favicon in /public
+app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));
 app.use(logger('dev'));
 
 // body parser reads post requests
