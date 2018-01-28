@@ -8,6 +8,8 @@ const User = require('../schemas/user');
 const Board = require('../schemas/board');
 const Pixel = require('../schemas/pixel');
 
+const config = require('../config.js'); // Comment out for heroku
+
 // update unique contributors
 function updateUnique(boardId){
     var contributors = []; // list of unique contributors
@@ -311,6 +313,23 @@ router.post('/board', function(req, res, next) {
         error.status = 401;
         next(error);
     }
+});
+
+// GET map view
+router.get('/map', function(req, res, next) {
+    Board.find({}).sort({ name: 1 }).exec(function(err, boards) { // retrieve all boards in database
+        if (err) { console.log(err); }
+        else if (boards) {
+            console.log(boards);
+            res.render('map', {
+                api : config.MAP_API,
+                boards: boards,
+            }, function(err, data) {
+                if (err) { console.log(err); }
+                else { res.send(data); }
+            });
+        }
+    });
 });
 
 module.exports = router;
