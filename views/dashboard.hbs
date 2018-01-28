@@ -8,14 +8,18 @@
         <div class="container">
             <div class="content">
                 <div class="boards">
-                    <!--<h2>boards you've contributed to</h2>
+                    You last plixed {{ relativeTime user.last_pixel_at}}
+                    <h2>boards you've contributed to</h2>
                     {{#each boards_contributed}}
                     <div class="board">
-                        <p><a href="/board?{{ _id }}"><b>{{ name }}</b></a> {{ unique_contributors }} contributors</p>
+                        <a href="/board?{{ board._id }}"><div class="board-icon button">
+                        <h1>{{ boardInitials board.name }}</h1></div></a>
+                        <h3>{{ board.name }}</h3>
+                        <p>Last pixel {{ relativeTime pixel.created_at }}</p>
                     </div>
                     {{else}}
                     <p>You haven't contributed to any boards.</p>
-                    {{/each}}-->
+                    {{/each}}
                     <h2>all boards</h2>
                     {{#each boards}}
                     <div class="board">
@@ -23,7 +27,7 @@
                         <h3>{{ name }}</h3>
                         <p>{{ unique_contributors }} contributors</p>
                     </div>
-                    
+
                     {{else}}
                     <p>There are no boards in the database.</p>
                     {{/each}}

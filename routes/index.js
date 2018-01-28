@@ -8,6 +8,79 @@ const User = require('../schemas/user');
 const Board = require('../schemas/board');
 const Pixel = require('../schemas/pixel');
 
+// update unique contributors
+function updateUnique(boardId){
+    var contributors = []; // list of unique contributors
+    Pixel.find({ board : mongo.ObjectId(boardId) }, function(err, pixels) { // get contributors
+        if (err) { console.log(err) }
+        else if (pixels) {
+            for (pixel of pixels) {
+                if (contributors.indexOf(pixel.creator) <= -1 ){
+                    contributors.push(pixel.creator); // only add contributor if we haven't counted them
+                }
+            }
+
+            // now update for board
+            Board.findOne({ _id: mongo.ObjectId(boardId) }, function(err, board) {
+                if (err) { console.log(err); }
+                else if (board) {
+                    board.unique_contributors = contributors.length;
+                    board.save(function(err, data){
+                        if (err) { console.log(err) }
+                        else if (data) {
+                            console.log('board saved');
+                        }
+                    });
+                }
+            });
+        }
+    });
+}
+
+// update your boards
+function updateBoardsContributed(userId){
+    var myBoards = []
+    Pixel.find({ creator : mongo.ObjectId(userId) }, function(err, pixels){ // get all pixels owned
+        if (err) { console.log(err) }
+        else if (pixels) {
+            for (pixel of pixels) {
+                if (myBoards.indexOf(pixel.board) <= -1){
+                    myBoards.push(pixel.board); // only count unique boards
+                }
+            }
+
+            User.findOne({ _id : mongo.ObjectId(userId) }, function(err, user){
+                if (err) { console.log(err); }
+                else if (user) {
+                    user.boards = myBoards;
+                    user.save(function(err, data){
+                        if (err) { console.log(err) }
+                        else if (data) {
+                            console.log('user boards saved');
+                        };
+                    })
+                }
+            });
+        }
+    });
+}
+
+// update your last pixel
+function updateLastPixel(user){
+    var now = (new Date).getTime(); // epoch milliseconds
+
+    if (user.last_pixel_at != now){
+        user.last_pixel_at = now;
+
+        user.save(function(err, data){
+            if (err) { console.log(err) }
+            else if (data) {
+                console.log('last pixel saved');
+            };
+        });
+    }
+}
+
 // GET home page
 router.get('/', function(req, res, next) {
 	if (req.session.userId) { res.redirect('/dashboard'); } // user logged in
@@ -26,9 +99,16 @@ router.get('/dashboard', function(req, res, next) {
 					Board.findOne({ _id: user.boards[i] }, function(err, board) {
 						if (err) { console.log(err); }
 						else if (board) {
-							boards_contributed.push(board);
+                            Pixel.find({ board : board._id, creator : userId }).sort({ created_at: -1 }).exec(function(err, pixels) {
+                                if (err) { console.log(err) }
+                                else if (pixels) {
+                                    boards_contributed.push({ 'board' : board, 'pixel' : pixels[0]});
+                                    console.log(pixels);
+                                }
+                            });
 						};
 					});
+
 				}
 				Board.find({}).sort({ name: 1 }).exec(function(err, boards) { // retrieve all boards in database
 					if (err) { console.log(err); }
@@ -37,7 +117,7 @@ router.get('/dashboard', function(req, res, next) {
 						res.render('dashboard', {
 							user: user,
 							boards: boards,
-							boards_contributed: boards_contributed
+							boards_contributed: boards_contributed,
 						}, function(err, data) {
 							if (err) { console.log(err); }
 							else { res.send(data); }
@@ -167,15 +247,21 @@ router.post('/board', function(req, res, next) {
 
                         // get POST data
                         if (req.body.x && req.body.y && req.body.hex) {
+                            var now = (new Date).getTime(); // epoch milliseconds
+
                             // find Pixel
                             Pixel.findOne({ x: req.body.x, y: req.body.y, board: mongo.ObjectId(boardId) }, function(err, pixel){
                                 if (err) { console.log(err); }
 
                                 // if a pixel exists, update
                                 else if (pixel) {
+                                    updateUnique(boardId);
+                                    updateBoardsContributed(userId);
+                                    updateLastPixel(user);
+
                                     pixel.hex = req.body.hex;
                                     pixel.creator = mongo.ObjectId(userId);
-                                    pixel.created_at = 00000; //NOTE: NOT IMPLEMENTED
+                                    pixel.created_at = now;
 
                                     // save changes
                                     pixel.save(function(err, data){
@@ -189,11 +275,15 @@ router.post('/board', function(req, res, next) {
 
                                 // if no pixel, create one
                                 else {
+                                    updateUnique(boardId);
+                                    updateBoardsContributed(userId);
+                                    updateLastPixel(user);
+
                                     var newPixel = {
                                         board: mongo.ObjectId(boardId),
                                         hex: req.body.hex,
                                         creator: mongo.ObjectId(userId),
-                                        created_at: 0000000,
+                                        created_at: now,
                                         x: req.body.x,
                                         y: req.body.y
                                     }
