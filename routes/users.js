@@ -23,7 +23,7 @@ router.post('/register', function(req, res, next) {
 
         User.find({ $or:[ {email : req.body.email }, { username : req.body.username } ] }, function(err, users){
             if (err) {console.log(err)}
-            else if (users) { // username or email already taken
+            else if (users && users.length > 0) { // username or email already taken
                 return res.render('register', { title: 'Register', error: 'Sorry, that username or email has already been taken'});
             }
             else { // create user if valid username and email
