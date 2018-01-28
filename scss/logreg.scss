@@ -17,6 +17,11 @@
     }
 }
 
+.error{
+    font-family: $font-family-title;
+    color: $red;
+}
+
 input{
     border: none;
     width: 200px;

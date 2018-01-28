@@ -3,13 +3,16 @@
     <body>
         <div class="container">
             <div class="content">
+
                 <h1 class="title">register</h1>
+                <div class="error">{{error}}</div>
                 <form method='POST'>
                     <div class="field"><i class="fa fa-envelope-o"></i><input type="email" name="email" placeholder="email@plix.io" /></div>
                     <div class="field"><i class="fa fa-user"></i><input type="username" name="username" placeholder="username" /></div>
                     <div class="field"><i class="fa fa-lock"></i><input type="password" name="password" placeholder="password" /></div>
                     <input class="submit" type="submit" value="register" />
                 </form>
+
                 <p class="hint">already have an account? <a href="/login">sign in</a>.</p>
             </div>
         </div>

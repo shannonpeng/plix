@@ -201,6 +201,10 @@ body {
     margin-right: 0.75em;
     text-align: left; }
 
+.error {
+  font-family: "Fredoka One";
+  color: #d94067; }
+
 input {
   border: none;
   width: 200px;

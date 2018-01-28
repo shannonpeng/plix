@@ -21,16 +21,25 @@ router.post('/register', function(req, res, next) {
             pixels: 1
         }
 
-        User.create(newUser, function(error, user) {
-            if (error) {
-                console.log(error);
-                // need actual error handler
-                return next(error);
-            } else {
-                req.session.userId = user._id;
-                return res.redirect('/dashboard');
+        User.find({ $or:[ {email : req.body.email }, { username : req.body.username } ] }, function(err, users){
+            if (err) {console.log(err)}
+            else if (users) { // username or email already taken
+                return res.render('register', { title: 'Register', error: 'Sorry, that username or email has already been taken'});
+            }
+            else { // create user if valid username and email
+                User.create(newUser, function(error, user) {
+                    if (error) {
+                        console.log(error);
+                        return next(error);
+                    } else {
+                        req.session.userId = user._id;
+                        return res.redirect('/dashboard');
+                    }
+                });
             }
         });
+
+
     } else {
         var error = new Error('All fields required');
         error.status = 401;
