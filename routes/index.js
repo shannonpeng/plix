@@ -13,7 +13,7 @@ function updateUnique(boardId){
     var contributors = []; // list of unique contributors
     Pixel.find({ board : mongo.ObjectId(boardId) }, function(err, pixels) { // get contributors
         if (err) { console.log(err) }
-        else {
+        else if (pixels) {
             for (pixel of pixels) {
                 if (contributors.indexOf(pixel.creator) <= -1 ){
                     contributors.push(pixel.creator); // only add contributor if we haven't counted them
@@ -202,7 +202,7 @@ router.post('/board', function(req, res, next) {
 
                                 // if a pixel exists, update
                                 else if (pixel) {
-                                    updateUnique(boardId);
+                                    updateUnique(boardId, userId);
 
                                     pixel.hex = req.body.hex;
                                     pixel.creator = mongo.ObjectId(userId);
