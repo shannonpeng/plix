@@ -6,7 +6,7 @@ $(document).ready(function () {
         return 1;
     }
 
-    const NUM_CLOUDS = 36;
+    const NUM_CLOUDS = 24;
     const MAX_BOTTOM = 50;
     const MAX_DELAY = 48; // seconds
     const CLOUD_IMG_SRC = ["/images/cloud.png", "//orig13.deviantart.net/1f2e/f/2013/121/a/4/coffee_16x16_by_madgharr-d63qqlo.gif", "//orig00.deviantart.net/57b5/f/2016/195/3/9/pixel_art___watermelon_gif_by_mewkii-da9liv6.gif", "//i614.photobucket.com/albums/tt222/TheUltimateWhistle/28us51e_zps6dkjxelp.png"];
