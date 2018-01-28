@@ -8,13 +8,14 @@
         <div class="container">
             <div class="content">
                 <div class="boards">
+                    You last plixed on {{pixelDate user.last_pixel_at}}
                     <h2>boards you've contributed to</h2>
                     {{#each boards_contributed}}
                     <div class="board">
                         <a href="/board?{{ board._id }}"><div class="board-icon button">
                         <h1>{{ boardInitials board.name }}</h1></div></a>
                         <h3>{{ board.name }}</h3>
-                        <p>Latest {{ pixelDate pixel.created_at }}</p>
+                        <p>Last pixel on {{ pixelDate pixel.created_at }}</p>
                     </div>
                     {{else}}
                     <p>You haven't contributed to any boards.</p>

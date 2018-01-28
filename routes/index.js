@@ -65,6 +65,31 @@ function updateBoardsContributed(userId){
     });
 }
 
+// update your last pixel
+function updateLastPixel(user){
+    var today = new Date();
+    var month = today.getMonth() + 1;
+    var day = today.getDate();
+    if (month < 10) {
+        month = '0' + month;
+    }
+    if (day < 10){
+        day = '0' + day;
+    }
+    var date = parseInt(today.getFullYear() + month + day);
+
+    if (user.last_pixel_at != date){
+        user.last_pixel_at = date;
+
+        user.save(function(err, data){
+            if (err) { console.log(err) }
+            else if (data) {
+                console.log('last pixel saved');
+            };
+        });
+    }
+}
+
 // GET home page
 router.get('/', function(req, res, next) {
 	if (req.session.userId) { res.redirect('/dashboard'); } // user logged in
@@ -249,6 +274,7 @@ router.post('/board', function(req, res, next) {
                                 else if (pixel) {
                                     updateUnique(boardId);
                                     updateBoardsContributed(userId);
+                                    updateLastPixel(user);
 
                                     pixel.hex = req.body.hex;
                                     pixel.creator = mongo.ObjectId(userId);
@@ -268,6 +294,8 @@ router.post('/board', function(req, res, next) {
                                 else {
                                     updateUnique(boardId);
                                     updateBoardsContributed(userId);
+                                    updateLastPixel(user);
+
                                     var newPixel = {
                                         board: mongo.ObjectId(boardId),
                                         hex: req.body.hex,
