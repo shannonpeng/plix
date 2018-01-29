@@ -38,7 +38,7 @@ $pixel-size: 5px;
 
         .board {
           margin: 20px 20px 0 0;
-          min-width: 580px;
+          min-width: $pixel-size * 96;
             .row {
                 display: flex;
                 .block {
@@ -85,22 +85,37 @@ $pixel-size: 5px;
 
 @media only screen and (max-width: 900px){
     #view-board {
-        board-container{display: block;}
-        .block, .block .overlay{
-            width: calc(100vw / 96);
-            height: calc(100vw / 96);
+        font-size: 0.8em;
+        .container {
+            padding: 2.5em 0;
         }
-
+        .board-container {
+            display: block;
+            .board {
+                min-width: 100vw;
+                .row {
+                    .block, .block .overlay{
+                        width: calc(100vw / 96);
+                        height: calc(100vw / 96);
+                    }
+                }
+            }
+        }
         .board-details{
             width: 80%;
             margin: auto;
+            margin-left: 4.5em;
+            > * {
+                margin: 0.25em;
+            }
         }
-
         .back-arrow {
-            position: relative;
+            width: 15px;
+            height: 15px;
+            font-size: 1em;
             left: 10px;
+            right: auto;
         }
-
         .content {
             width: 100%;
             margin: auto;

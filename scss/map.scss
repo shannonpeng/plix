@@ -93,3 +93,10 @@
     -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
   }
 }
+
+@media only screen and (max-width: 900px){
+    #board-sidebar {
+        width: 100%;
+        left: -100%;
+    }
+}
