@@ -1,5 +1,5 @@
 var board = $("#view-board").attr("board"); // get board ID
-var sidebarOpen = true; // map takes care of the first open
+var sidebarOpen = false;
 
 // Connect to socket
 var socket = io();

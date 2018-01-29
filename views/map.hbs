@@ -550,9 +550,20 @@
                     radius: 4
                   });
                 {{#if target_board}}
-                {{else}}
-                    map.setCenter(pos); // only move map to current location if not targeting a specific board
-                    loader.classList.add('hide');
+                {{else}} // not targeting a specific board
+                    const default_board_id = "5a6560f6bd7c3ca10baec104";
+                    $.ajax({ // preload with default board but don't show sidebar yet
+                        type: "GET",
+                        url: "board?" + default_board_id,
+                        success: function(data) {
+                          $("#board-sidebar").html(data); // Inject HTML into sidebar
+                        },
+                        error: function(error) {
+                          console.log('error');
+                        }
+                    });
+                    map.setCenter(pos); // pan map to current location
+                    loader.classList.add('hide'); // hide loader
                 {{/if}}
                 }, function() {
                     handleLocationError(true, infoWindow, map.getCenter());
