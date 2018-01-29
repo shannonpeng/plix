@@ -548,7 +548,9 @@
                     zIndex: 99,
                     radius: 4
                   });
-                map.setCenter(pos);
+                {{#if target_board}}{{else}}
+                    map.setCenter(pos); // only move map to current location if not targeting a specific board
+                {{/if}}
                 }, function() {
                     handleLocationError(true, infoWindow, map.getCenter());
                 });
@@ -569,7 +571,25 @@
             'Error: Your browser doesn\'t support geolocation.');
           infoWindow.open(map);
         }
+        {{#if target_board}}
+        $.ajax({ // GET board
+            type: "GET",
+            url: "board?" + "{{target_board.id}}",
+            success: function(data) {
+              $("#board-sidebar").html(data); // Inject HTML into sidebar
+              $("#board-sidebar").addClass("active"); // Show sidebar
+              var center = {};
+              center.lat = {{target_board.latitude}};
+              center.lng = {{target_board.longitude}};
+              map.setCenter(center);
+            },
+            error: function(error) {
+              console.log('error');
+            }
+        });
+        {{/if}}
     </script>
+    
     <script async defer src="https://maps.googleapis.com/maps/api/js?key={{api}}&callback=initMap"></script>
     <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 

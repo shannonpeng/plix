@@ -8,14 +8,15 @@
         <div class="container">
             <div class="content">
                 <h1 class="title">{{ user.username }}</h1>
+                <h2 class="last-pixel-at"><i class="fa fa-clock-o"></i> Last plixed {{ relativeTime user.last_pixel_at }}</h2>
                 <div class="boards">
                     <h2>Your Boards</h2>
-                    {{#each boards_contributed}}
+                    {{#each boards}}
                     <div class="board">
-                        <a href="/board?{{ _id }}"><div class="board-icon button"><h1>{{ boardInitials board.name }}</h1></div></a>
+                        <a href="/dashboard?{{ board._id }}"><div class="board-icon button" style="background-color:{{pixel.hex}};box-shadow: 0 4px 0 0 {{darkenHex pixel.hex 18}};color: {{lightDarkText pixel.hex}}"><h1>{{boardInitials board.name }}</h1></div></a>
                         <h3>{{ board.name }}</h3>
-                        <p><i class="fa fa-globe"></i> {{round board.latitude 2}}, {{round board.longitude 2}}</p>
-                        <p><i class="fa fa-user"></i> {{formatUsers board.unique_contributors}}</p>
+                        <p><i class="fa fa-clock-o"></i> {{#if pixel.created_at}}Plixed {{ relativeTime pixel.created_at }}{{else}}n/a{{/if}}</p><br>
+                        <p><i class="fa fa-user"></i> {{board.unique_contributors}} users</p>
                     </div>
                     {{else}}
                     <p>You haven't contributed to any boards :c</p>

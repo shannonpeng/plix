@@ -55,6 +55,7 @@ function updateBoardsContributed(userId){
                 else if (user) {
                     user.boards = myBoards;
                     user.save(function(err, data){
+                        console.log(data);
                         if (err) { console.log(err) }
                         else if (data) {
                             console.log('user boards saved');
@@ -74,6 +75,7 @@ function updateLastPixel(user){
         user.last_pixel_at = now;
 
         user.save(function(err, data){
+            console.log(data);
             if (err) { console.log(err) }
             else if (data) {
                 console.log('last pixel saved');
@@ -92,38 +94,64 @@ router.get('/', function(req, res, next) {
 router.get('/profile', function(req, res, next) {
 	if (req.session.userId) { // user logged in
 		var userId = req.session.userId;
-		User.findOne({ _id: userId }).exec(function(err, user) {
+		User.findOne({ _id: mongo.ObjectId(userId) }).exec(function(err, user) {
 			if (err) { console.log(err); }
 			else if (user) { // user found
 				var boards_contributed = [];
-				for (var i = 0; i < user.boards.length; i++) { // retrieve boards by board ID
-					Board.findOne({ _id: user.boards[i] }, function(err, board) {
-						if (err) { console.log(err); }
-						else if (board) {
-                            Pixel.find({ board : board._id, creator : userId }).sort({ created_at: -1 }).exec(function(err, pixels) {
-                                if (err) { console.log(err) }
-                                else if (pixels) {
-                                    boards_contributed.push({ 'board' : board, 'pixel' : pixels[0]});
-                                    console.log(pixels);
+                if (user.boards.length == 0) {
+                    res.render('profile', {
+                        user: user,
+                        boards: boards_contributed
+                    }, function(err, data) {
+                        if (err) { console.log(err); }
+                        else { res.send(data); }
+                    });
+                }
+                else {
+                    Pixel.find({ board: { $in : user.boards }, creator : mongo.ObjectId(userId) }).sort({created_at: '-1'}).exec(function(err, pixels) {
+                        if (err) { console.log(err); }
+                        else if (pixels) {
+                            // remove duplicates
+                            var pixel_ids = {};
+                            var unique_pixels = [];
+                            for (var i = 0; i < pixels.length; i++) {
+                                if (!(pixel_ids[pixels[i].board])) {
+                                    pixel_ids[pixels[i].board] = 1;
+                                    unique_pixels.push(pixels[i]);
+                                    console.log(pixel_ids)
                                 }
-                            });
-						};
-					});
-				}
-				Board.find({}).sort({ name: 1 }).exec(function(err, boards) { // retrieve all boards in database
-					if (err) { console.log(err); }
-					else if (boards) {
-						console.log(boards);
-						res.render('profile', {
-							user: user,
-							boards: boards,
-							boards_contributed: boards_contributed,
-						}, function(err, data) {
-							if (err) { console.log(err); }
-							else { res.send(data); }
-						});
-					}
-				});
+                            }
+                            var j = 0;
+                            while (j < unique_pixels.length) {
+                                renderBoards(unique_pixels[j]);
+                                j++;
+                            }
+                            function renderBoards(pixel) {
+                                Board.findOne({ _id : mongo.ObjectId(pixel.board)}, function(err, board) {
+                                    if (err) { console.log(err); }
+                                    else if (board) {
+                                        boards_contributed.push({ 'board' : board, 'pixel' : pixel });
+                                        if (boards_contributed.length == user.boards.length) { // execute this after all boards have been collected
+                                            boards_contributed.sort(function(a, b) { // sort again just to be sure
+                                                return b.pixel.created_at > a.pixel.created_at;
+                                            });
+                                            res.render('profile', {
+                                                user: user,
+                                                boards: boards_contributed
+                                            }, function(err, data) {
+                                                if (err) { console.log(err); }
+                                                else { res.send(data); }
+                                            });
+                                        }
+                                    }
+                                    else {
+                                        console.log('no board found');
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
 			}
 			else { // no user found with given username
 				console.log('no user found with Id' + userId);
@@ -172,7 +200,7 @@ router.get('/board', function(req, res, next) {
                     // get user
                     if (req.session.userId) {
                         var userId = req.session.userId;
-                        User.findOne({ _id: userId }, function(err, user) {
+                        User.findOne({ _id: mongo.ObjectId(userId) }, function(err, user) {
                             if (err) { console.log(err); }
                             else if (user) {
                                 res.render('board',
@@ -236,7 +264,7 @@ router.post('/board', function(req, res, next) {
     if (req.session.userId){
         //find User
         var userId = req.session.userId;
-		User.findOne({ _id: userId }, function(err, user) {
+		User.findOne({ _id: mongo.ObjectId(userId) }, function(err, user) {
 			if (err) { console.log(err); }
             // found User
 			else if (user) {
@@ -287,12 +315,13 @@ router.post('/board', function(req, res, next) {
                                         y: req.body.y
                                     }
                                     Pixel.create(newPixel, function(error, pixel) {
+                                        console.log(pixel);
                                         if (error) {
                                             console.log(error);
                                             next(error);
                                         }
                                         else {
-                                             res.send('pixel saved');
+                                            res.send('pixel saved');
                                         }
                                     });
                                 }
@@ -327,33 +356,29 @@ router.post('/board', function(req, res, next) {
 router.get('/dashboard', function(req, res, next) {
     if (req.session.userId) { // user logged in
         var userId = req.session.userId;
-        User.findOne({ _id: userId }).exec(function(err, user) {
+        User.findOne({ _id: mongo.ObjectId(userId) }).exec(function(err, user) {
             if (err) { console.log(err); }
             else if (user) { // user found
-                var boards_contributed = [];
-                for (var i = 0; i < user.boards.length; i++) { // retrieve boards by board ID
-                    Board.findOne({ _id: user.boards[i] }, function(err, board) {
+                var target_board = null;
+                if (req.originalUrl.indexOf('?') >= 0) {
+                    target_board = {};
+                    target_board.id = req.originalUrl.substring(req.originalUrl.indexOf('?') + 1, req.originalUrl.length); // load specific board
+                    Board.findOne({ _id: mongo.ObjectId(target_board.id) }, function(err, board) {
                         if (err) { console.log(err); }
                         else if (board) {
-                            Pixel.find({ board : board._id, creator : userId }).sort({ created_at: -1 }).exec(function(err, pixels) {
-                                if (err) { console.log(err) }
-                                else if (pixels) {
-                                    boards_contributed.push({ 'board' : board, 'pixel' : pixels[0]});
-                                    console.log(pixels);
-                                }
-                            });
+                            target_board.latitude = board.latitude;
+                            target_board.longitude = board.longitude;
                         };
                     });
                 }
                 Board.find({}).sort({ name: 1 }).exec(function(err, boards) { // retrieve all boards in database
                     if (err) { console.log(err); }
                     else if (boards) {
-                        console.log(boards);
                         res.render('map', {
                             api: config.MAP_API,
                             user: user,
                             boards: boards,
-                            boards_contributed: boards_contributed,
+                            target_board: target_board
                         }, function(err, data) {
                             if (err) { console.log(err); }
                             else { res.send(data); }

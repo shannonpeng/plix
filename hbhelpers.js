@@ -5,6 +5,50 @@ function hbsHelpers(hbs) {
                var s = string.substring(start, end);
                return s;
             },
+            lightDarkText: function(hex) {
+              if (hex.length != 7) { // #234567
+                  return false;
+              }
+              else { // http://www.nbdtech.com/Blog/archive/2008/04/27/Calculating-the-Perceived-Brightness-of-a-Color.aspx
+                brightness = function(color) {
+                    color = color.substring(1);
+                    var R = parseInt(color.substring(0,2),16);
+                    var G = parseInt(color.substring(2,4),16);
+                    var B = parseInt(color.substring(4,6),16);
+                    return Math.sqrt(R * R * .241 + G * G * .691 + B * B * .068);
+                }
+                return brightness(hex) < 180 ? '#FFFFFF' : '#404040';
+              }
+            },
+            lightenHex: function(hex, percent) {
+              if (hex.length != 7) { // #234567
+                  return false;
+              }
+              else { // https://gist.github.com/renancouto/4675192
+                hex = hex.substring(1);
+                var num = parseInt(hex,16),
+                    amt = Math.round(2.55 * percent),
+                      R = (num >> 16) + amt,
+                      B = (num >> 8 & 0x00FF) + amt,
+                      G = (num & 0x0000FF) + amt;
+                    return "#" + (0x1000000 + (R<255?R<1?0:R:255)*0x10000 + (B<255?B<1?0:B:255)*0x100 + (G<255?G<1?0:G:255)).toString(16).slice(1);
+                }
+            },
+            darkenHex: function(hex, percent) {
+              if (hex.length != 7) { // #234567
+                  return false;
+              }
+              else { // https://gist.github.com/renancouto/4675192
+                hex = hex.substring(1);
+                percent = -1 * percent;
+                var num = parseInt(hex,16),
+                    amt = Math.round(2.55 * percent),
+                      R = (num >> 16) + amt,
+                      B = (num >> 8 & 0x00FF) + amt,
+                      G = (num & 0x0000FF) + amt;
+                    return "#" + (0x1000000 + (R<255?R<1?0:R:255)*0x10000 + (B<255?B<1?0:B:255)*0x100 + (G<255?G<1?0:G:255)).toString(16).slice(1);
+                }
+            },
             boardInitials: function(string) {
                var subs = string.split(" ");
                var s = "";
