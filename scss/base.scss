@@ -47,10 +47,13 @@ a {
 }
 
 nav {
+	width: 100%;
 	padding: 1em 2em;
-    position: sticky;
+    position: absolute;
     top: 0;
-    background-color: rgba(255, 255, 255, 0.9);
+    height: 40px;
+    background: transparent;
+    z-index: 1;
 	* {
 		display: inline-block;
 		margin: 0;
@@ -58,9 +61,14 @@ nav {
 	.logo h3 {
 		font-size: 2em;
 		color: $blue;
+		opacity: 0.8;
+		&:hover {
+			opacity: 1;
+		}
 	}
 	.account {
 		float: right;
+		margin-right: 50px;
 		vertical-align: middle;
 		> * {
 			margin-left: 0.5em;
@@ -82,9 +90,13 @@ nav {
 				}
 			}
 			.logout {
-				background: lighten($red, 18%);
+				background: lighten($red, 9%);
 				box-shadow: 0 4px 0 0 $red;
 			}
 		}
 	}
+}
+
+footer {
+
 }

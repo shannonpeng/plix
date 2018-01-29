@@ -31,18 +31,25 @@ a {
     box-shadow: none; }
 
 nav {
+  width: 100%;
   padding: 1em 2em;
-  position: sticky;
+  position: absolute;
   top: 0;
-  background-color: rgba(255, 255, 255, 0.9); }
+  height: 40px;
+  background: transparent;
+  z-index: 1; }
   nav * {
     display: inline-block;
     margin: 0; }
   nav .logo h3 {
     font-size: 2em;
-    color: #4dbcf8; }
+    color: #4dbcf8;
+    opacity: 0.8; }
+    nav .logo h3:hover {
+      opacity: 1; }
   nav .account {
     float: right;
+    margin-right: 50px;
     vertical-align: middle; }
     nav .account > * {
       margin-left: 0.5em; }
@@ -60,22 +67,22 @@ nav {
         nav .account .account-options .settings:hover, nav .account .account-options .logout:hover {
           cursor: pointer; }
       nav .account .account-options .logout {
-        background: #e88da4;
+        background: #e16685;
         box-shadow: 0 4px 0 0 #d94067; }
 
-.container {
+#dashboard .container {
   width: 100%;
   height: 100%;
   margin: auto; }
 
-.content {
+#dashboard .content {
   width: 80%;
   margin: auto; }
 
-.board {
+#dashboard .board {
   display: inline-block;
   margin: 1em; }
-  .board .board-icon {
+  #dashboard .board .board-icon {
     width: 80px;
     height: 80px;
     vertical-align: middle;
@@ -83,6 +90,6 @@ nav {
     padding: 1em;
     background-color: #ececec;
     box-shadow: 0 4px 0 0 #cccccc; }
-    .board .board-icon:active {
+    #dashboard .board .board-icon:active {
       transform: translateY(4px);
       box-shadow: none; }

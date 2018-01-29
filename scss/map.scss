@@ -2,7 +2,8 @@
 
 #map {
     width: 100%;
-    height: calc(100% - 39px - 2em);
+    //height: calc(100% - 39px - 2em);
+    height: 100%;
 }
 
 // Markers
@@ -11,4 +12,28 @@
 #markerLayer div div div div {
 	font-family: $font-family-title !important;
 	font-weight: bold;
+}
+
+#board-sidebar {
+	height: 100%;
+	position: absolute;
+	width: 600px;
+	top: 0;
+	left: -600px;
+	padding-top: 39px; // nav height 
+	background: white;
+	box-shadow: 0 0 0 darken(white, 18%);
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
+	&.active {
+		left: 0;
+		box-shadow: 8px 0 0 darken(white, 18%);
+		-webkit-transition: all 0.5s ease-out;
+		-moz-transition: all 0.5s ease-out;
+		transition: all 0.5s ease-out; 
+		.back-arrow {
+			right: calc(-25px - 0.5em);
+		}
+	}
 }

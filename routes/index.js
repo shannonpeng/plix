@@ -73,8 +73,8 @@ router.get('/', function(req, res, next) {
 	else { res.render('index'); } // render landing page
 });
 
-// GET dashboard
-router.get('/dashboard', function(req, res, next) {
+// GET profile
+router.get('/profile', function(req, res, next) {
 	if (req.session.userId) { // user logged in
 		var userId = req.session.userId;
 		User.findOne({ _id: userId }).exec(function(err, user) {
@@ -100,7 +100,7 @@ router.get('/dashboard', function(req, res, next) {
 					if (err) { console.log(err); }
 					else if (boards) {
 						console.log(boards);
-						res.render('dashboard', {
+						res.render('profile', {
 							user: user,
 							boards: boards,
 							boards_contributed: boards_contributed,
@@ -197,7 +197,7 @@ router.get('/board', function(req, res, next) {
 
 // POST a board
 router.post('/board', function(req, res, next) {
-    
+
     var back = req.header('Referer') || '/';
     var boardId = req.originalUrl.substring(req.originalUrl.indexOf('?') + 1, req.originalUrl.length);
 
@@ -320,20 +320,52 @@ router.post('/board', function(req, res, next) {
 });
 
 // GET map view
-router.get('/map', function(req, res, next) {
-    Board.find({}).sort({ name: 1 }).exec(function(err, boards) { // retrieve all boards in database
-        if (err) { console.log(err); }
-        else if (boards) {
-            console.log(boards);
-            res.render('map', {
-                api : config.MAP_API,
-                boards: boards,
-            }, function(err, data) {
-                if (err) { console.log(err); }
-                else { res.send(data); }
-            });
-        }
-    });
+router.get('/dashboard', function(req, res, next) {
+
+    if (req.session.userId) { // user logged in
+        var userId = req.session.userId;
+        User.findOne({ _id: userId }).exec(function(err, user) {
+            if (err) { console.log(err); }
+            else if (user) { // user found
+                var boards_contributed = [];
+                for (var i = 0; i < user.boards.length; i++) { // retrieve boards by board ID
+                    Board.findOne({ _id: user.boards[i] }, function(err, board) {
+                        if (err) { console.log(err); }
+                        else if (board) {
+                            Pixel.find({ board : board._id, creator : userId }).sort({ created_at: -1 }).exec(function(err, pixels) {
+                                if (err) { console.log(err) }
+                                else if (pixels) {
+                                    boards_contributed.push({ 'board' : board, 'pixel' : pixels[0]});
+                                    console.log(pixels);
+                                }
+                            });
+                        };
+                    });
+                }
+                Board.find({}).sort({ name: 1 }).exec(function(err, boards) { // retrieve all boards in database
+                    if (err) { console.log(err); }
+                    else if (boards) {
+                        console.log(boards);
+                        res.render('map', {
+                            api: config.MAP_API,
+                            user: user,
+                            boards: boards,
+                            boards_contributed: boards_contributed,
+                        }, function(err, data) {
+                            if (err) { console.log(err); }
+                            else { res.send(data); }
+                        });
+                    }
+                });
+            }
+            else { // no user found with given username
+                console.log('no user found with Id' + userId);
+            }
+        });
+    }
+    else { // user not logged in
+        res.redirect('/');
+    }
 });
 
 module.exports = router;
