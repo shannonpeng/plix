@@ -4,11 +4,11 @@
 
     {{>navbar}}
      <!-- Loader -->
-    <div id="loader">
+    <!-- <div id="loader">
         <div class="spinner">
         </div>
         <div class="text"> Loading your location </div>
-    </div>
+    </div> -->
 
     <!-- Map Div -->
     <div id="map"></div>
@@ -19,7 +19,7 @@
 
     <script>
         var map, infoWindow, loader;
-        loader = document.getElementById('loader');
+        // loader = document.getElementById('loader');
         function initMap() {
             var styledMapType = new google.maps.StyledMapType(
             [
@@ -556,7 +556,7 @@
                 //Associate the styled map with the MapTypeId and set it to display
                 map.mapTypes.set('styled_map', styledMapType);
                 map.setMapTypeId('styled_map');
-                loader.classList.add('hide');
+                // loader.classList.add('hide');
             } else {
                 // Browser doesn't support Geolocation
                 handleLocationError(false, infoWindow, map.getCenter());
