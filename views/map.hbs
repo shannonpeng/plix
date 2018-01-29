@@ -470,14 +470,15 @@
             map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: 42.354778, lng: -71.101988}, // Next House
                 zoom: 6,
-                zoomControl: true,
-                scaleControl: true,
+                zoomControl: false,
+                scaleControl: false,
                 mapTypeControl: false,
                 scrollwheel: false,
                 rotateControl: false,
                 streetViewControl: false,
                 disableDoubleClickZoom: true,
-                fullscreenControl: false
+                fullscreenControl: false,
+                zoomControl: false,
             });
 
             // Render map markers for each board
@@ -589,7 +590,7 @@
         });
         {{/if}}
     </script>
-    
+
     <script async defer src="https://maps.googleapis.com/maps/api/js?key={{api}}&callback=initMap"></script>
     <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
