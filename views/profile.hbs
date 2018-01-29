@@ -12,8 +12,8 @@
                     <h2>Your Boards</h2>
                     {{#each boards_contributed}}
                     <div class="board">
-                        <a href="/board?{{ _id }}"><div class="board-icon button"><h1>{{ boardInitials name }}</h1></div></a>
-                        <h3>{{ name }}</h3>
+                        <a href="/board?{{ _id }}"><div class="board-icon button"><h1>{{ boardInitials board.name }}</h1></div></a>
+                        <h3>{{ board.name }}</h3>
                         <p><i class="fa fa-globe"></i> {{round board.latitude 2}}, {{round board.longitude 2}}</p>
                         <p><i class="fa fa-user"></i> {{formatUsers board.unique_contributors}}</p>
                     </div>
