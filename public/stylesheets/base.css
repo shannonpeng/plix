@@ -2,8 +2,10 @@ html, body {
   width: 100%;
   height: 100%;
   margin: 0;
+  padding: 0;
   font-family: "Karla", sans-serif;
-  color: #404040; }
+  color: #404040;
+  overflow-x: hidden; }
 
 *, *:hover {
   -webkit-transition: all 0.1s ease-out;
@@ -69,3 +71,10 @@ nav {
       nav .account .account-options .logout {
         background: #e16685;
         box-shadow: 0 4px 0 0 #d94067; }
+
+@media only screen and (max-width: 900px) {
+  nav {
+    width: calc(100% - 2em);
+    padding: 1em; }
+    nav .account {
+      margin-right: 0; } }
