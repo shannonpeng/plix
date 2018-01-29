@@ -11,12 +11,10 @@ $pixel-size: 5px;
         padding: 1em 0.5em;
         position: relative;
     }
-
     .content {
         width: 80%;
         margin: auto;
     }
-
     .board-details {
         h1 {
             font-family: $font-family-title;
@@ -34,7 +32,6 @@ $pixel-size: 5px;
             }
         }
     }
-
     .board-container {
         margin-top: 1em;
         display: flex;
@@ -64,7 +61,6 @@ $pixel-size: 5px;
             }
         }
     }
-
     .back-arrow {
         width: 25px;
         height: 25px;

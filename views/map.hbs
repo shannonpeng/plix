@@ -3,12 +3,12 @@
 <body>
 
     {{>navbar}}
-
+    
     <!-- Map Div -->
     <div id="map"></div>
 
-    <link rel="stylesheet" href="/stylesheets/board.css"/>
     <!-- Board Sidebar -->
+    <link rel="stylesheet" href="/stylesheets/board.css"/>
     <div id="board-sidebar"></div>
 
     <script>
@@ -457,12 +457,11 @@
                         }
                     ]
                 }
-            ],
-                {name: 'Styled Map'});
+            ], {name: 'Styled Map'});
 
             // Create map
             map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: 42.354778, lng: -71.101988},
+                center: {lat: 42.354778, lng: -71.101988}, // Next House
                 zoom: 6,
                 zoomControl: true,
                 scaleControl: true,
@@ -476,7 +475,7 @@
 
             // Render map markers for each board
             var icon = {
-                url: '/images/marker.png',
+                url: '/images/marker.png', // custom marker image
                 size: new google.maps.Size(96, 96),
                 scaledSize: new google.maps.Size(48, 48),
                 origin: new google.maps.Point(-24,-28)
@@ -493,37 +492,28 @@
                 // Add on click listener
                 google.maps.event.addListener(marker, 'click', function() {
                     var title = this.title;
-                    console.log(title);
-                    $.ajax({
+                    $.ajax({ // GET board
                         type: "GET",
                         url: "board?" + title,
                         success: function(data) {
-                          $("#board-sidebar").html(data);
-                          $("#board-sidebar").addClass("active");
+                          $("#board-sidebar").html(data); // Inject HTML into sidebar
+                          $("#board-sidebar").addClass("active"); // Show sidebar
                         },
                         error: function(error) {
                           console.log('error');
                         }
                     });
-                    //$("img[title*='" + id + "']").css('transform', 'scale(2)');
-                });
-                // Add on hover listener
-                google.maps.event.addListener(marker, 'hover', function() {
-                    // stuff to do on hover
                 });
             {{/each}}
 
-            // Custom animated markers. @Credit Kevin Kononenko: www.sitepoint.com/animated-google-map-markers-css-javascript/
-
-            // Create overlay view
+            // Create overlay view to group markers
             var overlay = new google.maps.OverlayView();
                 overlay.draw = function () {
                     this.getPanes().markerLayer.id = 'markerLayer';
                 };
             overlay.setMap(map);
 
-
-            // Try HTML5 geolocation.
+            // Try HTML5 geolocation
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                 var pos = {
@@ -540,7 +530,6 @@
                     center: pos,
                     radius: 64
                   });
-
                 var my_marker = new google.maps.Circle({
                     strokeColor: 'white',
                     strokeOpacity: 1,
@@ -552,13 +541,12 @@
                     zIndex: 99,
                     radius: 4
                   });
-
                 map.setCenter(pos);
                 }, function() {
                     handleLocationError(true, infoWindow, map.getCenter());
                 });
                 map.setZoom(18);
-                //Associate the styled map with the MapTypeId and set it to display.
+                //Associate the styled map with the MapTypeId and set it to display
                 map.mapTypes.set('styled_map', styledMapType);
                 map.setMapTypeId('styled_map');
             } else {
@@ -578,5 +566,4 @@
     <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
 </body>
-
 </html>

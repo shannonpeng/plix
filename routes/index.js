@@ -8,9 +8,10 @@ const User = require('../schemas/user');
 const Board = require('../schemas/board');
 const Pixel = require('../schemas/pixel');
 
+// Configuration data
 const config = require('../config.js'); // Comment out for heroku
 
-// update unique contributors
+// Update unique contributors
 function updateUnique(boardId){
     var contributors = []; // list of unique contributors
     Pixel.find({ board : mongo.ObjectId(boardId) }, function(err, pixels) { // get contributors
@@ -21,7 +22,6 @@ function updateUnique(boardId){
                     contributors.push(pixel.creator); // only add contributor if we haven't counted them
                 }
             }
-
             // now update for board
             Board.findOne({ _id: mongo.ObjectId(boardId) }, function(err, board) {
                 if (err) { console.log(err); }
@@ -39,7 +39,7 @@ function updateUnique(boardId){
     });
 }
 
-// update your boards
+// Update your boards
 function updateBoardsContributed(userId){
     var myBoards = []
     Pixel.find({ creator : mongo.ObjectId(userId) }, function(err, pixels){ // get all pixels owned
@@ -50,7 +50,6 @@ function updateBoardsContributed(userId){
                     myBoards.push(pixel.board); // only count unique boards
                 }
             }
-
             User.findOne({ _id : mongo.ObjectId(userId) }, function(err, user){
                 if (err) { console.log(err); }
                 else if (user) {
@@ -94,7 +93,6 @@ router.get('/profile', function(req, res, next) {
                             });
 						};
 					});
-
 				}
 				Board.find({}).sort({ name: 1 }).exec(function(err, boards) { // retrieve all boards in database
 					if (err) { console.log(err); }
@@ -155,7 +153,6 @@ router.get('/board', function(req, res, next) {
                             blocks[pixel.x][pixel.y]['hex'] = pixel.hex;
                         }
                     }
-
                     // get user
                     if (req.session.userId) {
                         var userId = req.session.userId;
@@ -225,16 +222,13 @@ router.post('/board', function(req, res, next) {
         var userId = req.session.userId;
 		User.findOne({ _id: userId }, function(err, user) {
 			if (err) { console.log(err); }
-
             // found User
 			else if (user) {
                 // find Board
                 Board.findOne({ _id: mongo.ObjectId(boardId) }, function(err, board) {
                     if (err) { console.log(err); }
-
                     // found Board
                     else if (board) {
-
                         // get POST data
                         if (req.body.x && req.body.y && req.body.hex) {
                             var today = new Date();
@@ -269,7 +263,6 @@ router.post('/board', function(req, res, next) {
                                         else { console.log('wtf happened'); }
                                     })
                                 }
-
                                 // if no pixel, create one
                                 else {
                                     updateUnique(boardId);
@@ -319,9 +312,8 @@ router.post('/board', function(req, res, next) {
     }
 });
 
-// GET map view
+// GET dashboard (map view)
 router.get('/dashboard', function(req, res, next) {
-
     if (req.session.userId) { // user logged in
         var userId = req.session.userId;
         User.findOne({ _id: userId }).exec(function(err, user) {

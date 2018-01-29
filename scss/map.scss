@@ -2,11 +2,8 @@
 
 #map {
     width: 100%;
-    //height: calc(100% - 39px - 2em);
     height: 100%;
 }
-
-// Markers
 
 // Sketchily, this is the label div
 #markerLayer div div div div {
@@ -15,12 +12,12 @@
 }
 
 #board-sidebar {
+	width: 600px;
 	height: 100%;
 	position: absolute;
-	width: 600px;
 	top: 0;
 	left: -600px;
-	padding-top: 39px; // nav height 
+	padding-top: 39px; // navbar height 
 	background: white;
 	box-shadow: 0 0 0 darken(white, 18%);
 	-webkit-transition: all 0.5s ease-out;
