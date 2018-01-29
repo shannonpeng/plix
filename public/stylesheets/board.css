@@ -125,6 +125,8 @@ nav {
           background-color: #4dbcf8; }
         #view-board .board-container .board .row .block:hover .overlay {
           opacity: 0.5; }
+    #view-board .board-container .board:hover {
+      cursor: crosshair, inherit; }
 
 #view-board .back-arrow {
   width: 25px;

@@ -17,6 +17,24 @@
     <link rel="stylesheet" href="/stylesheets/board.css"/>
     <div id="board-sidebar"></div>
 
+    <script type="text/javascript">
+        // Toggle sidebar
+        var sidebarOpen = false;
+        function toggleSidebar() {
+            if (sidebarOpen) {
+                $("#board-sidebar").removeClass("active");
+                $(".back-arrow i").removeClass("fa-arrow-left");
+                $(".back-arrow i").addClass("fa-arrow-right");
+            }
+            else {
+                $("#board-sidebar").addClass("active");
+                $(".back-arrow i").removeClass("fa-arrow-right");
+                $(".back-arrow i").addClass("fa-arrow-left");
+            }
+            sidebarOpen = !sidebarOpen;
+        }
+    </script>
+
     <script>
         var map, infoWindow, loader;
         loader = document.getElementById('loader');
@@ -505,7 +523,7 @@
                         url: "board?" + title,
                         success: function(data) {
                           $("#board-sidebar").html(data); // Inject HTML into sidebar
-                          $("#board-sidebar").addClass("active"); // Show sidebar
+                          toggleSidebar(); // Show sidebar
                         },
                         error: function(error) {
                           console.log('error');
@@ -590,7 +608,7 @@
             url: "board?" + "{{target_board.id}}",
             success: function(data) {
               $("#board-sidebar").html(data); // Inject HTML into sidebar
-              $("#board-sidebar").addClass("active"); // Show sidebar
+              toggleSidebar(); // Show sidebar
               var center = {};
               center.lat = {{target_board.latitude}};
               center.lng = {{target_board.longitude}};

@@ -22,9 +22,57 @@
             </div>
             </div>
             {{#if edit}}
-            <form id="paint">
-                    <input type="color" id="pixcolor" name="hex" value="#4dbcf8">
+                <form id="paint">
+                    <input type="color" id="pixcolor" name="hex" value="#4dbcf8" hidden>
                 </form>
+                <div id="color-picker">
+                    <div id="hues">
+                        <div class="hue red"></div>
+                        <div class="hue orange"></div>
+                        <div class="hue yellow"></div>
+                        <div class="hue green"></div>
+                        <div class="hue blue"></div>
+                        <div class="hue purple"></div>
+                        <div class="hue gray"></div>
+                    </div>
+                    <div id="shades">
+                        <div class="reds">
+                            <div class="row"></div>
+                            <div class="row"></div>
+                            <div class="row"></div>
+                        </div>
+                        <div class="oranges">
+                            <div class="row"></div>
+                            <div class="row"></div>
+                            <div class="row"></div>
+                        </div>
+                        <div class="yellows">
+                            <div class="row"></div>
+                            <div class="row"></div>
+                            <div class="row"></div>
+                        </div>
+                        <div class="greens">
+                            <div class="row"></div>
+                            <div class="row"></div>
+                            <div class="row"></div>
+                        </div>
+                        <div class="blues">
+                            <div class="row"></div>
+                            <div class="row"></div>
+                            <div class="row"></div>
+                        </div>
+                        <div class="purples">
+                            <div class="row"></div>
+                            <div class="row"></div>
+                            <div class="row"></div>
+                        </div>
+                        <div class="grays">
+                            <div class="row"></div>
+                            <div class="row"></div>
+                            <div class="row"></div>
+                        </div>
+                    </div>
+                </div>
             {{/if}}
 
             {{#each leaders}}

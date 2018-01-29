@@ -59,6 +59,9 @@ $pixel-size: 5px;
                     }
                 }
             }
+            &:hover {
+                cursor: crosshair, inherit;
+            }
         }
     }
     .back-arrow {

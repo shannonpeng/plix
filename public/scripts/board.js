@@ -1,5 +1,4 @@
 var board = $("#view-board").attr("board"); // get board ID
-var sidebarOpen = false;
 
 // Connect to socket
 var socket = io();
@@ -43,7 +42,9 @@ function pixPick(x, y){
     socket.emit('new-pixel', { pixel: pixel });
 }
 
-// Color picker
+// Update 
+
+// Overlay pixel
 $('#pixcolor').on('input', function (evt) {
     var color = document.getElementById('pixcolor').value;
     var overlays = document.getElementsByClassName('overlay');
@@ -52,18 +53,7 @@ $('#pixcolor').on('input', function (evt) {
     }
 });
 
-// Show/hide sidebar
+// Show/hide sidebar on arrow click
 $('.back-arrow').on('click', function (evt) {
-    if (sidebarOpen) {
-        $("#board-sidebar").removeClass("active");
-        $(".back-arrow i").removeClass("fa-arrow-left");
-        $(".back-arrow i").addClass("fa-arrow-right");
-        sidebarOpen = false;
-    }
-    else {
-        $("#board-sidebar").addClass("active");
-        $(".back-arrow i").removeClass("fa-arrow-right");
-        $(".back-arrow i").addClass("fa-arrow-left");
-        sidebarOpen = true;
-    }
+    toggleSidebar();
 });
