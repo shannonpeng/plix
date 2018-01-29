@@ -13,9 +13,9 @@ function hbsHelpers(hbs) {
                }
                return s;
             },
-            randomPaletteColor: function() {
-                var options = ["#ececec"];
-                return options[Math.floor(Math.random()*options.length)];
+            formatUsers: function(count) {
+                if (count == 1) { return "1 user"; }
+                else { return count.toString() + " users"; }
             },
             pixelDate: function(d) {
                 var date = new Date(0); // first set to epoch
@@ -76,6 +76,14 @@ function hbsHelpers(hbs) {
             	}
             	return Math.floor(years) + " years ago";
             },
+            pixelDate: function(number) {
+                var string = number.toString();
+                var date = string.substring(4, 6) + '/' + string.substring(6, 8) + '/' + string.substring(0,4);
+                return date;
+            },
+            round: function(number, places) {
+                return Math.round(number*Math.pow(10, places)) / Math.pow(10, places);
+            }
         },
         extname: '.hbs'
     });

@@ -1,0 +1,30 @@
+{{>head stylesheet="profile" title=user.username}}
+
+    <body>
+
+    {{>navbar}}
+
+    <div id="profile">
+        <div class="container">
+            <div class="content">
+                <h1 class="title">{{ user.username }}</h1>
+                <div class="boards">
+                    <h2>Your Boards</h2>
+                    {{#each boards_contributed}}
+                    <div class="board">
+                        <a href="/board?{{ _id }}"><div class="board-icon button"><h1>{{ boardInitials board.name }}</h1></div></a>
+                        <h3>{{ board.name }}</h3>
+                        <p><i class="fa fa-globe"></i> {{round board.latitude 2}}, {{round board.longitude 2}}</p>
+                        <p><i class="fa fa-user"></i> {{formatUsers board.unique_contributors}}</p>
+                    </div>
+                    {{else}}
+                    <p>You haven't contributed to any boards :c</p>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </body>
+
+</html>

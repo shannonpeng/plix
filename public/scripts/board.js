@@ -1,7 +1,8 @@
+var board = $("#view-board").attr("board"); // get board ID
+var sidebarOpen = true; // map takes care of the first open
+
 // Connect to socket
 var socket = io();
-var board = $("#view-board").attr("board");
-
 $(document).ready(function() {
     // Join board
     socket.on('connect', function() {
@@ -15,7 +16,6 @@ $(document).ready(function() {
 });
 
 function pixPick(x, y){
-
     // Post new pixel to database
     var hex = document.getElementById('pixcolor').value;
 
@@ -47,8 +47,23 @@ function pixPick(x, y){
 $('#pixcolor').on('input', function (evt) {
     var color = document.getElementById('pixcolor').value;
     var overlays = document.getElementsByClassName('overlay');
-
     for (overlay of overlays) {
         overlay.style.backgroundColor = color;
+    }
+});
+
+// Show/hide sidebar
+$('.back-arrow').on('click', function (evt) {
+    if (sidebarOpen) {
+        $("#board-sidebar").removeClass("active");
+        $(".back-arrow i").removeClass("fa-arrow-left");
+        $(".back-arrow i").addClass("fa-arrow-right");
+        sidebarOpen = false;
+    }
+    else {
+        $("#board-sidebar").addClass("active");
+        $(".back-arrow i").removeClass("fa-arrow-right");
+        $(".back-arrow i").addClass("fa-arrow-left");
+        sidebarOpen = true;
     }
 });

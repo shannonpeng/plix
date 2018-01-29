@@ -2,8 +2,10 @@ html, body {
   width: 100%;
   height: 100%;
   margin: 0;
+  padding: 0;
   font-family: "Karla", sans-serif;
-  color: #404040; }
+  color: #404040;
+  overflow-x: hidden; }
 
 *, *:hover {
   -webkit-transition: all 0.1s ease-out;
@@ -31,18 +33,25 @@ a {
     box-shadow: none; }
 
 nav {
+  width: 100%;
   padding: 1em 2em;
-  position: sticky;
+  position: absolute;
   top: 0;
-  background-color: rgba(255, 255, 255, 0.9); }
+  height: 40px;
+  background: transparent;
+  z-index: 1; }
   nav * {
     display: inline-block;
     margin: 0; }
   nav .logo h3 {
     font-size: 2em;
-    color: #4dbcf8; }
+    color: #4dbcf8;
+    opacity: 0.8; }
+    nav .logo h3:hover {
+      opacity: 1; }
   nav .account {
     float: right;
+    margin-right: 50px;
     vertical-align: middle; }
     nav .account > * {
       margin-left: 0.5em; }
@@ -60,66 +69,106 @@ nav {
         nav .account .account-options .settings:hover, nav .account .account-options .logout:hover {
           cursor: pointer; }
       nav .account .account-options .logout {
-        background: #e88da4;
+        background: #e16685;
         box-shadow: 0 4px 0 0 #d94067; }
 
-.container {
+@media only screen and (max-width: 900px) {
+  nav {
+    width: calc(100% - 2em);
+    padding: 1em; }
+    nav .account {
+      margin-right: 0; } }
+
+#view-board .container {
   width: 100%;
   height: 100%;
   overflow: auto;
-  margin: auto; }
+  margin: auto;
+  padding: 1em 0.5em;
+  position: relative; }
 
-.content {
+#view-board .content {
   width: 80%;
   margin: auto; }
 
-.board-container {
+#view-board .board-details h1 {
+  font-family: "Fredoka One";
+  font-size: 3em; }
+
+#view-board .board-details p {
+  display: inline-block;
+  font-size: 1.25em;
+  color: gray;
+  margin: 0.5em;
+  margin-left: 0; }
+  #view-board .board-details p .fa {
+    margin: 0;
+    margin-right: 5px; }
+
+#view-board .board-container {
+  margin-top: 1em;
   display: flex; }
+  #view-board .board-container .board {
+    margin: 20px 20px 0 0;
+    min-width: 480px; }
+    #view-board .board-container .board .row {
+      display: flex; }
+      #view-board .board-container .board .row .block {
+        width: 5px;
+        height: 5px;
+        transition: opacity 0.1s; }
+        #view-board .board-container .board .row .block .overlay {
+          opacity: 0;
+          width: 5px;
+          height: 5px;
+          position: absolute;
+          background-color: #4dbcf8; }
+        #view-board .board-container .board .row .block:hover .overlay {
+          opacity: 0.5; }
 
-.board {
-  margin: 20px 20px 0 0;
-  min-width: 770px; }
-
-.board-details {
-  min-width: 300px; }
-
-.row {
-  display: flex; }
-
-.block {
-  width: 8px;
-  height: 8px;
-  transition: opacity 0.1s; }
-  .block .overlay {
-    opacity: 0;
-    width: 8px;
-    height: 8px;
-    position: absolute;
-    background-color: #4dbcf8; }
-  .block:hover .overlay {
-    opacity: 0.5; }
-
-.back-arrow {
-  width: 15px;
-  height: 15px;
+#view-board .back-arrow {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 80px;
+  right: -45px;
+  font-size: 1.5em;
   padding: 1em;
-  position: sticky;
-  right: 2em;
   border-radius: 50% 50%;
-  text-align: center; }
+  text-align: center;
+  z-index: 1;
+  background: whitesmoke;
+  box-shadow: 0 4px 0 0 #c7c7c7;
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out; }
+  #view-board .back-arrow:hover {
+    cursor: pointer; }
 
 @media only screen and (max-width: 900px) {
-  .board-container {
-    display: block; }
-  .block, .block .overlay {
-    width: calc(100vw / 96);
-    height: calc(100vw / 96); }
-  .board-details {
-    width: 80%;
-    margin: auto; }
-  .back-arrow {
-    position: relative;
-    left: 10px; }
-  .content {
-    width: 100%;
-    margin: auto; } }
+  #view-board {
+    font-size: 0.8em; }
+    #view-board .container {
+      padding: 2.5em 0; }
+    #view-board .board-container {
+      display: block; }
+      #view-board .board-container .board {
+        min-width: 100vw; }
+        #view-board .board-container .board .row .block, #view-board .board-container .board .row .block .overlay {
+          width: calc(100vw / 96);
+          height: calc(100vw / 96); }
+    #view-board .board-details {
+      width: 80%;
+      margin: auto;
+      margin-left: 4.5em; }
+      #view-board .board-details > * {
+        margin: 0.25em; }
+    #view-board .back-arrow {
+      width: 15px;
+      height: 15px;
+      font-size: 1em;
+      left: 10px;
+      right: auto; }
+    #view-board .content {
+      width: 100%;
+      margin: auto; } }

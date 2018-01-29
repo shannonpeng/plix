@@ -8,7 +8,8 @@ const router = express.Router();
 
 // GET register
 router.get('/register', function(req, res, next) {
-  res.render('register', { title: 'Register' });
+    if (req.session.userId) { res.redirect('/dashboard'); } // user logged in
+    else { res.render('register', { title: 'Register' }); }
 });
 
 // POST create new user
@@ -50,7 +51,8 @@ router.post('/register', function(req, res, next) {
 
 // GET login
 router.get('/login', function(req, res, next){
-    res.render('login', { title: 'Login' });
+    if (req.session.userId) { res.redirect('/dashboard'); } // user logged in
+    else { res.render('login', { title: 'Login' }); }
 });
 
 // POST login

@@ -2,8 +2,10 @@ html, body {
   width: 100%;
   height: 100%;
   margin: 0;
+  padding: 0;
   font-family: "Karla", sans-serif;
-  color: #404040; }
+  color: #404040;
+  overflow-x: hidden; }
 
 *, *:hover {
   -webkit-transition: all 0.1s ease-out;
@@ -31,18 +33,25 @@ a {
     box-shadow: none; }
 
 nav {
+  width: 100%;
   padding: 1em 2em;
-  position: sticky;
+  position: absolute;
   top: 0;
-  background-color: rgba(255, 255, 255, 0.9); }
+  height: 40px;
+  background: transparent;
+  z-index: 1; }
   nav * {
     display: inline-block;
     margin: 0; }
   nav .logo h3 {
     font-size: 2em;
-    color: #4dbcf8; }
+    color: #4dbcf8;
+    opacity: 0.8; }
+    nav .logo h3:hover {
+      opacity: 1; }
   nav .account {
     float: right;
+    margin-right: 50px;
     vertical-align: middle; }
     nav .account > * {
       margin-left: 0.5em; }
@@ -60,15 +69,24 @@ nav {
         nav .account .account-options .settings:hover, nav .account .account-options .logout:hover {
           cursor: pointer; }
       nav .account .account-options .logout {
-        background: #e88da4;
+        background: #e16685;
         box-shadow: 0 4px 0 0 #d94067; }
+
+@media only screen and (max-width: 900px) {
+  nav {
+    width: calc(100% - 2em);
+    padding: 1em; }
+    nav .account {
+      margin-right: 0; } }
 
 html, body {
   width: 100%;
   height: 100%;
   margin: 0;
+  padding: 0;
   font-family: "Karla", sans-serif;
-  color: #404040; }
+  color: #404040;
+  overflow-x: hidden; }
 
 *, *:hover {
   -webkit-transition: all 0.1s ease-out;
@@ -96,18 +114,25 @@ a {
     box-shadow: none; }
 
 nav {
+  width: 100%;
   padding: 1em 2em;
-  position: sticky;
+  position: absolute;
   top: 0;
-  background-color: rgba(255, 255, 255, 0.9); }
+  height: 40px;
+  background: transparent;
+  z-index: 1; }
   nav * {
     display: inline-block;
     margin: 0; }
   nav .logo h3 {
     font-size: 2em;
-    color: #4dbcf8; }
+    color: #4dbcf8;
+    opacity: 0.8; }
+    nav .logo h3:hover {
+      opacity: 1; }
   nav .account {
     float: right;
+    margin-right: 50px;
     vertical-align: middle; }
     nav .account > * {
       margin-left: 0.5em; }
@@ -125,8 +150,15 @@ nav {
         nav .account .account-options .settings:hover, nav .account .account-options .logout:hover {
           cursor: pointer; }
       nav .account .account-options .logout {
-        background: #e88da4;
+        background: #e16685;
         box-shadow: 0 4px 0 0 #d94067; }
+
+@media only screen and (max-width: 900px) {
+  nav {
+    width: calc(100% - 2em);
+    padding: 1em; }
+    nav .account {
+      margin-right: 0; } }
 
 body {
   background: #4dbcf8;

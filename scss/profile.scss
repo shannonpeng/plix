@@ -1,0 +1,42 @@
+@import 'base';
+
+#profile {
+	.container {
+		width: 100%;
+		height: 100%;
+		margin: auto;
+		margin-top: 80px; // navbar height
+	}
+	.content {
+		width: 80%;
+		margin: auto;
+	}
+	.board {
+		display: inline-block;
+		margin: 1em;
+		.board-icon {
+			width: 80px;
+			height: 80px;
+			vertical-align: middle;
+			text-align: center;
+			padding: 1em;
+			background-color: #ececec;
+			box-shadow: 0 4px 0 0 #cccccc;
+			&:active{
+		        transform: translateY(4px);
+		        box-shadow: none;
+		    }
+		}
+		p {
+            display: inline-block;
+            color: lighten($font-color-body, 25%);
+            margin: 0;
+            margin-right: 0.5em;
+            .fa {
+                margin: 0;
+                margin-right: 5px;
+            }
+        }
+	}
+}
+
