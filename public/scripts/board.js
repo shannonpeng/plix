@@ -45,10 +45,7 @@ function pixPick(x, y){
 // Overlay pixel
 $('#pixcolor').on('change', function (evt) {
     var color = document.getElementById('pixcolor').value;
-    var overlays = document.getElementsByClassName('overlay');
-    for (overlay of overlays) {
-        overlay.style.backgroundColor = color;
-    }
+    $(".board .overlay").css("background-color", color);
 });
 
 // Show/hide sidebar on arrow click

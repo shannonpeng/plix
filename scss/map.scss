@@ -25,8 +25,8 @@
 	-moz-transition: all 0.5s ease-out;
 	transition: all 0.5s ease-out;
     overflow-y: scroll;
-    .overlay {
-        background: linear-gradient(180deg, white, transparent 90%) !important;
+    #viewboard > .overlay {
+        background: linear-gradient(180deg, white, rgba(255,255,255,0) 90%) !important;
         width: 80%;
         height: 80px;
         margin: 0;
@@ -136,6 +136,9 @@
     #board-sidebar {
         width: 100%;
         left: -100%;
+        #viewboard > .overlay {
+            width: 100%;
+        }
         .back-arrow {
             left: 15px;
         }
