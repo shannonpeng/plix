@@ -69,6 +69,8 @@ $pixel-size: 7px;
         vertical-align: top;
         margin: 1em;
         .fa {
+            min-width: 20px;
+            text-align: center;
             margin-right: 0.5em;
         }
         #paint {

@@ -138,6 +138,8 @@ nav {
     vertical-align: top;
     margin: 1em; }
     #view-board #board-panel .fa {
+      min-width: 20px;
+      text-align: center;
       margin-right: 0.5em; }
     #view-board #board-panel #paint .picker {
       visibility: hidden;
