@@ -143,6 +143,9 @@
             left: 15px;
         }
         &.active {
+            #view-board > .overlay {
+                left: 0;
+            }
             .back-arrow {
                 left: calc(100% - 85px);
             }

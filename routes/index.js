@@ -9,7 +9,7 @@ const Board = require('../schemas/board');
 const Pixel = require('../schemas/pixel');
 
 // Configuration data
-const config = require('../config.js'); // Comment out for heroku
+// const config = require('../config.js'); // Comment out for heroku
 
 // Update unique contributors
 function updateUnique(board){
@@ -427,8 +427,8 @@ router.get('/dashboard', function(req, res, next) {
                     if (err) { console.log(err); }
                     else if (boards) {
                         res.render('map', {
-                            api: config.MAP_API, // comment out for heroku
-                            //api: process.env.MAP_API, // comment out for local
+                            //api: config.MAP_API, // comment out for heroku
+                            api: process.env.MAP_API, // comment out for local
                             user: user,
                             boards: boards,
                             target_board: target_board

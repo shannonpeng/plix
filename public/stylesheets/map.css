@@ -209,5 +209,7 @@ nav {
       display: none; }
     #board-sidebar .back-arrow {
       left: 15px; }
+    #board-sidebar.active #view-board > .overlay {
+      left: 0; }
     #board-sidebar.active .back-arrow {
       left: calc(100% - 85px); } }

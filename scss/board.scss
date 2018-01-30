@@ -69,14 +69,65 @@ $pixel-size: 7px;
         vertical-align: top;
         margin: 1em;
         .fa {
+            min-width: 20px;
+            text-align: center;
             margin-right: 0.5em;
         }
         #paint {
+            .picker{
+                visibility: hidden;
+                opacity: 0;
+                transition: visibility 0.3s opacity 0.3s;
+                display: none;
+            }
+            p.error{
+                visibility: hidden;
+                opacity: 0;
+                transition: visibility 0.3s opacity 0.3s;
+                display: none;
+            }
+            p.loader{
+                visibility: hidden;
+                opacity: 0;
+                transition: visibility 0.3s opacity 0.3s;
+                display: none;
+
+                i{
+                  -webkit-animation: rotate .8s infinite linear;
+                  animation: rotate .8s infinite ease-in-out linear;
+                }
+            }
+
+            &.loading{
+                p.loader{
+                    display: block;
+                    visibility: visible;
+                    opacity: 1;
+                }
+            }
+
+            &.show{
+                .picker{
+                    display: block;
+                    visibility: visible;
+                    opacity: 1;
+                }
+            }
+
+            &.error{
+                p.error{
+                    display: block;
+                    visibility: visible;
+                    opacity: 1;
+                }
+            }
+
             p {
                 font-size: 1.25em;
                 margin: 1.5em 0;
                 color: lighten($font-color-body, 25%);
             }
+
             #pixcolor {
                 width: 25px;
                 height: 25px;
@@ -166,4 +217,16 @@ $pixel-size: 7px;
             margin: auto;
         }
     }
+}
+
+@-webkit-keyframes rotate {
+  0% { -webkit-transform: rotate(0deg);}
+  50% { -webkit-transform: rotate(180deg);}
+  100% { -webkit-transform: rotate(359deg);}
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg);}
+  50% { transform: rotate(180deg);}
+  100% { transform: rotate(359deg);}
 }
