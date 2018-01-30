@@ -44,6 +44,7 @@ $pixel-size: 7px;
                     width: $pixel-size;
                     height: $pixel-size;
                     transition: opacity 0.1s;
+                    position: relative;
 
                     .overlay{
                         opacity: 0;
