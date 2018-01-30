@@ -169,6 +169,15 @@ nav {
         padding: 0 1em; }
       #view-board #board-panel #leaderboard td {
         padding: 0.25em; }
+      #view-board #board-panel #leaderboard .leaders tr:nth-child(1) {
+        color: #dfa841;
+        font-size: 1.1em; }
+      #view-board #board-panel #leaderboard .leaders tr:nth-child(2) {
+        color: #989294;
+        font-size: 1.1em; }
+      #view-board #board-panel #leaderboard .leaders tr:nth-child(3) {
+        color: #d2793e;
+        font-size: 1.1em; }
 
 @media only screen and (max-width: 960px) {
   #view-board {
