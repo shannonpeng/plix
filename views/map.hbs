@@ -43,6 +43,7 @@
     </script>
 
     <script>
+        const default_board_id = "5a6560f6bd7c3ca10baec104";
         var map, infoWindow, loader;
         loader = document.getElementById('loader');
         function initMap() {
@@ -576,7 +577,6 @@
                   });
                 {{#if target_board}}
                 {{else}} // not targeting a specific board
-                    const default_board_id = "5a6560f6bd7c3ca10baec104";
                     $.ajax({ // preload with default board but don't show sidebar yet
                         type: "GET",
                         url: "board?" + default_board_id,
@@ -603,11 +603,23 @@
             }
         }
         function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-          infoWindow.setPosition(pos);
+            loader.classList.add('hide'); // hide loader
+            $.ajax({ // preload with default board but don't show sidebar yet
+                type: "GET",
+                url: "board?" + default_board_id,
+                success: function(data) {
+                  $("#board-sidebar").html(data); // Inject HTML into sidebar
+                },
+                error: function(error) {
+                  console.log('error');
+                }
+            });
+          /*infoWindow.setPosition(pos);
           infoWindow.setContent(browserHasGeolocation ?
             'Error: The Geolocation service failed.' :
             'Error: Your browser doesn\'t support geolocation.');
           infoWindow.open(map);
+          */
         }
         {{#if target_board}}
         $.ajax({ // GET board
