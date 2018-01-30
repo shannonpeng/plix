@@ -42,32 +42,8 @@ function pixPick(x, y){
     socket.emit('new-pixel', { pixel: pixel });
 }
 
-//Function to convert hex format to a rgb color
-//http://wowmotty.blogspot.com/2009/06/convert-jquery-rgb-output-to-hex-color.html
-function rgb2hex(orig){
- var rgb = orig.replace(/\s/g,'').match(/^rgba?\((\d+),(\d+),(\d+)/i);
- return (rgb && rgb.length === 4) ? "#" +
-  ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
-  ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
-  ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : orig;
-}
-
-// Update shades
-$("#color-picker .hue").on('click', function(evt) {
-    $("#color-picker .hue").removeClass("active");
-    $(this).addClass("active");
-    var color = rgb2hex($(this).css('background-color'));
-    $("#pixcolor").val(color);
-});
-
-/*// Update pixcolor
-$("#color-picker .color").on('click', function(evt) {
-    console.log(this.value);
-    $("#pixcolor").val(this.value);
-});*/
-
 // Overlay pixel
-$('#pixcolor').on('input', function (evt) {
+$('#pixcolor').on('change', function (evt) {
     var color = document.getElementById('pixcolor').value;
     var overlays = document.getElementsByClassName('overlay');
     for (overlay of overlays) {

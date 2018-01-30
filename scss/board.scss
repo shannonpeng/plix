@@ -1,6 +1,6 @@
 @import 'base';
 
-$pixel-size: 5px;
+$pixel-size: 7px;
 
 #view-board {
     > .container {
@@ -34,7 +34,7 @@ $pixel-size: 5px;
         }
     }
     .board-container {
-        display: flex;
+        display: inline-block;
         .board {
           margin: 20px 20px 0 0;
           min-width: $pixel-size * 96;
@@ -83,75 +83,46 @@ $pixel-size: 5px;
             cursor: pointer;
         }
     }
-    #color-picker {
-        margin: 1em auto;
-        .container {
-            box-shadow: 0px 0px 20px darken(white, 12%);
-            border-radius: 10px;
-            margin: 2em auto;
-            padding: 0.5em;
-            #hues {
-                text-align: center;
+    #board-panel {
+        display: inline-block;
+        vertical-align: top;
+        margin: 1em;
+        .fa {
+            margin-right: 0.5em;
+        }
+        #paint {
+            p {
+                font-size: 1.25em;
+                margin: 1em 0;
+                color: lighten($font-color-body, 25%);
             }
-            .hue {
-                width: 10px;
-                height: 10px;
+            #pixcolor {
+                width: 25px;
+                height: 25px;
                 padding: 1em;
+                margin-left: 2em;
+                color: rgba(0,0,0,0) !important;
                 border-radius: 50% 50%;
-                margin: 0.25em;
-                display: inline-block;
-                border: 6px solid transparent;
-                &.red {
-                    background-color: #d75e44;
-                    &.active {
-                        border: 6px solid darken(#d75e44, 10%);;
-                    }
-                }
-                &.orange {
-                    background-color: #ef973c;
-                    &.active {
-                        border: 6px solid darken(#ef973c, 10%);;
-                    }
-                }
-                &.yellow {
-                    background-color: #efdc51;
-                    &.active {
-                        border: 6px solid darken(#efdc51, 10%);;
-                    }
-                }
-                &.green {
-                    background-color: #59bb8a;
-                    &.active {
-                        border: 6px solid darken(#59bb8a, 10%);;
-                    }
-                }
-                &.blue {
-                    background-color: #559fc9;
-                    &.active {
-                        border: 6px solid darken(#559fc9, 10%);;
-                    }
-                }
-                &.purple {
-                    background-color: #a57fbf;
-                    &.active {
-                        border: 6px solid darken(#a57fbf, 10%);;
-                    }
-                }
-                &.gray {
-                    background-color: #808080;
-                    &.active {
-                        border: 6px solid darken(#808080, 10%);;
-                    }
+                border: 4px solid lighten($font-color-body, 65%) !important;
+                &:focus {
+                    outline: none !important;
                 }
                 &:hover {
-                    cursor: pointer;
+                    cursor: pointer !important;
                 }
+            }
+        }
+        #leaderboard {
+            p {
+                font-size: 1.25em;
+                margin: 1em 0;
+                color: lighten($font-color-body, 25%);
             }
         }
     }
 }
 
-@media only screen and (max-width: 900px){
+@media only screen and (max-width: $device-width){
     #view-board {
         font-size: 0.8em;
         .container {

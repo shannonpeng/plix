@@ -7,6 +7,7 @@ $yellow: #FFDD4A;
 $font-color-body: #404040;
 $font-family-body: 'Karla';
 $font-family-title: 'Fredoka One';
+$device-width: 960px;
 
 html, body {
 	width: 100%;
@@ -99,7 +100,7 @@ nav {
 	}
 }
 
-@media only screen and (max-width: 900px){
+@media only screen and (max-width: $device-width){
 
 	nav {
 		width: calc(100% - 2em);

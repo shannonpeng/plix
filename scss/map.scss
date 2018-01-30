@@ -13,14 +13,14 @@
 }
 
 #board-sidebar {
-	width: 600px;
+	width: 80%;
 	height: 100%;
 	position: absolute;
 	top: 0;
-	left: -600px;
+	left: -80%;
 	padding-top: 39px; // navbar height
 	background: white;
-	box-shadow: 0 0 0 darken(white, 18%);
+	box-shadow: 0 0 4px darken(white, 18%);
 	-webkit-transition: all 0.5s ease-out;
 	-moz-transition: all 0.5s ease-out;
 	transition: all 0.5s ease-out;
@@ -94,7 +94,7 @@
   }
 }
 
-@media only screen and (max-width: 900px){
+@media only screen and (max-width: $device-width){
     #board-sidebar {
         width: 100%;
         left: -100%;

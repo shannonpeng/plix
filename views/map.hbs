@@ -33,6 +33,12 @@
             }
             sidebarOpen = !sidebarOpen;
         }
+        function openSidebar() {
+            $("#board-sidebar").addClass("active");
+            $(".back-arrow i").removeClass("fa-arrow-right");
+            $(".back-arrow i").addClass("fa-arrow-left");
+            sidebarOpen = true;
+        }
     </script>
 
     <script>
@@ -523,7 +529,7 @@
                         url: "board?" + title,
                         success: function(data) {
                           $("#board-sidebar").html(data); // Inject HTML into sidebar
-                          toggleSidebar(); // Show sidebar
+                          openSidebar(); // Show sidebar
                         },
                         error: function(error) {
                           console.log('error');
