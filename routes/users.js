@@ -45,7 +45,6 @@ router.post('/register', function(req, res, next) {
         var error = new Error('All fields required');
         error.status = 401;
         return next(error);
-        console.log('throw a U DIDNT FILL OUT THE FORM');
     }
 });
 
@@ -72,7 +71,6 @@ router.post('/login', function(req, res, next) {
         var error = new Error('All fields required');
         error.status = 401;
         return next(error);
-        console.log('jeez y didnt U FILL OUT THE FORM');
     }
 });
 

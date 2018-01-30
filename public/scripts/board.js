@@ -17,29 +17,30 @@ $(document).ready(function() {
 function pixPick(x, y){
     // Post new pixel to database
     var hex = document.getElementById('pixcolor').value;
+    if ($('#paint').hasClass('show')) {
+        $.ajax({
+            type: "POST",
+            url: "board?" + board,
+            data: {
+              x: x,
+              y: y,
+              hex: hex
+            },
+            success: function(data) {
+              //console.log('yay');
+            },
+            error: function(data) {
+              console.log('error');
+            }
+        });
 
-    $.ajax({
-        type: "POST",
-        url: "board?" + board,
-        data: {
-          x: x,
-          y: y,
-          hex: hex
-        },
-        success: function(data) {
-          //console.log('yay');
-        },
-        error: function(data) {
-          console.log('error');
-        }
-    });
-
-    // Emit new pixel via socket
-    var pixel = new Object();
-    pixel.x = x;
-    pixel.y = y;
-    pixel.hex = document.getElementById('pixcolor').value;
-    socket.emit('new-pixel', { pixel: pixel });
+        // Emit new pixel via socket
+        var pixel = new Object();
+        pixel.x = x;
+        pixel.y = y;
+        pixel.hex = document.getElementById('pixcolor').value;
+        socket.emit('new-pixel', { pixel: pixel });
+    }
 }
 
 // Overlay pixel

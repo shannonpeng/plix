@@ -40,12 +40,67 @@
             $(".back-arrow i").addClass("fa-arrow-left");
             sidebarOpen = true;
         }
+
+        // Distance calculation
+        // https://stackoverflow.com/questions/1502590/calculate-distance-between-two-points-in-google-maps-v3
+        var rad = function(x) {
+          return x * Math.PI / 180;
+        };
+
+        var getDistance = function(p1, p2) {
+            var R = 6378137; // Earth’s mean radius in meter
+            var dLat = rad(p2.lat - p1.lat);
+            var dLong = rad(p2.lng - p1.lng);
+            var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(rad(p1.lat)) * Math.cos(rad(p2.lat)) * Math.sin(dLong / 2) * Math.sin(dLong / 2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            var d = R * c;
+            return d; // returns the distance in meter
+        };
+
+        // Can I edit?
+        function canEdit(target_lat, target_lng) {
+            $("#paint").addClass('loading');
+            $("#paint").removeClass('error');
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    var target = {
+                        lat: target_lat,
+                        lng: target_lng
+                    };
+                    console.log('checking if can edit ...');
+
+                    var d = getDistance(pos, target);
+                    console.log(d);
+                    if (d <= 60){
+                        console.log('yes');
+                        $("#paint").removeClass('loading');
+                        $("#paint").addClass('show');
+                    }
+                    else {
+                        console.log('no');
+                        $("#paint").removeClass('loading');
+                        $("#paint").removeClass('show');
+                        $("#paint").addClass('error');
+
+                    }
+                });
+            }
+            else {
+                $("#paint").removeClass('loading');
+                $("#paint").removeClass('show');
+                $("#paint").addClass('error');
+                console.log('no location');
+            }
+        }
     </script>
 
     <script>
         const default_board_id = "5a6560f6bd7c3ca10baec104";
-        var map, infoWindow, loader;
-        loader = document.getElementById('loader');
+        var map, infoWindow;
         function initMap() {
             var styledMapType = new google.maps.StyledMapType(
             [
@@ -532,6 +587,7 @@
                         success: function(data) {
                           $("#board-sidebar").html(data); // Inject HTML into sidebar
                           openSidebar(); // Show sidebar
+                          canEdit({{latitude}}, {{longitude}});
                         },
                         error: function(error) {
                           console.log('error');
@@ -603,7 +659,7 @@
             }
         }
         function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-            loader.classList.add('hide'); // hide loader
+            $("#loader").addClass('hide'); // hide loader
           /*infoWindow.setPosition(pos);
           infoWindow.setContent(browserHasGeolocation ?
             'Error: The Geolocation service failed.' :
@@ -611,6 +667,7 @@
           infoWindow.open(map);
           */
         }
+
         {{#if target_board}}
         $.ajax({ // GET board
             type: "GET",
@@ -618,11 +675,12 @@
             success: function(data) {
               $("#board-sidebar").html(data); // Inject HTML into sidebar
               toggleSidebar(); // Show sidebar
+              $("#loader").addClass('hide');
               var center = {};
               center.lat = {{target_board.latitude}};
               center.lng = {{target_board.longitude}};
               map.setCenter(center);
-              loader.classList.add('hide');
+              canEdit({{target_board.latitude}}, {{target_board.longitude}});
             },
             error: function(error) {
               console.log('error');
@@ -634,6 +692,7 @@
                 url: "board?" + default_board_id,
                 success: function(data) {
                   $("#board-sidebar").html(data); // Inject HTML into sidebar
+                  var d = getDistance({}, {});
                 },
                 error: function(error) {
                   console.log('error');

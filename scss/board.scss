@@ -71,11 +71,55 @@ $pixel-size: 7px;
             margin-right: 0.5em;
         }
         #paint {
+            .picker{
+                visibility: hidden;
+                opacity: 0;
+                transition: visibility 0.3s opacity 0.3s;
+                display: none;
+            }
+            p.error{
+                visibility: hidden;
+                opacity: 0;
+                transition: visibility 0.3s opacity 0.3s;
+                display: none;
+            }
+            p.loader{
+                visibility: hidden;
+                opacity: 0;
+                transition: visibility 0.3s opacity 0.3s;
+                display: none;
+            }
+
+            &.loading{
+                p.loader{
+                    display: block;
+                    visibility: visible;
+                    opacity: 1;
+                }
+            }
+
+            &.show{
+                .picker{
+                    display: block;
+                    visibility: visible;
+                    opacity: 1;
+                }
+            }
+
+            &.error{
+                p.error{
+                    display: block;
+                    visibility: visible;
+                    opacity: 1;
+                }
+            }
+
             p {
                 font-size: 1.25em;
                 margin: 1.5em 0;
                 color: lighten($font-color-body, 25%);
             }
+
             #pixcolor {
                 width: 25px;
                 height: 25px;
