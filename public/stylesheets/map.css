@@ -109,7 +109,7 @@ nav {
   -moz-transition: all 0.5s ease-out;
   transition: all 0.5s ease-out;
   overflow-y: scroll; }
-  #board-sidebar #viewboard > .overlay {
+  #board-sidebar #view-board > .overlay {
     background: linear-gradient(180deg, white, rgba(255, 255, 255, 0) 90%) !important;
     width: 80%;
     height: 80px;
@@ -148,7 +148,7 @@ nav {
     transition: all 0.5s ease-out; }
     #board-sidebar.active .back-arrow {
       left: calc(80% + 25px); }
-    #board-sidebar.active .overlay {
+    #board-sidebar.active #view-board > .overlay {
       left: 0; }
 
 #loader {
@@ -204,9 +204,12 @@ nav {
   #board-sidebar {
     width: 100%;
     left: -100%; }
-    #board-sidebar #viewboard > .overlay {
-      width: 100%; }
+    #board-sidebar #view-board > .overlay {
+      width: 100%;
+      left: -100%; }
     #board-sidebar .back-arrow {
       left: 15px; }
+    #board-sidebar.active #view-board > .overlay {
+      left: 0; }
     #board-sidebar.active .back-arrow {
       left: calc(100% - 85px); } }
