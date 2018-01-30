@@ -112,6 +112,18 @@ $pixel-size: 7px;
             td {
                 padding: 0.25em;
             }
+            .leaders tr:nth-child(1) {
+                color: #dfa841; // gold
+                font-size: 1.1em;
+            }
+            .leaders tr:nth-child(2) {
+                color: #989294; // silver
+                font-size: 1.1em;
+            }
+            .leaders tr:nth-child(3) {
+                color: #d2793e; // bronze
+                font-size: 1.1em;
+            }
         }
     }
 }
