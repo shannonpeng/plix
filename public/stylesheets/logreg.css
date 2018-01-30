@@ -83,6 +83,7 @@ nav {
     overflow-y: auto; }
   nav {
     width: calc(100% - 2em);
+    background: white;
     padding: 1em; }
     nav .account {
       margin-right: 0; } }
@@ -172,6 +173,7 @@ nav {
     overflow-y: auto; }
   nav {
     width: calc(100% - 2em);
+    background: white;
     padding: 1em; }
     nav .account {
       margin-right: 0; } }

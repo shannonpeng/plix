@@ -137,16 +137,12 @@
         width: 100%;
         left: -100%;
         #view-board > .overlay {
-            width: 100%;
-            left: -100%;
+            display: none;
         }
         .back-arrow {
             left: 15px;
         }
         &.active {
-            #view-board > .overlay {
-                left: 0;
-            }
             .back-arrow {
                 left: calc(100% - 85px);
             }

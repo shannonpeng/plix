@@ -83,6 +83,7 @@ nav {
     overflow-y: auto; }
   nav {
     width: calc(100% - 2em);
+    background: white;
     padding: 1em; }
     nav .account {
       margin-right: 0; } }
@@ -205,11 +206,8 @@ nav {
     width: 100%;
     left: -100%; }
     #board-sidebar #view-board > .overlay {
-      width: 100%;
-      left: -100%; }
+      display: none; }
     #board-sidebar .back-arrow {
       left: 15px; }
-    #board-sidebar.active #view-board > .overlay {
-      left: 0; }
     #board-sidebar.active .back-arrow {
       left: calc(100% - 85px); } }
