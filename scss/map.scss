@@ -25,8 +25,8 @@
 	-moz-transition: all 0.5s ease-out;
 	transition: all 0.5s ease-out;
     overflow-y: scroll;
-    .overlay {
-        background: linear-gradient(180deg, white, transparent 90%) !important;
+    #view-board > .overlay {
+        background: linear-gradient(180deg, white, rgba(255,255,255,0) 90%) !important;
         width: 80%;
         height: 80px;
         margin: 0;
@@ -68,7 +68,7 @@
 		.back-arrow {
 			left: calc(80% + 25px);
 		}
-        .overlay {
+        #view-board > .overlay {
             left: 0;
         }
 	}
@@ -136,10 +136,17 @@
     #board-sidebar {
         width: 100%;
         left: -100%;
+        #view-board > .overlay {
+            width: 100%;
+            left: -100%;
+        }
         .back-arrow {
             left: 15px;
         }
         &.active {
+            #view-board > .overlay {
+                left: 0;
+            }
             .back-arrow {
                 left: calc(100% - 85px);
             }
