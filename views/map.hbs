@@ -72,19 +72,16 @@
                         lat: target_lat,
                         lng: target_lng
                     };
-                    console.log('checking if can edit ...');
 
                     var d = getDistance(pos, target);
                     console.log(d);
                     if (d <= 60){
-                        console.log('yes');
                         $("#paint").removeClass('loading');
                         $("#paint").removeClass('error');
                         $("#paint").addClass('show');
                         $("#board-container").css({cursor: "crosshair"});
                     }
                     else {
-                        console.log('no');
                         $("#paint").removeClass('loading');
                         $("#paint").removeClass('show');
                         $("#paint").addClass('error');
