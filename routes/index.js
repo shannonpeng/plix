@@ -86,6 +86,19 @@ function updateLastPixel(user, board){
     }
 }
 
+// get username
+function getUsername(userId, f){
+    User.findOne({ _id: mongo.ObjectId(userId) }, function(err, user) {
+        if (err) { console.log(err) }
+        else if (user) {
+            f(user.username, userId);
+        }
+        else {
+            f("user-" + userId, userId);
+        }
+    });
+}
+
 // GET home page
 router.get('/', function(req, res, next) {
 	if (req.session.userId) { res.redirect('/dashboard'); } // user logged in
@@ -170,6 +183,8 @@ router.get('/board', function(req, res, next) {
     if (!req.session.userId) { res.redirect('/'); } // user not logged in
     else {
         var blocks = {};
+        var raw_leaders = {};
+        var leaders = {};
         var width = [];
         var height = [];
         for (var i = 0; i < 64; i ++) {
@@ -197,37 +212,58 @@ router.get('/board', function(req, res, next) {
                         // populate with last pixels
                         for (pixel of pixels) {
                             blocks[pixel.x][pixel.y]['hex'] = pixel.hex;
+
+                            if ( raw_leaders[pixel.creator] != undefined ){
+                                raw_leaders[pixel.creator] += 1;
+                            }
+                            else {
+                                raw_leaders[pixel.creator] = 1;
+                            }
                         }
-                    }
-                    // get user
-                    if (req.session.userId) {
-                        var userId = req.session.userId;
-                        User.findOne({ _id: mongo.ObjectId(userId) }, function(err, user) {
-                            if (err) { console.log(err); }
-                            else if (user) {
-                                res.render('board',
-                                    {user: user,
-                                    board: board,
-                                    blocks: blocks,
-                                    edit: true}
-                                );
-                            }
-                            else { // cannot find a user
-                                console.log('no user found with Id ' + userId);
-                                res.render('board',
-                                    {user: null,
-                                    board: board,
-                                    edit: false}
-                                );
-                            }
-                        });
-                    }
-                    else { // no user logged in
-                        res.render('board',
-                            {user: null,
-                            board: board,
-                            edit: false}
-                        );
+                        for (var key in raw_leaders) {
+                            var x = getUsername(key, function(u, i) {
+                                leaders[u] = raw_leaders[i];
+
+                                console.log(leaders);
+                                console.log(raw_leaders);
+
+                                if (Object.keys(raw_leaders).length == Object.keys(leaders).length) {
+                                    // get user
+                                    if (req.session.userId) {
+                                        var userId = req.session.userId;
+                                        User.findOne({ _id: mongo.ObjectId(userId) }, function(err, user) {
+                                            if (err) { console.log(err); }
+                                            else if (user) {
+                                                res.render('board',
+                                                    {user: user,
+                                                    board: board,
+                                                    blocks: blocks,
+                                                    leaders: leaders,
+                                                    edit: true}
+                                                );
+                                            }
+                                            else { // cannot find a user
+                                                console.log('no user found with Id ' + userId);
+                                                res.render('board',
+                                                    {user: null,
+                                                    board: board,
+                                                    leaders: leaders,
+                                                    edit: false}
+                                                );
+                                            }
+                                        });
+                                    }
+                                    else { // no user logged in
+                                        res.render('board',
+                                            {user: null,
+                                            board: board,
+                                            leaders: leaders,
+                                            edit: false}
+                                        );
+                                    }
+                                }
+                            });
+                        }
                     }
                 });
             }

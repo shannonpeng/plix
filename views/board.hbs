@@ -26,6 +26,10 @@
                     <input type="color" id="pixcolor" name="hex" value="#4dbcf8">
                 </form>
             {{/if}}
+
+            {{#each leaders}}
+                {{@key}} {{this}}
+            {{/each}}
         </div>
     </div>
 </div>
