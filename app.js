@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 const MongoStore = require('connect-mongo')(session);
+const sslRedirect = require('heroku-ssl-redirect');
 
 const debug = require('debug')('plix:server');
 
@@ -71,6 +72,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(sslRedirect()); // force ssl
 
 app.use('/', index);
 app.use('/', users);
