@@ -94,7 +94,7 @@ function getUsername(userId, f){
             f(user.username, userId);
         }
         else {
-            f("user-" + userId, userId);
+            f("user-" + userId.substring(0, 6), userId);
         }
     });
 }
@@ -224,10 +224,21 @@ router.get('/board', function(req, res, next) {
                             var x = getUsername(key, function(u, i) {
                                 leaders[u] = raw_leaders[i];
 
-                                console.log(leaders);
-                                console.log(raw_leaders);
-
                                 if (Object.keys(raw_leaders).length == Object.keys(leaders).length) {
+                                    // create leaders array
+                                    var leaders_array = [];
+                                    var keys = Object.keys(leaders);
+                                    for (var i = 0; i < keys.length; i++) {
+                                        var obj = {};
+                                        obj.username = keys[i];
+                                        obj.count = leaders[obj.username];
+                                        leaders_array.push(obj);
+                                    }
+                                    // sort array
+                                    leaders_array.sort(function(a, b) {
+                                        return parseInt(b.count) > parseInt(a.count);
+                                    });
+                                    console.log(leaders_array);
                                     // get user
                                     if (req.session.userId) {
                                         var userId = req.session.userId;
@@ -238,7 +249,7 @@ router.get('/board', function(req, res, next) {
                                                     {user: user,
                                                     board: board,
                                                     blocks: blocks,
-                                                    leaders: leaders,
+                                                    leaders: leaders_array,
                                                     edit: true}
                                                 );
                                             }
@@ -247,7 +258,7 @@ router.get('/board', function(req, res, next) {
                                                 res.render('board',
                                                     {user: null,
                                                     board: board,
-                                                    leaders: leaders,
+                                                    leaders: leaders_array,
                                                     edit: false}
                                                 );
                                             }
@@ -257,7 +268,7 @@ router.get('/board', function(req, res, next) {
                                         res.render('board',
                                             {user: null,
                                             board: board,
-                                            leaders: leaders,
+                                            leaders: leaders_array,
                                             edit: false}
                                         );
                                     }

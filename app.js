@@ -15,7 +15,7 @@ const debug = require('debug')('plix:server');
 const index = require('./routes/index');
 const users = require('./routes/users');
 
-// const config = require('./config.js'); // Comment out for heroku
+ const config = require('./config.js'); // Comment out for heroku
 
 // Start HTTP Server
 const app = express();

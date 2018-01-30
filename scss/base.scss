@@ -24,6 +24,13 @@ html, body {
   -moz-transition: all 0.1s ease-out;
   transition: all 0.1s ease-out; }
 
+ ::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+  display: none;
+  visibility: hidden;
+}
+
 a {
 	color: inherit;
 	font-weight: bold;

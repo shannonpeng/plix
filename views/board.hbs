@@ -1,5 +1,7 @@
+<div class="back-arrow button"><i class="fa fa-arrow-right"></i></div>
+
 <div id="view-board" board="{{ board._id }}">
-    <div class="back-arrow button"><i class="fa fa-arrow-right"></i></div>
+    <div class="overlay"></div>
     <div class="container">
         <div class="content">
             <div class="board-details">
@@ -30,6 +32,14 @@
                 {{/if}}
                 <div id="leaderboard">
                     <p><i class="fa fa-trophy"></i>leaderboard</p>
+                    <table class="leaders">
+                        {{#each leaders}}
+                            <tr>
+                                <td class="username">{{ username }}</td>
+                                <td class="count">{{ count }}</td>
+                            </tr>
+                        {{/each}}
+                    </table>
                 </div>
             </div>
         </div>

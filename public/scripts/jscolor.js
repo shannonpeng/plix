@@ -12,8 +12,6 @@
 
 "use strict";
 
-console.log("jscolor called");
-
 window.jscolor = (function () {
 
 var jsc = {

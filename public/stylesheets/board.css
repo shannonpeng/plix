@@ -12,6 +12,12 @@ html, body {
   -moz-transition: all 0.1s ease-out;
   transition: all 0.1s ease-out; }
 
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+  display: none;
+  visibility: hidden; }
+
 a {
   color: inherit;
   font-weight: bold;
@@ -79,100 +85,88 @@ nav {
     nav .account {
       margin-right: 0; } }
 
-#view-board > .container {
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  margin: auto;
-  padding: 1em 0.5em;
+#view-board {
   position: relative; }
-
-#view-board .content {
-  width: 80%;
-  margin: auto; }
-
-#view-board .board-details h1 {
-  font-family: "Fredoka One";
-  font-size: 3em;
-  margin: 0.5em 0; }
-
-#view-board .board-details p {
-  display: inline-block;
-  font-size: 1.25em;
-  color: gray;
-  margin: 0.5em;
-  margin-left: 0; }
-  #view-board .board-details p .fa {
-    margin: 0;
-    margin-right: 5px; }
-
-#view-board .board-container {
-  display: inline-block; }
-  #view-board .board-container .board {
-    margin: 20px 20px 0 0;
-    min-width: 672px; }
-    #view-board .board-container .board .row {
-      display: flex; }
-      #view-board .board-container .board .row .block {
-        width: 7px;
-        height: 7px;
-        transition: opacity 0.1s; }
-        #view-board .board-container .board .row .block .overlay {
-          opacity: 0;
+  #view-board > .container {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    margin: auto;
+    padding: 1em 0.5em; }
+  #view-board .content {
+    width: 80%;
+    margin: auto; }
+  #view-board .board-details h1 {
+    font-family: "Fredoka One";
+    font-size: 3em;
+    margin: 0.5em 0; }
+  #view-board .board-details p {
+    display: inline-block;
+    font-size: 1.25em;
+    color: gray;
+    margin: 0.5em;
+    margin-left: 0; }
+    #view-board .board-details p .fa {
+      margin: 0;
+      margin-right: 5px; }
+  #view-board .board-container {
+    display: inline-block; }
+    #view-board .board-container .board {
+      margin: 20px 20px 0 0;
+      min-width: 672px; }
+      #view-board .board-container .board .row {
+        display: flex; }
+        #view-board .board-container .board .row .block {
           width: 7px;
           height: 7px;
-          position: absolute;
-          background-color: #4dbcf8; }
-        #view-board .board-container .board .row .block:hover .overlay {
-          opacity: 0.5; }
-  #view-board .board-container:hover {
-    cursor: crosshair; }
-
-#view-board .back-arrow {
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  top: 80px;
-  right: -45px;
-  font-size: 1.5em;
-  padding: 1em;
-  border-radius: 50% 50%;
-  text-align: center;
-  z-index: 1;
-  background: whitesmoke;
-  box-shadow: 0 4px 0 0 #c7c7c7;
-  -webkit-transition: all 0.5s ease-out;
-  -moz-transition: all 0.5s ease-out;
-  transition: all 0.5s ease-out; }
-  #view-board .back-arrow:hover {
-    cursor: pointer; }
-
-#view-board #board-panel {
-  display: inline-block;
-  vertical-align: top;
-  margin: 1em; }
-  #view-board #board-panel .fa {
-    margin-right: 0.5em; }
-  #view-board #board-panel #paint p {
-    font-size: 1.25em;
-    margin: 1em 0;
-    color: gray; }
-  #view-board #board-panel #paint #pixcolor {
-    width: 25px;
-    height: 25px;
-    padding: 1em;
-    margin-left: 2em;
-    color: transparent !important;
-    border-radius: 50% 50%;
-    border: 4px solid #e6e6e6 !important; }
-    #view-board #board-panel #paint #pixcolor:focus {
-      outline: none !important; }
-    #view-board #board-panel #paint #pixcolor:hover {
-      cursor: pointer !important; }
-  #view-board #board-panel #leaderboard p {
-    font-size: 1.25em;
-    margin: 1em 0;
-    color: gray; }
+          transition: opacity 0.1s; }
+          #view-board .board-container .board .row .block .overlay {
+            opacity: 0;
+            width: 7px;
+            height: 7px;
+            position: absolute;
+            background-color: #4dbcf8; }
+          #view-board .board-container .board .row .block:hover .overlay {
+            opacity: 0.5; }
+    #view-board .board-container:hover {
+      cursor: crosshair; }
+  #view-board #board-panel {
+    display: inline-block;
+    vertical-align: top;
+    margin: 1em; }
+    #view-board #board-panel .fa {
+      margin-right: 0.5em; }
+    #view-board #board-panel #paint p {
+      font-size: 1.25em;
+      margin: 1.5em 0;
+      color: gray; }
+    #view-board #board-panel #paint #pixcolor {
+      width: 25px;
+      height: 25px;
+      padding: 1em;
+      margin-left: 2em;
+      color: transparent !important;
+      border-radius: 50% 50%;
+      border: 4px solid #e6e6e6 !important; }
+      #view-board #board-panel #paint #pixcolor:focus {
+        outline: none !important; }
+      #view-board #board-panel #paint #pixcolor:hover {
+        cursor: pointer !important; }
+    #view-board #board-panel #leaderboard {
+      font-size: 1.25em;
+      margin-bottom: 2em; }
+      #view-board #board-panel #leaderboard p {
+        margin: 1.5em 0;
+        color: gray; }
+      #view-board #board-panel #leaderboard .username {
+        font-weight: bold; }
+      #view-board #board-panel #leaderboard .count {
+        float: right; }
+      #view-board #board-panel #leaderboard table {
+        min-width: 300px;
+        padding: 0 1em; }
+      #view-board #board-panel #leaderboard td {
+        padding: 0.25em; }
 
 @media only screen and (max-width: 960px) {
   #view-board {
