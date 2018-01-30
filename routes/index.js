@@ -148,7 +148,7 @@ router.get('/profile', function(req, res, next) {
                                         boards_contributed.push({ 'board' : board, 'pixel' : pixel });
                                         if (boards_contributed.length == user.boards.length) { // execute this after all boards have been collected
                                             boards_contributed.sort(function(a, b) { // sort again just to be sure
-                                                return a.pixel.created_at - b.pixel.created_at;
+                                                return b.pixel.created_at - a.pixel.created_at;
                                             });
                                             res.render('profile', {
                                                 user: user,
@@ -236,7 +236,7 @@ router.get('/board', function(req, res, next) {
                                     }
                                     // sort array
                                     leaders_array.sort(function(a, b) {
-                                        return parseInt(a.count) - parseInt(b.count);
+                                        return parseInt(b.count) - parseInt(a.count);
                                     });
                                     // trim array
                                     const LEADERS_LIMIT = 6;
