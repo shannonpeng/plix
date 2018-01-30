@@ -10,7 +10,7 @@
                 <p><i class="fa fa-clock-o"></i> {{#if board.last_pixel_at}}Updated {{ relativeTime board.last_pixel_at }}{{else}}n/a{{/if}}</p>
                 <p><i class="fa fa-user"></i> {{formatUsers board.unique_contributors}}</p>
             </div>
-            <div class="board-container"{{#if edit}}{{else}}style="cursor: not-allowed !important;"{{/if}}>
+            <div id="board-container" class="board-container"{{#if edit}}{{else}}style="cursor: not-allowed !important;"{{/if}}>
             <div class="board">
                 <!-- <div class="locker"></div> -->
                 {{#each blocks}}

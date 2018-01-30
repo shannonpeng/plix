@@ -61,6 +61,7 @@
         function canEdit(target_lat, target_lng) {
             $("#paint").addClass('loading');
             $("#paint").removeClass('error');
+            $("#board-container").css({cursor: "not-allowed"});
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     var pos = {
@@ -80,6 +81,7 @@
                         $("#paint").removeClass('loading');
                         $("#paint").removeClass('error');
                         $("#paint").addClass('show');
+                        $("#board-container").css({cursor: "crosshair"});
                     }
                     else {
                         console.log('no');
