@@ -12,9 +12,9 @@ const Pixel = require('../schemas/pixel');
 const config = require('../config.js'); // Comment out for heroku
 
 // Update unique contributors
-function updateUnique(boardId){
+function updateUnique(board){
     var contributors = []; // list of unique contributors
-    Pixel.find({ board : mongo.ObjectId(boardId) }, function(err, pixels) { // get contributors
+    Pixel.find({ board : board._id }, function(err, pixels) { // get contributors
         if (err) { console.log(err) }
         else if (pixels) {
             for (pixel of pixels) {
@@ -23,16 +23,11 @@ function updateUnique(boardId){
                 }
             }
             // now update for board
-            Board.findOne({ _id: mongo.ObjectId(boardId) }, function(err, board) {
-                if (err) { console.log(err); }
-                else if (board) {
-                    board.unique_contributors = contributors.length;
-                    board.save(function(err, data){
-                        if (err) { console.log(err) }
-                        else if (data) {
-                            console.log('board saved');
-                        }
-                    });
+            board.unique_contributors = contributors.length;
+            board.save(function(err, data){
+                if (err) { console.log(err) }
+                else if (data) {
+                    console.log('board saved');
                 }
             });
         }
@@ -40,9 +35,9 @@ function updateUnique(boardId){
 }
 
 // Update your boards
-function updateBoardsContributed(userId){
+function updateBoardsContributed(user){
     var myBoards = []
-    Pixel.find({ creator : mongo.ObjectId(userId) }, function(err, pixels){ // get all pixels owned
+    Pixel.find({ creator : user._id }, function(err, pixels){ // get all pixels owned
         if (err) { console.log(err) }
         else if (pixels) {
             for (pixel of pixels) {
@@ -50,25 +45,20 @@ function updateBoardsContributed(userId){
                     myBoards.push(pixel.board); // only count unique boards
                 }
             }
-            User.findOne({ _id : mongo.ObjectId(userId) }, function(err, user){
-                if (err) { console.log(err); }
-                else if (user) {
-                    user.boards = myBoards;
-                    user.save(function(err, data){
-                        console.log(data);
-                        if (err) { console.log(err) }
-                        else if (data) {
-                            console.log('user boards saved');
-                        };
-                    })
-                }
+            user.boards = myBoards;
+            user.save(function(err, data){
+                console.log(data);
+                if (err) { console.log(err) }
+                else if (data) {
+                    console.log('user boards saved');
+                };
             });
         }
     });
 }
 
 // update your last pixel
-function updateLastPixel(user){
+function updateLastPixel(user, board){
     var now = (new Date).getTime(); // epoch milliseconds
 
     if (user.last_pixel_at != now){
@@ -78,7 +68,19 @@ function updateLastPixel(user){
             console.log(data);
             if (err) { console.log(err) }
             else if (data) {
-                console.log('last pixel saved');
+                console.log('last user pixel saved');
+            };
+        });
+    }
+
+    if (board.last_pixel_at != now){
+        board.last_pixel_at = now;
+
+        board.save(function(err, data){
+            console.log(data);
+            if (err) { console.log(err) }
+            else if (data) {
+                console.log('last board pixel saved');
             };
         });
     }
@@ -283,9 +285,9 @@ router.post('/board', function(req, res, next) {
 
                                 // if a pixel exists, update
                                 else if (pixel) {
-                                    updateUnique(boardId);
-                                    updateBoardsContributed(userId);
-                                    updateLastPixel(user);
+                                    updateUnique(board);
+                                    updateBoardsContributed(user);
+                                    updateLastPixel(user, board);
 
                                     pixel.hex = req.body.hex;
                                     pixel.creator = mongo.ObjectId(userId);
@@ -302,9 +304,9 @@ router.post('/board', function(req, res, next) {
                                 }
                                 // if no pixel, create one
                                 else {
-                                    updateUnique(boardId);
-                                    updateBoardsContributed(userId);
-                                    updateLastPixel(user);
+                                    updateUnique(board);
+                                    updateBoardsContributed(user);
+                                    updateLastPixel(user, board);
 
                                     var newPixel = {
                                         board: mongo.ObjectId(boardId),

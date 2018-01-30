@@ -5,7 +5,7 @@
             <div class="board-details">
                 <h1>{{board.name}}</h1>
                 <p><i class="fa fa-globe"></i> {{round board.latitude 2}}, {{round board.longitude 2}}</p><br>
-                <p><i class="fa fa-clock-o"></i> {{#if board.last_updated}}Updated {{ board.last_updated }}{{else}}n/a{{/if}}</p>
+                <p><i class="fa fa-clock-o"></i> {{#if board.last_pixel_at}}Updated {{ relativeTime board.last_pixel_at }}{{else}}n/a{{/if}}</p>
                 <p><i class="fa fa-user"></i> {{formatUsers board.unique_contributors}}</p>
             </div>
             <div class="board-container">
