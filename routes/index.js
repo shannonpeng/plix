@@ -240,7 +240,7 @@ router.get('/board', function(req, res, next) {
                                     });
                                     // trim array
                                     const LEADERS_LIMIT = 6;
-                                    leaders = leaders.slice(0, LEADERS_LIMIT);
+                                    leaders_array = leaders_array.slice(0, LEADERS_LIMIT);
 
                                     // get user
                                     if (req.session.userId) {
