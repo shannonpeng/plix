@@ -604,16 +604,6 @@
         }
         function handleLocationError(browserHasGeolocation, infoWindow, pos) {
             loader.classList.add('hide'); // hide loader
-            $.ajax({ // preload with default board but don't show sidebar yet
-                type: "GET",
-                url: "board?" + default_board_id,
-                success: function(data) {
-                  $("#board-sidebar").html(data); // Inject HTML into sidebar
-                },
-                error: function(error) {
-                  console.log('error');
-                }
-            });
           /*infoWindow.setPosition(pos);
           infoWindow.setContent(browserHasGeolocation ?
             'Error: The Geolocation service failed.' :
@@ -638,6 +628,17 @@
               console.log('error');
             }
         });
+        {{else}}
+            $.ajax({ // preload with default board but don't show sidebar yet
+                type: "GET",
+                url: "board?" + default_board_id,
+                success: function(data) {
+                  $("#board-sidebar").html(data); // Inject HTML into sidebar
+                },
+                error: function(error) {
+                  console.log('error');
+                }
+            });
         {{/if}}
     </script>
 

@@ -136,5 +136,13 @@
     #board-sidebar {
         width: 100%;
         left: -100%;
+        .back-arrow {
+            left: 15px;
+        }
+        &.active {
+            .back-arrow {
+                left: calc(100% - 85px);
+            }
+        }
     }
 }

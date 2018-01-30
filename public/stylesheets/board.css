@@ -79,6 +79,8 @@ nav {
         box-shadow: 0 4px 0 0 #d94067; }
 
 @media only screen and (max-width: 960px) {
+  html, body {
+    overflow-y: auto; }
   nav {
     width: calc(100% - 2em);
     padding: 1em; }
@@ -182,8 +184,7 @@ nav {
           height: calc(100vw / 96); }
     #view-board .board-details {
       width: 80%;
-      margin: auto;
-      margin-left: 4.5em; }
+      margin: auto; }
       #view-board .board-details > * {
         margin: 0.25em; }
     #view-board .back-arrow {

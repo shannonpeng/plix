@@ -79,6 +79,8 @@ nav {
         box-shadow: 0 4px 0 0 #d94067; }
 
 @media only screen and (max-width: 960px) {
+  html, body {
+    overflow-y: auto; }
   nav {
     width: calc(100% - 2em);
     padding: 1em; }
@@ -166,6 +168,8 @@ nav {
         box-shadow: 0 4px 0 0 #d94067; }
 
 @media only screen and (max-width: 960px) {
+  html, body {
+    overflow-y: auto; }
   nav {
     width: calc(100% - 2em);
     padding: 1em; }

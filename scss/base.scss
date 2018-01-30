@@ -108,7 +108,9 @@ nav {
 }
 
 @media only screen and (max-width: $device-width){
-
+	html, body {
+		overflow-y: auto;
+	}
 	nav {
 		width: calc(100% - 2em);
 		padding: 1em;
