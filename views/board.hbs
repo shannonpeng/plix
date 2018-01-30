@@ -7,7 +7,7 @@
             <div class="board-details">
                 <h1>{{board.name}}</h1>
                 <!--<p><i class="fa fa-globe"></i> {{round board.latitude 2}}, {{round board.longitude 2}}</p>-->
-                <p><i class="fa fa-clock-o"></i> {{#if board.last_pixel_at}}Updated {{ relativeTime board.last_pixel_at }}{{else}}n/a{{/if}}</p>
+                <p><i class="fa fa-clock-o"></i> {{#if board.last_pixel_at}}Updated {{ relativeTime board.last_pixel_at }}{{else}}Never{{/if}}</p>
                 <p><i class="fa fa-user"></i> {{formatUsers board.unique_contributors}}</p>
             </div>
             <div id="board-container" class="board-container"{{#if edit}}{{else}}style="cursor: not-allowed !important;"{{/if}}>
@@ -43,6 +43,8 @@
                                 <td class="username">{{ username }}</td>
                                 <td class="count">{{ count }}</td>
                             </tr>
+                        {{else}}
+                            <tr>No leaders yet. This is your shot!</tr>
                         {{/each}}
                     </table>
                 </div>
