@@ -58,7 +58,7 @@
         };
 
         // Can I edit?
-        function canEdit(target_lat, target_lng) {
+        function canEdit(target_lat, target_lng, radius = 60) {
             $("#paint").addClass('loading');
             $("#paint").removeClass('error');
             $("#board-container").css({cursor: "not-allowed"});
@@ -75,7 +75,7 @@
 
                     var d = getDistance(pos, target);
                     console.log(d);
-                    if (d <= 60){
+                    if (d <= radius){
                         $("#paint").removeClass('loading');
                         $("#paint").removeClass('error');
                         $("#paint").addClass('show');
@@ -570,6 +570,16 @@
                 origin: new google.maps.Point(-24,-28)
             }
             {{#each boards}}
+                // var range = new google.maps.Circle({
+                //     strokeColor: '#69BBF3',
+                //     strokeOpacity: 0.8,
+                //     strokeWeight: 2,
+                //     fillColor: '#69BBF3',
+                //     fillOpacity: 0.2,
+                //     map: map,
+                //     center: { lat: parseFloat('{{latitude}}'), lng: parseFloat('{{longitude}}') },
+                //     radius: parseFloat({{radius}})
+                //   });
                 var marker = new google.maps.Marker({
                     position: { lat: parseFloat('{{latitude}}'), lng: parseFloat('{{longitude}}') },
                     icon: icon,
@@ -587,7 +597,7 @@
                         success: function(data) {
                           $("#board-sidebar").html(data); // Inject HTML into sidebar
                           openSidebar(); // Show sidebar
-                          canEdit({{latitude}}, {{longitude}});
+                          canEdit({{latitude}}, {{longitude}}, {{radius}});
                         },
                         error: function(error) {
                           console.log('error');
@@ -670,7 +680,7 @@
               center.lat = {{target_board.latitude}};
               center.lng = {{target_board.longitude}};
               map.setCenter(center);
-              canEdit({{target_board.latitude}}, {{target_board.longitude}});
+              canEdit({{target_board.latitude}}, {{target_board.longitude}}, {{target_board.radius}});
             },
             error: function(error) {
               console.log('error');
@@ -682,7 +692,7 @@
                 url: "board?" + default_board_id,
                 success: function(data) {
                   $("#board-sidebar").html(data); // Inject HTML into sidebar
-                  canEdit(0, 0);
+                  canEdit(0, 0, 0);
                 },
                 error: function(error) {
                   console.log('error');
