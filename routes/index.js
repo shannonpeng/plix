@@ -203,14 +203,19 @@ router.get('/board', function(req, res, next) {
 
         var boardId = req.originalUrl.substring(req.originalUrl.indexOf('?') + 1, req.originalUrl.length);
 
+        console.log('looking for board');
+
         Board.findOne({ _id: mongo.ObjectId(boardId) }, function(err, board) {
             if (err) { console.log(err); }
             else if (board) { // found board
+              console.log('found board');
                 Pixel.find({ board: mongo.ObjectId(boardId) }, function(err, pixels){
                     if (err) { console.log(err); }
                     else if (pixels) {
+                      console.log('found pixels');
                         // populate with last pixels
                         for (pixel of pixels) {
+                          console.log('pixelating');
                             blocks[pixel.x][pixel.y]['hex'] = pixel.hex;
 
                             if ( raw_leaders[pixel.creator] != undefined ){
@@ -221,6 +226,7 @@ router.get('/board', function(req, res, next) {
                             }
                         }
                         for (var key in raw_leaders) {
+                          console.log('generating leaders');
                             var x = getUsername(key, function(u, i) {
                                 leaders[u] = raw_leaders[i];
 
@@ -244,10 +250,13 @@ router.get('/board', function(req, res, next) {
 
                                     // get user
                                     if (req.session.userId) {
+
+                                      console.log('getting user');
                                         var userId = req.session.userId;
                                         User.findOne({ _id: mongo.ObjectId(userId) }, function(err, user) {
                                             if (err) { console.log(err); }
                                             else if (user) {
+                                              console.log('rendering');
                                                 res.render('board',
                                                     {user: user,
                                                     board: board,
@@ -277,6 +286,44 @@ router.get('/board', function(req, res, next) {
                                     }
                                 }
                             });
+                        }
+                        if (Object.keys(raw_leaders).length == 0){
+                          // get user
+                          if (req.session.userId) {
+
+                            console.log('getting user');
+                              var userId = req.session.userId;
+                              User.findOne({ _id: mongo.ObjectId(userId) }, function(err, user) {
+                                  if (err) { console.log(err); }
+                                  else if (user) {
+                                    console.log('rendering');
+                                      res.render('board',
+                                          {user: user,
+                                          board: board,
+                                          blocks: blocks,
+                                          leaders: {},
+                                          edit: true}
+                                      );
+                                  }
+                                  else { // cannot find a user
+                                      console.log('no user found with Id ' + userId);
+                                      res.render('board',
+                                          {user: null,
+                                          board: board,
+                                          leaders: leaders_array,
+                                          edit: false}
+                                      );
+                                  }
+                              });
+                          }
+                          else { // no user logged in
+                              res.render('board',
+                                  {user: null,
+                                  board: board,
+                                  leaders: leaders_array,
+                                  edit: false}
+                              );
+                          }
                         }
                     }
                 });
