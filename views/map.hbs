@@ -78,6 +78,7 @@
                     if (d <= 60){
                         console.log('yes');
                         $("#paint").removeClass('loading');
+                        $("#paint").removeClass('error');
                         $("#paint").addClass('show');
                     }
                     else {
@@ -559,7 +560,7 @@
                 streetViewControl: false,
                 disableDoubleClickZoom: true,
                 fullscreenControl: false,
-                zoomControl: false,
+                zoomControl: false
             });
 
             // Render map markers for each board
@@ -633,16 +634,6 @@
                   });
                 {{#if target_board}}
                 {{else}} // not targeting a specific board
-                    $.ajax({ // preload with default board but don't show sidebar yet
-                        type: "GET",
-                        url: "board?" + default_board_id,
-                        success: function(data) {
-                          $("#board-sidebar").html(data); // Inject HTML into sidebar
-                        },
-                        error: function(error) {
-                          console.log('error');
-                        }
-                    });
                     map.setCenter(pos); // pan map to current location
                     loader.classList.add('hide'); // hide loader
                 {{/if}}
@@ -692,7 +683,7 @@
                 url: "board?" + default_board_id,
                 success: function(data) {
                   $("#board-sidebar").html(data); // Inject HTML into sidebar
-                  var d = getDistance({}, {});
+                  canEdit(0, 0);
                 },
                 error: function(error) {
                   console.log('error');

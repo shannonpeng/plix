@@ -10,7 +10,7 @@
                 <p><i class="fa fa-clock-o"></i> {{#if board.last_pixel_at}}Updated {{ relativeTime board.last_pixel_at }}{{else}}n/a{{/if}}</p>
                 <p><i class="fa fa-user"></i> {{formatUsers board.unique_contributors}}</p>
             </div>
-            <div class="board-container">
+            <div class="board-container"{{#if edit}}{{else}}style="cursor: not-allowed !important;"{{/if}}>
             <div class="board">
                 <!-- <div class="locker"></div> -->
                 {{#each blocks}}
@@ -32,7 +32,7 @@
                         <p><i class="fa fa-paint-brush"></i>pixel color</p>
                         <input class="jscolor" id="pixcolor" name="hex" value="#4dbcf8">
                     </div>
-                    <p class="error">Sorry, you aren't in range to edit</p>
+                    <p class="error"><i class="fa fa-lock"></i> Sorry, you aren't in range to edit</p>
                 </div>
                 {{/if}}
                 <div id="leaderboard">
