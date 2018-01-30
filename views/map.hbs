@@ -101,6 +101,17 @@
     <script>
         const default_board_id = "5a6560f6bd7c3ca10baec104";
         var map, infoWindow;
+
+        // https://stackoverflow.com/questions/29683688/show-hide-circle-on-google-maps-javascript-api
+        function toggle_range(map, marker, range){
+          google.maps.event.addListener(marker, 'mouseout', function () {
+              range.setOptions({fillOpacity:0, strokeOpacity:0});
+          });
+          google.maps.event.addListener(marker, 'mouseover', function () {
+              range.setOptions({fillOpacity: 0.2, strokeOpacity:0.3});
+          });
+        }
+
         function initMap() {
             var styledMapType = new google.maps.StyledMapType(
             [
@@ -570,16 +581,16 @@
                 origin: new google.maps.Point(-24,-28)
             }
             {{#each boards}}
-                // var range = new google.maps.Circle({
-                //     strokeColor: '#69BBF3',
-                //     strokeOpacity: 0.8,
-                //     strokeWeight: 2,
-                //     fillColor: '#69BBF3',
-                //     fillOpacity: 0.2,
-                //     map: map,
-                //     center: { lat: parseFloat('{{latitude}}'), lng: parseFloat('{{longitude}}') },
-                //     radius: parseFloat({{radius}})
-                //   });
+                var range = new google.maps.Circle({
+                    strokeColor: '#69BBF3',
+                    strokeOpacity: 0,
+                    strokeWeight: 2,
+                    fillColor: '#69BBF3',
+                    fillOpacity: 0,
+                    map: map,
+                    center: { lat: parseFloat('{{latitude}}'), lng: parseFloat('{{longitude}}') },
+                    radius: parseFloat({{radius}})
+                  });
                 var marker = new google.maps.Marker({
                     position: { lat: parseFloat('{{latitude}}'), lng: parseFloat('{{longitude}}') },
                     icon: icon,
@@ -588,6 +599,7 @@
                     optimized: false,
                     title: '{{_id}}'
                 });
+                toggle_range(map, marker, range);
                 // Add on click listener
                 google.maps.event.addListener(marker, 'click', function() {
                     var title = this.title;
