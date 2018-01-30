@@ -1,0 +1,204 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Karla", sans-serif;
+  color: #404040;
+  overflow: hidden; }
+
+*, *:hover {
+  -webkit-transition: all 0.1s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out; }
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+  display: none;
+  visibility: hidden; }
+
+a {
+  color: inherit;
+  font-weight: bold;
+  text-decoration: none; }
+
+.title {
+  font-family: "Fredoka One", sans-serif;
+  font-size: 3em; }
+
+.button {
+  text-align: center;
+  background: #FFDD4A;
+  border-radius: 0.5em;
+  box-shadow: 0 4px 0 0 #edc100;
+  transition: transform 0.1s, box-shadow 0.1s;
+  color: #404040; }
+  .button:active {
+    transform: translateY(4px);
+    box-shadow: none; }
+
+nav {
+  width: 100%;
+  padding: 1em 2em;
+  position: absolute;
+  top: 0;
+  height: 40px;
+  background: transparent;
+  z-index: 1; }
+  nav * {
+    display: inline-block;
+    margin: 0; }
+  nav .logo h3 {
+    font-size: 2em;
+    color: #4dbcf8;
+    opacity: 0.8; }
+    nav .logo h3:hover {
+      opacity: 1; }
+  nav .account {
+    float: right;
+    margin-right: 50px;
+    vertical-align: middle; }
+    nav .account > * {
+      margin-left: 0.5em; }
+    nav .account .account-options {
+      padding-left: 0; }
+      nav .account .account-options li {
+        display: inline-block; }
+      nav .account .account-options .settings, nav .account .account-options .logout {
+        width: 15px;
+        height: 15px;
+        text-align: center;
+        border-radius: 50% 50%;
+        padding: 1em;
+        vertical-align: middle; }
+        nav .account .account-options .settings:hover, nav .account .account-options .logout:hover {
+          cursor: pointer; }
+      nav .account .account-options .logout {
+        background: #e16685;
+        box-shadow: 0 4px 0 0 #d94067; }
+
+@media only screen and (max-width: 960px) {
+  nav {
+    width: calc(100% - 2em);
+    padding: 1em; }
+    nav .account {
+      margin-right: 0; } }
+
+#map {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; }
+
+#markerLayer div div div div {
+  font-family: "Fredoka One" !important;
+  font-weight: bold; }
+
+#board-sidebar {
+  width: 80%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: -80%;
+  padding-top: 39px;
+  background: white;
+  box-shadow: 0 0 4px #d1d1d1;
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+  overflow-y: scroll; }
+  #board-sidebar .overlay {
+    background: linear-gradient(180deg, white, transparent 90%) !important;
+    width: 80%;
+    height: 80px;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: -80%;
+    z-index: 1;
+    position: fixed;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out; }
+  #board-sidebar .back-arrow {
+    width: 25px;
+    height: 25px;
+    position: fixed;
+    top: 80px;
+    left: 25px;
+    font-size: 1.5em;
+    padding: 1em;
+    border-radius: 50% 50%;
+    text-align: center;
+    z-index: 1;
+    background: whitesmoke;
+    box-shadow: 0 4px 0 0 #c7c7c7;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out; }
+    #board-sidebar .back-arrow:hover {
+      cursor: pointer; }
+  #board-sidebar.active {
+    left: 0;
+    box-shadow: 8px 0 0 #d1d1d1;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out; }
+    #board-sidebar.active .back-arrow {
+      left: calc(80% + 25px); }
+    #board-sidebar.active .overlay {
+      left: 0; }
+
+#loader {
+  position: absolute;
+  top: calc(39px + 2em);
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  height: calc(100vh - 39px - 2em);
+  text-align: center;
+  transition: opacity 0.2s visibility 0.2s; }
+  #loader.hide {
+    opacity: 0;
+    visibility: hidden; }
+  #loader .spinner {
+    position: absolute;
+    top: calc(50vh - 149px - 1em);
+    left: calc(50vw - 20px);
+    width: 40px;
+    height: 40px;
+    background-color: #4dbcf8;
+    margin: 100px auto;
+    -webkit-animation: rotateplane 1.2s infinite ease-in-out;
+    animation: rotateplane 1.2s infinite ease-in-out; }
+  #loader .text {
+    position: absolute;
+    top: calc(50vh);
+    width: 100%;
+    font-family: "Fredoka One";
+    color: #4dbcf8;
+    font-size: 1.4em; }
+
+@-webkit-keyframes rotateplane {
+  0% {
+    -webkit-transform: perspective(120px); }
+  50% {
+    -webkit-transform: perspective(120px) rotateY(180deg); }
+  100% {
+    -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg); } }
+
+@keyframes rotateplane {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg); }
+  50% {
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg); }
+  100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg); } }
+
+@media only screen and (max-width: 960px) {
+  #board-sidebar {
+    width: 100%;
+    left: -100%; } }

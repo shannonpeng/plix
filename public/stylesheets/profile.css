@@ -1,0 +1,128 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Karla", sans-serif;
+  color: #404040;
+  overflow: hidden; }
+
+*, *:hover {
+  -webkit-transition: all 0.1s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out; }
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+  display: none;
+  visibility: hidden; }
+
+a {
+  color: inherit;
+  font-weight: bold;
+  text-decoration: none; }
+
+.title {
+  font-family: "Fredoka One", sans-serif;
+  font-size: 3em; }
+
+.button {
+  text-align: center;
+  background: #FFDD4A;
+  border-radius: 0.5em;
+  box-shadow: 0 4px 0 0 #edc100;
+  transition: transform 0.1s, box-shadow 0.1s;
+  color: #404040; }
+  .button:active {
+    transform: translateY(4px);
+    box-shadow: none; }
+
+nav {
+  width: 100%;
+  padding: 1em 2em;
+  position: absolute;
+  top: 0;
+  height: 40px;
+  background: transparent;
+  z-index: 1; }
+  nav * {
+    display: inline-block;
+    margin: 0; }
+  nav .logo h3 {
+    font-size: 2em;
+    color: #4dbcf8;
+    opacity: 0.8; }
+    nav .logo h3:hover {
+      opacity: 1; }
+  nav .account {
+    float: right;
+    margin-right: 50px;
+    vertical-align: middle; }
+    nav .account > * {
+      margin-left: 0.5em; }
+    nav .account .account-options {
+      padding-left: 0; }
+      nav .account .account-options li {
+        display: inline-block; }
+      nav .account .account-options .settings, nav .account .account-options .logout {
+        width: 15px;
+        height: 15px;
+        text-align: center;
+        border-radius: 50% 50%;
+        padding: 1em;
+        vertical-align: middle; }
+        nav .account .account-options .settings:hover, nav .account .account-options .logout:hover {
+          cursor: pointer; }
+      nav .account .account-options .logout {
+        background: #e16685;
+        box-shadow: 0 4px 0 0 #d94067; }
+
+@media only screen and (max-width: 960px) {
+  nav {
+    width: calc(100% - 2em);
+    padding: 1em; }
+    nav .account {
+      margin-right: 0; } }
+
+#profile .container {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  margin-top: 80px; }
+
+#profile .content {
+  width: 80%;
+  margin: auto; }
+
+#profile .last-pixel-at {
+  color: gray;
+  margin: 1.5em 0; }
+
+#profile .board {
+  display: inline-block;
+  width: 180px;
+  margin: 1em 0.5em; }
+  #profile .board .board-icon {
+    width: 80px;
+    height: 80px;
+    vertical-align: middle;
+    text-align: center;
+    padding: 1em;
+    background-color: #4dbcf8;
+    box-shadow: 0 4px 0 0 #0995e0;
+    color: white; }
+    #profile .board .board-icon:active {
+      transform: translateY(4px);
+      box-shadow: none; }
+  #profile .board h3 {
+    margin: 1em 0 0.5em 0; }
+  #profile .board p {
+    display: inline-block;
+    color: gray;
+    font-size: 0.8em;
+    margin: 0.25em;
+    margin-right: 0.5em; }
+    #profile .board p .fa {
+      margin: 0;
+      margin-right: 5px; }
