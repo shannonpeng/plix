@@ -5,7 +5,7 @@ html, body {
   padding: 0;
   font-family: "Karla", sans-serif;
   color: #404040;
-  overflow-x: hidden; }
+  overflow: hidden; }
 
 *, *:hover {
   -webkit-transition: all 0.1s ease-out;
@@ -86,7 +86,7 @@ html, body {
   padding: 0;
   font-family: "Karla", sans-serif;
   color: #404040;
-  overflow-x: hidden; }
+  overflow: hidden; }
 
 *, *:hover {
   -webkit-transition: all 0.1s ease-out;

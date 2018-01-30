@@ -4,8 +4,8 @@
         <div class="content">
             <div class="board-details">
                 <h1>{{board.name}}</h1>
-                <p><i class="fa fa-globe"></i> {{round board.latitude 2}}, {{round board.longitude 2}}</p><br>
-                <p><i class="fa fa-clock-o"></i> {{#if board.last_pixel_at}}Updated {{ relativeTime board.last_pixel_at }}{{else}}n/a{{/if}}</p>
+                <!--<p><i class="fa fa-globe"></i> {{round board.latitude 2}}, {{round board.longitude 2}}</p>-->
+                <p><i class="fa fa-clock-o"></i> {{#if board.last_updated}}Updated {{ relativeTime board.last_updated }}{{else}}n/a{{/if}}</p>
                 <p><i class="fa fa-user"></i> {{formatUsers board.unique_contributors}}</p>
             </div>
             <div class="board-container">
@@ -22,54 +22,57 @@
             </div>
             </div>
             {{#if edit}}
+                <!-- hidden form -->
                 <form id="paint">
                     <input type="color" id="pixcolor" name="hex" value="#4dbcf8" hidden>
                 </form>
                 <div id="color-picker">
-                    <div id="hues">
-                        <div class="hue red"></div>
-                        <div class="hue orange"></div>
-                        <div class="hue yellow"></div>
-                        <div class="hue green"></div>
-                        <div class="hue blue"></div>
-                        <div class="hue purple"></div>
-                        <div class="hue gray"></div>
-                    </div>
-                    <div id="shades">
-                        <div class="reds">
-                            <div class="row"></div>
-                            <div class="row"></div>
-                            <div class="row"></div>
+                    <div class="container">
+                        <div id="hues">
+                            <div class="hue red"></div>
+                            <div class="hue orange"></div>
+                            <div class="hue yellow"></div>
+                            <div class="hue green"></div>
+                            <div class="hue blue"></div>
+                            <div class="hue purple"></div>
+                            <div class="hue gray"></div>
                         </div>
-                        <div class="oranges">
-                            <div class="row"></div>
-                            <div class="row"></div>
-                            <div class="row"></div>
-                        </div>
-                        <div class="yellows">
-                            <div class="row"></div>
-                            <div class="row"></div>
-                            <div class="row"></div>
-                        </div>
-                        <div class="greens">
-                            <div class="row"></div>
-                            <div class="row"></div>
-                            <div class="row"></div>
-                        </div>
-                        <div class="blues">
-                            <div class="row"></div>
-                            <div class="row"></div>
-                            <div class="row"></div>
-                        </div>
-                        <div class="purples">
-                            <div class="row"></div>
-                            <div class="row"></div>
-                            <div class="row"></div>
-                        </div>
-                        <div class="grays">
-                            <div class="row"></div>
-                            <div class="row"></div>
-                            <div class="row"></div>
+                        <div id="shades">
+                            <div class="reds">
+                                <div class="row"></div>
+                                <div class="row"></div>
+                                <div class="row"></div>
+                            </div>
+                            <div class="oranges">
+                                <div class="row"></div>
+                                <div class="row"></div>
+                                <div class="row"></div>
+                            </div>
+                            <div class="yellows">
+                                <div class="row"></div>
+                                <div class="row"></div>
+                                <div class="row"></div>
+                            </div>
+                            <div class="greens">
+                                <div class="row"></div>
+                                <div class="row"></div>
+                                <div class="row"></div>
+                            </div>
+                            <div class="blues">
+                                <div class="row"></div>
+                                <div class="row"></div>
+                                <div class="row"></div>
+                            </div>
+                            <div class="purples">
+                                <div class="row"></div>
+                                <div class="row"></div>
+                                <div class="row"></div>
+                            </div>
+                            <div class="grays">
+                                <div class="row"></div>
+                                <div class="row"></div>
+                                <div class="row"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
