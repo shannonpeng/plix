@@ -5,7 +5,10 @@ var socket = io();
 $(document).ready(function() {
     // Join board
     socket.on('connect', function() {
-        socket.emit('room', board);
+        var d = getDistance(pos, b.target);
+        if (d <= b.radius) {
+            socket.emit('room', board);
+        }
     })
     // Receive new pixel and update board
     socket.on('new-pixel', function(data){
@@ -24,7 +27,8 @@ function pixPick(x, y){
             data: {
               x: x,
               y: y,
-              hex: hex
+              hex: hex,
+              pos: pos
             },
             success: function(data) {
               //console.log('yay');

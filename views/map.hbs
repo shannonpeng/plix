@@ -47,6 +47,9 @@
           return x * Math.PI / 180;
         };
 
+        var pos = {};
+        var b = {};
+
         var getDistance = function(p1, p2) {
             var R = 6378137; // Earth’s mean radius in meter
             var dLat = rad(p2.lat - p1.lat);
@@ -64,7 +67,7 @@
             $("#board-container").css({cursor: "not-allowed"});
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
-                    var pos = {
+                    pos = {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
                     };
@@ -74,7 +77,6 @@
                     };
 
                     var d = getDistance(pos, target);
-                    console.log(d);
                     if (d <= radius){
                         $("#paint").removeClass('loading');
                         $("#paint").removeClass('error');
@@ -609,6 +611,10 @@
                         success: function(data) {
                           $("#board-sidebar").html(data); // Inject HTML into sidebar
                           openSidebar(); // Show sidebar
+                          b.target = {};
+                          b.target.lat = {{latitude}};
+                          b.target.lng = {{longitude}};
+                          b.radius = {{radius}};
                           canEdit({{latitude}}, {{longitude}}, {{radius}});
                         },
                         error: function(error) {
@@ -628,7 +634,7 @@
             // Try HTML5 geolocation
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
-                var pos = {
+                pos = {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
@@ -692,24 +698,16 @@
               center.lat = {{target_board.latitude}};
               center.lng = {{target_board.longitude}};
               map.setCenter(center);
+              b.target = {};
+              b.target.lat = {{target_board.latitude}};
+              b.target.lng = {{target_board.longitude}};
+              b.radius = {{target_board.radius}};
               canEdit({{target_board.latitude}}, {{target_board.longitude}}, {{target_board.radius}});
             },
             error: function(error) {
               console.log('error');
             }
         });
-        {{else}}
-            $.ajax({ // preload with default board but don't show sidebar yet
-                type: "GET",
-                url: "board?" + default_board_id,
-                success: function(data) {
-                  $("#board-sidebar").html(data); // Inject HTML into sidebar
-                  canEdit(0, 0, 0);
-                },
-                error: function(error) {
-                  console.log('error');
-                }
-            });
         {{/if}}
     </script>
 

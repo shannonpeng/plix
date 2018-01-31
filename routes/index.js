@@ -366,58 +366,80 @@ router.post('/board', function(req, res, next) {
                     // found Board
                     else if (board) {
                         // get POST data
-                        if (req.body.x && req.body.y && req.body.hex) {
+                        if (req.body.x && req.body.y && req.body.hex && req.body.pos) {
                             var now = (new Date).getTime(); // epoch milliseconds
 
-                            // find Pixel
-                            Pixel.findOne({ x: req.body.x, y: req.body.y, board: mongo.ObjectId(boardId) }, function(err, pixel){
-                                if (err) { console.log(err); }
+                            // Distance calculation
+                            // https://stackoverflow.com/questions/1502590/calculate-distance-between-two-points-in-google-maps-v3
+                            var rad = function(x) {
+                              return x * Math.PI / 180;
+                            };
 
-                                // if a pixel exists, update
-                                else if (pixel) {
-                                    updateUnique(board);
-                                    updateBoardsContributed(user);
-                                    updateLastPixel(user, board);
+                            var getDistance = function(p1, p2) {
+                                var R = 6378137; // Earth’s mean radius in meter
+                                var dLat = rad(p2.lat - p1.lat);
+                                var dLong = rad(p2.lng - p1.lng);
+                                var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(rad(p1.lat)) * Math.cos(rad(p2.lat)) * Math.sin(dLong / 2) * Math.sin(dLong / 2);
+                                var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                                var d = R * c;
+                                return d; // returns the distance in meter
+                            };
 
-                                    pixel.hex = req.body.hex;
-                                    pixel.creator = mongo.ObjectId(userId);
-                                    pixel.created_at = now;
+                            var d = getDistance(req.body.pos, { lat: board.latitude, lng: board.longitude });
+                            if (d > board.radius) {
+                                res.send("Sorry, you aren't in range to edit"); // not in range
+                            }
+                            else {
+                                // find Pixel
+                                Pixel.findOne({ x: req.body.x, y: req.body.y, board: mongo.ObjectId(boardId) }, function(err, pixel){
+                                    if (err) { console.log(err); }
 
-                                    // save changes
-                                    pixel.save(function(err, data){
-                                        if (err) { console.log(err) }
-                                        else if (data) {
-                                            res.send('pixel saved');
-                                        }
-                                        else { console.log('wtf happened'); }
-                                    })
-                                }
-                                // if no pixel, create one
-                                else {
-                                    updateUnique(board);
-                                    updateBoardsContributed(user);
-                                    updateLastPixel(user, board);
+                                    // if a pixel exists, update
+                                    else if (pixel) {
+                                        updateUnique(board);
+                                        updateBoardsContributed(user);
+                                        updateLastPixel(user, board);
 
-                                    var newPixel = {
-                                        board: mongo.ObjectId(boardId),
-                                        hex: req.body.hex,
-                                        creator: mongo.ObjectId(userId),
-                                        created_at: now,
-                                        x: req.body.x,
-                                        y: req.body.y
+                                        pixel.hex = req.body.hex;
+                                        pixel.creator = mongo.ObjectId(userId);
+                                        pixel.created_at = now;
+
+                                        // save changes
+                                        pixel.save(function(err, data){
+                                            if (err) { console.log(err) }
+                                            else if (data) {
+                                                res.send('pixel saved');
+                                            }
+                                            else { console.log('wtf happened'); }
+                                        })
                                     }
-                                    Pixel.create(newPixel, function(error, pixel) {
-                                        console.log(pixel);
-                                        if (error) {
-                                            console.log(error);
-                                            next(error);
+                                    // if no pixel, create one
+                                    else {
+                                        updateUnique(board);
+                                        updateBoardsContributed(user);
+                                        updateLastPixel(user, board);
+
+                                        var newPixel = {
+                                            board: mongo.ObjectId(boardId),
+                                            hex: req.body.hex,
+                                            creator: mongo.ObjectId(userId),
+                                            created_at: now,
+                                            x: req.body.x,
+                                            y: req.body.y
                                         }
-                                        else {
-                                            res.send('pixel saved');
-                                        }
-                                    });
-                                }
-                            });
+                                        Pixel.create(newPixel, function(error, pixel) {
+                                            console.log(pixel);
+                                            if (error) {
+                                                console.log(error);
+                                                next(error);
+                                            }
+                                            else {
+                                                res.send('pixel saved');
+                                            }
+                                        });
+                                    }
+                                });
+                            }
                         }
                         // Form is incomplete
                         else {
