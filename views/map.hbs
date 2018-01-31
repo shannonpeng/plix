@@ -13,6 +13,10 @@
     <!-- Map Div -->
     <div id="map"></div>
 
+    <div class="location button" onclick="set_me()">
+      <i class="fa fa-location-arrow"></i>
+    </div>
+
     <!-- Board Sidebar -->
     <link rel="stylesheet" href="/stylesheets/board.css"/>
     <div id="board-sidebar">
@@ -112,6 +116,10 @@
           google.maps.event.addListener(marker, 'mouseover', function () {
               range.setOptions({fillOpacity: 0.2, strokeOpacity:0.3});
           });
+        }
+
+        function set_me(){
+          map.setCenter(pos); // pan map to current location
         }
 
         function initMap() {

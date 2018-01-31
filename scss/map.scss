@@ -112,6 +112,17 @@
     }
 }
 
+.location.button{
+  padding: 1em;
+  background: whitesmoke;
+  box-shadow: 0 4px 0 0 #c7c7c7;
+  position: absolute;
+  bottom: 25px;
+  right: 20px;
+  border-radius: 50% 50%;
+  cursor: pointer;
+}
+
 // http://tobiasahlin.com/spinkit/
 @-webkit-keyframes rotateplane {
   0% { -webkit-transform: perspective(120px) }
