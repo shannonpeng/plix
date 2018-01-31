@@ -480,8 +480,7 @@ router.get('/dashboard', function(req, res, next) {
                     Board.findOne({ _id: mongo.ObjectId(target_board.id) }, function(err, board) {
                         if (err) { console.log(err); }
                         else if (board) {
-                            target_board.latitude = board.latitude;
-                            target_board.longitude = board.longitude;
+                            target_board = board;
                         };
                     });
                 }
