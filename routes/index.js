@@ -494,24 +494,30 @@ router.get('/dashboard', function(req, res, next) {
                         if (err) { console.log(err); }
                         else if (board) {
                             target_board = board;
+                            getAllBoards();
                         };
                     });
                 }
-                Board.find({}).sort({ name: 1 }).exec(function(err, boards) { // retrieve all boards in database
-                    if (err) { console.log(err); }
-                    else if (boards) {
-                        res.render('map', {
-                            //api: config.MAP_API, // comment out for heroku
-                            api: process.env.MAP_API, // comment out for local
-                            user: user,
-                            boards: boards,
-                            target_board: target_board
-                        }, function(err, data) {
-                            if (err) { console.log(err); }
-                            else { res.send(data); }
-                        });
-                    }
-                });
+                else {
+                    getAllBoards();
+                }
+                function getAllBoards() {
+                    Board.find({}).sort({ name: 1 }).exec(function(err, boards) { // retrieve all boards in database
+                        if (err) { console.log(err); }
+                        else if (boards) {
+                            res.render('map', {
+                                //api: config.MAP_API, // comment out for heroku
+                                api: process.env.MAP_API, // comment out for local
+                                user: user,
+                                boards: boards,
+                                target_board: target_board
+                            }, function(err, data) {
+                                if (err) { console.log(err); }
+                                else { res.send(data); }
+                            });
+                        }
+                    });
+                }
             }
             else { // no user found with given username
                 console.log('no user found with Id' + userId);

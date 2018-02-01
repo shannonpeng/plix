@@ -706,9 +706,7 @@
               center.lat = {{target_board.latitude}};
               center.lng = {{target_board.longitude}};
               map.setCenter(center);
-              b.target = {};
-              b.target.lat = {{target_board.latitude}};
-              b.target.lng = {{target_board.longitude}};
+              b.target = center;
               b.radius = {{target_board.radius}};
               canEdit({{target_board.latitude}}, {{target_board.longitude}}, {{target_board.radius}});
             },
