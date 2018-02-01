@@ -187,6 +187,7 @@ router.get('/board', function(req, res, next) {
         var leaders = {};
         var width = [];
         var height = [];
+        var dup = [];
         for (var i = 0; i < 64; i ++) {
             height.push(i);
         }
@@ -212,7 +213,19 @@ router.get('/board', function(req, res, next) {
                     else if (pixels) {
                         // populate with last pixels
                         for (pixel of pixels) {
-                            blocks[pixel.x][pixel.y]['hex'] = pixel.hex;
+                            if (pixel.x == 61 & pixel.y == 75){
+                              console.log(pixel);
+                            }
+                            if (!(dup[pixel.x.toString() + "-" + pixel.y.toString()])) {
+                                blocks[pixel.x][pixel.y]['hex'] = pixel.hex;
+                                dup[pixel.x.toString() + "-" + pixel.y.toString()] = 1;
+                            }
+                            else {
+                              pixel.remove(function(err, data) {
+                                if (err) { console.log(err); }
+                                else { console.log("duplicate pixel deleted"); }
+                              })
+                            }
 
                             if ( raw_leaders[pixel.creator] != undefined ){
                                 raw_leaders[pixel.creator] += 1;
@@ -433,7 +446,7 @@ router.post('/board', function(req, res, next) {
                                                 console.log(error);
                                                 next(error);
                                             }
-                                            else {
+                                            else if (pixel) {
                                                 res.send('pixel saved');
                                             }
                                         });
