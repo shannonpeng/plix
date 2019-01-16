@@ -77,8 +77,8 @@ function hbsHelpers(hbs) {
             	var hours = seconds / (60*60);
             	var days = seconds / (24*60*60);
             	var weeks = seconds / (7*24*60*60);
-            	var months = seconds / (4*7*24*60*60);
-            	var years = seconds / (365*30*7*24*60*60);
+            	var months = seconds / (30*24*60*60);
+            	var years = seconds / (12*30*24*60*60);
             	if (seconds < 60) {
             		if (Math.floor(seconds) == 1) {
             			return Math.floor(seconds) + " second ago";
