@@ -16,7 +16,7 @@ const debug = require('debug')('plix:server');
 const index = require('./routes/index');
 const users = require('./routes/users');
 
-// const config = require('./config.js'); // Comment out for heroku
+const config = require('./config.js'); // Comment out for heroku
 
 // Start HTTP Server
 const app = express();
@@ -42,7 +42,7 @@ io.sockets.on('connection', function(socket) {
 
 // Database setup
 //mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/plix');
-mongoose.connect(process.env.MONGOLAB_URI || config.MONGOLAB_URI);
+mongoose.connect(process.env.MONGOLAB_URI || config.MONGOLAB_URI, { useNewUrlParser: true });
 var connection = mongoose.connection;
 connection.on('error', console.error.bind(console, 'connection error:'));
 connection.on('connected', function() {
