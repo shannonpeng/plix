@@ -8,12 +8,14 @@ const router = express.Router();
 
 // GET register
 router.get('/register', function(req, res, next) {
+    console.log('GET::register');
     if (req.session.userId) { res.redirect('/dashboard'); } // user logged in
     else { res.render('register', { title: 'Register' }); }
 });
 
 // POST create new user
 router.post('/register', function(req, res, next) {
+    console.log('POST::register');
     if (req.body.email && req.body.username && req.body.password) {
         var newUser = {
             email: req.body.email,
@@ -50,12 +52,14 @@ router.post('/register', function(req, res, next) {
 
 // GET login
 router.get('/login', function(req, res, next){
+    console.log('GET::login');
     if (req.session.userId) { res.redirect('/dashboard'); } // user logged in
     else { res.render('login', { title: 'Login' }); }
 });
 
 // POST login
 router.post('/login', function(req, res, next) {
+    console.log('POST::login');
     if (req.body.username && req.body.password) {
         User.authenticate(req.body.username, req.body.password, function(err, user) {
             if (err || !user) {
@@ -76,6 +80,7 @@ router.post('/login', function(req, res, next) {
 
 // GET logout
 router.get('/logout', function(req, res, next){
+    console.log('GET::logout');
     if (req.session) {
         req.session.destroy(function(err){
             if (err) {

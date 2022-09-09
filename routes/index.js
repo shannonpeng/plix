@@ -101,12 +101,14 @@ function getUsername(userId, f){
 
 // GET home page
 router.get('/', function(req, res, next) {
+    console.log('GET::index');
 	if (req.session.userId) { res.redirect('/dashboard'); } // user logged in
 	else { res.render('index'); } // render landing page
 });
 
 // GET profile
 router.get('/profile', function(req, res, next) {
+    console.log('GET::profile');
 	if (req.session.userId) { // user logged in
 		var userId = req.session.userId;
 		User.findOne({ _id: mongo.ObjectId(userId) }).exec(function(err, user) {
@@ -180,6 +182,7 @@ router.get('/profile', function(req, res, next) {
 
 // GET a board
 router.get('/board', function(req, res, next) {
+    console.log('GET::board');
     if (!req.session.userId) { res.redirect('/'); } // user not logged in
     else {
         var blocks = {};
@@ -344,6 +347,8 @@ router.get('/board', function(req, res, next) {
 // POST a board
 router.post('/board', function(req, res, next) {
 
+    console.log('POST::board');
+
     var back = req.header('Referer') || '/';
     var boardId = req.originalUrl.substring(req.originalUrl.indexOf('?') + 1, req.originalUrl.length);
 
@@ -481,6 +486,9 @@ router.post('/board', function(req, res, next) {
 
 // GET dashboard (map view)
 router.get('/dashboard', function(req, res, next) {
+
+    console.log('GET::dashboard');
+
     if (req.session.userId) { // user logged in
         var userId = req.session.userId;
         User.findOne({ _id: mongo.ObjectId(userId) }).exec(function(err, user) {

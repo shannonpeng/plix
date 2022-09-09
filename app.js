@@ -10,26 +10,22 @@ const session = require('express-session');
 const bcrypt = require('bcrypt');
 const MongoStore = require('connect-mongo')(session);
 const sslRedirect = require('heroku-ssl-redirect');
-
 const debug = require('debug')('plix:server');
 
-const index = require('./routes/index');
-const users = require('./routes/users');
+const index = require('./routes/index.js');
+const users = require('./routes/users.js');
 
-const config = require('./config.js'); // Comment out for heroku
+// const config = require('./config.js'); // Comment out for heroku
 
 // Start HTTP Server
-const app = express();
-
+const app = express()
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
-
 var server = app.listen(port);
-
+console.log(port);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function(socket) {
   socket.on('room', function(room) {
@@ -58,13 +54,13 @@ app.use(session({
 }));
 
 // View engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '/views'));
 const exphbs = require('express-handlebars');
 const helpers = require('./hbhelpers.js');
 const hbs = exphbs.create({
   extname: 'hbs',
   helpers: helpers,
-  layoutsDir: path.join(__dirname, 'views'),
+  layoutsDir: path.join(__dirname, '/views'),
   partialsDir: [
     path.join(__dirname, '/views/partials'),
   ],
