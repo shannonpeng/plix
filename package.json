@@ -15,6 +15,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.15.5",
+    "handlebars": "4.5.0",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
     "heroku-ssl-redirect": "0.0.4",
