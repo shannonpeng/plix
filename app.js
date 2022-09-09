@@ -63,7 +63,6 @@ const exphbs = require('express-handlebars');
 const helpers = require('./hbhelpers.js');
 const hbs = exphbs.create({
   extname: 'hbs',
-  defaultLayout: 'index',
   helpers: helpers,
   layoutsDir: path.join(__dirname, 'views'),
   partialsDir: [
