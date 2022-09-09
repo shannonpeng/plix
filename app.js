@@ -54,13 +54,14 @@ app.use(session({
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
+const handlebars = require('handlebars');
 const exphbs = require('express-handlebars');
 const helpers = require('./hbhelpers.js');
 const hbs = exphbs.create({
   extname: 'hbs',
   helpers: helpers,
   defaultLayout: false,
-  allowProtoPropertiesByDefault: true,
+  handlebars: allowInsecurePrototypeAccess(handlebars),
   partialsDir: [
     path.join(__dirname, 'views/partials'),
   ],
