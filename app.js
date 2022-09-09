@@ -15,6 +15,8 @@ const debug = require('debug')('plix:server');
 const index = require('./routes/index');
 const users = require('./routes/users');
 
+const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
+
 // const config = require('./config.js'); // Comment out for heroku
 
 // Start HTTP Server
