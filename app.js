@@ -60,6 +60,7 @@ const hbs = exphbs.create({
   extname: 'hbs',
   helpers: helpers,
   defaultLayout: false,
+  allowProtoPropertiesByDefault: true,
   partialsDir: [
     path.join(__dirname, 'views/partials'),
   ],
